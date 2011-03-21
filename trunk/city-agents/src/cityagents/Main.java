@@ -17,6 +17,8 @@
  */
 package cityagents;
 
+import cityagents.gui.PrincipalFrame;
+
 /**
  *
  * @author Deep Blue Team
@@ -24,7 +26,7 @@ package cityagents;
 public class Main {
 
 	public static void main(String[] args) {
-		
+		new PrincipalFrame();
 	}
 	
 }
