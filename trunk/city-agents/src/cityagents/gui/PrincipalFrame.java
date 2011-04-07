@@ -29,26 +29,32 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import cityagents.core.WorldMap;
+
 /**
  * 
  * @author Deep Blue Team
  */
-public class PrincipalFrame extends JFrame {
-
+public class PrincipalFrame extends JFrame 
+{
 	private static final long serialVersionUID = 1L;
 
 	final PrincipalPanel panel;
+	WorldMap world;
 	
-	public PrincipalFrame() {
+	public PrincipalFrame()
+	{
 		panel = new PrincipalPanel( this );
+		world = WorldMap.getInstance();
+		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension dimension = toolkit.getScreenSize();		
+		Dimension dimension = toolkit.getScreenSize();
 		
 		this.setContentPane( panel );
-		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );		
+		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		
-		this.setSize( dimension );		
-		this.setTitle( "Traffic World" );
+		this.setSize( dimension );
+		this.setTitle( "City Agents" );
 		this.setResizable( false );
 		this.setVisible( true );
 		
@@ -56,7 +62,7 @@ public class PrincipalFrame extends JFrame {
 		JMenu file = new JMenu( "File" );
 		
 		JMenuItem load = new JMenuItem( "Open" );		
-		file.add( load );		
+		file.add( load );
 				
 		JMenu world = new JMenu( "World" );
 		JMenuItem increaseDimension = new JMenuItem( "Increase Dimension" );
@@ -64,7 +70,7 @@ public class PrincipalFrame extends JFrame {
 		{
 			
 			@Override
-			public void actionPerformed( ActionEvent arg0 ) 
+			public void actionPerformed( ActionEvent arg0 )
 			{
 				// TODO Auto-generated method stub
 				increase();
@@ -75,14 +81,15 @@ public class PrincipalFrame extends JFrame {
 		{
 			
 			@Override
-			public void actionPerformed( ActionEvent e ) 
+			public void actionPerformed( ActionEvent e )
 			{
 				// TODO Auto-generated method stub
 				decrease();
 			}
 		});
+		
 		this.setFocusable( true );
-		this.addKeyListener( new KeyListener() 
+		this.addKeyListener( new KeyListener()
 		{
 			
 			@Override
@@ -131,20 +138,20 @@ public class PrincipalFrame extends JFrame {
 	
 	private void increase()
 	{
-		if( panel.getRight().worldSize < 50 )
+		Integer size = world.getWorldSize();
+		if( size < 50 )
 		{
-			panel.getRight().worldSize++;
-			panel.getRight().world = new int[ panel.getRight().worldSize * 2 ][ panel.getRight().worldSize ];
+			world.resize( size + 1 );
 			panel.getRight().repaint();
 		}			
 	}
 	
 	private void decrease()
 	{
-		if( panel.getRight().worldSize > 1 )
+		Integer size = world.getWorldSize();
+		if( size > 1 )
 		{
-			panel.getRight().worldSize--;
-			panel.getRight().world = new int[ panel.getRight().worldSize * 2 ][ panel.getRight().worldSize ];
+			world.resize( size - 1 );
 			panel.getRight().repaint();
 		}
 	}

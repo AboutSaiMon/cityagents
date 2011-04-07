@@ -6,6 +6,9 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import cityagents.core.WorldMap;
+import cityagents.util.Constants;
+
 public class RightPanel extends JPanel
 {
 	/**
@@ -13,30 +16,19 @@ public class RightPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 		
-	private static final int size = 60;
+	private static final int size = 40;
 	
 	private PrincipalPanel superiorPanel;
 	
-	int worldSize = 10;
-	int[][] world;
+	WorldMap world;
 	
 	public RightPanel( PrincipalPanel p ) 
 	{
 		// TODO Auto-generated constructor stub
 		this.setOpaque( false );
 		superiorPanel = p;
-		world = new int[ worldSize * 2 ][ worldSize ];
+		world = WorldMap.getInstance();
 		addListeners();
-	}
-	
-	public int getWorldsize() 
-	{
-		return worldSize;
-	}
-	
-	public void setWorldSize( int worldSize ) 
-	{
-		this.worldSize = worldSize;
 	}
 
 	@Override
@@ -44,13 +36,14 @@ public class RightPanel extends JPanel
 	{
 		// TODO Auto-generated method stub
 		super.paintComponent( graphics );
-		for( int i = 0; i < worldSize * 2; i++ ) 
+		for( int i = 0; i < world.getWorldSize() * 2; i++ ) 
 		{
-			for( int j = 0; j < worldSize; j++ )
+			for( int j = 0; j < world.getWorldSize(); j++ )
 			{
+				Integer element = world.getElement( i , j );
 				graphics.drawImage( superiorPanel.images[ 0 ] , i * size + 20, j * size + 20, null );
-				graphics.drawImage( superiorPanel.images[ world[ i ][ j ] ] , i * size + 20, j * size + 20, null );
-				graphics.drawRect( i * size + 20, j * size + 20, size, size );				
+				graphics.drawImage( superiorPanel.images[ element ] , i * size + 20, j * size + 20, null );
+				graphics.drawRect( i * size + 20, j * size + 20, size, size );
 			}
 		}		
 	}
@@ -98,9 +91,25 @@ public class RightPanel extends JPanel
 				int i = ( x - 20 ) / size;
 				int j = ( y - 20 ) / size;
 				
-				if( i >= 0 && i < ( worldSize * 2 ) && j >= 0 && j < worldSize )
+				if( i >= 0 && i < ( world.getWorldSize() * 2 ) && j >= 0 && j < world.getWorldSize() )
 				{
-					world[ i ][ j ] = superiorPanel.currentObject;
+					switch( superiorPanel.currentChoice ) 
+					{
+					case Constants.STREET:
+						world.setStreet( i , j );
+						break;
+						
+					case Constants.CAR:
+						world.setCar( i , j );
+						break;
+					
+					case Constants.HOUSE:
+						world.setHouse( i , j );
+						break;
+
+					default:
+						break;
+					}					
 				}
 				repaint();
 			}

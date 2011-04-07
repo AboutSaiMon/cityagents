@@ -18,14 +18,14 @@
 package cityagents.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
-import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import cityagents.util.Constants;
 
 /**
  *
@@ -38,11 +38,17 @@ public class PrincipalPanel extends JPanel {
 
 	private LeftPanel left;
 	private RightPanel right;
+	private final int numberOfImages = 2;
 	
-	int currentObject;
-	
-	Image background;
-	Image[] images = new Image[ 3 ];
+	/**
+	 * This variable needs to know which element is clicked.
+	 */
+	int currentChoice;
+		
+	/**
+	 * This is the vector of images used in the environment draw.
+	 */
+	Image[] images = new Image[ numberOfImages ];
 	
 	public PrincipalPanel( JFrame f ) 
 	{
@@ -80,36 +86,23 @@ public class PrincipalPanel extends JPanel {
 	{
 		Toolkit t = Toolkit.getDefaultToolkit();
 	
-		images[ 0 ] = t.getImage( "src" + File.separator + "resources" + File.separator + "street.jpg" );
-		images[ 1 ] = t.getImage( "src" + File.separator + "resources" + File.separator + "build.gif" );
-		images[ 2 ] = t.getImage( "src" + File.separator + "resources" + File.separator + "car.gif" );
+		images[ 0 ] = t.getImage( Constants.IMAGES_PATH + "street.jpg" );
+		images[ 1 ] = t.getImage( Constants.IMAGES_PATH + "build.gif" );
 		MediaTracker mt = new MediaTracker( this );		
 		for( int i = 0; i < images.length; i++ )
 		{			
 			mt.addImage( images[ i ], i );
 		}
-		mt.addImage( background , images.length );
 		try 
 		{
 			for( int i = 0; i < images.length; i++ )
 			{
 				mt.waitForID( i );
 			}
-			mt.waitForID( images.length );
-			mt.waitForID( images.length + 1 );
-			mt.waitForID( images.length + 2 );
 		} 
 		catch ( InterruptedException e ) 
 		{
 			e.printStackTrace();
 		}		
-	}
-	
-	@Override
-	protected void paintComponent( Graphics graphics ) 
-	{
-		// TODO Auto-generated method stub
-		super.paintComponent( graphics );
-		graphics.drawImage( background, 0, 0, null );
 	}
 }

@@ -17,8 +17,7 @@ public class LeftPanel extends JPanel
 	private static final long serialVersionUID = 1L;
 		
 	private PrincipalPanel superiorPanel;
-	private JButton[] buttons;
-	
+	private JButton[] buttons;	
 	
 	public LeftPanel( PrincipalPanel p ) 
 	{
@@ -32,10 +31,7 @@ public class LeftPanel extends JPanel
 		this.setLayout( new GridLayout( buttons.length, 1 ) );
 		for( int i = 0; i < buttons.length; i++ )
 		{			
-//			if( i == 0 )
-//				buttons[ i ] = new JButton();
-//			else
-				buttons[ i ] = new JButton( new ImageIcon( superiorPanel.images[ i ] ) );
+			buttons[ i ] = new JButton( new ImageIcon( superiorPanel.images[ i ] ) );
 			this.add( buttons[ i ], i );
 		}
 		clicked();
@@ -81,7 +77,7 @@ public class LeftPanel extends JPanel
 				public void mouseClicked( MouseEvent arg0 ) 
 				{
 					// TODO Auto-generated method stub
-					superiorPanel.currentObject = choice;
+					superiorPanel.currentChoice = choice;
 				}
 			});
 		}
