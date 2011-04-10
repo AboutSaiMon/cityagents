@@ -17,7 +17,9 @@
  */
 package cityagents.core;
 
-import cityagents.util.Constants;
+import java.awt.Point;
+
+import cityagents.agents.CarAgent;
 
 /**
  * This class is a singleton class that contains the world map.
@@ -25,7 +27,7 @@ import cityagents.util.Constants;
  */
 public class WorldMap 
 {	
-	private int[][] world;
+	private WorldObjects[][] world;
 	private int worldSize = 16;
 	private boolean editable = true;
 	
@@ -36,9 +38,24 @@ public class WorldMap
 	 */
 	private WorldMap() 
 	{
-		world = new int[ worldSize * 2 ][ worldSize ];
+		world = new WorldObjects[ worldSize * 2 ][ worldSize ];
+		init();
 	}
 	
+	/**
+	 * 
+	 */
+	private void init() 
+	{
+		for( int i = 0; i < ( worldSize * 2 ); i++ )
+		{
+			for( int j = 0; j < worldSize; j++ )
+			{
+				world[ i ][ j ] = new Street();
+			}
+		}
+	}
+
 	public static WorldMap getInstance()
 	{
 		if( instance == null )
@@ -58,28 +75,49 @@ public class WorldMap
 		if( editable )
 		{
 			worldSize = newSize;
-			world = new int[ worldSize * 2 ][ worldSize ];
+			world = new WorldObjects[ worldSize * 2 ][ worldSize ];
+			init();
 		}
 	}
 	
 	public void setStreet( int x, int y )
 	{		
-		world[ x ][ y ] = Constants.STREET;
+		world[ x ][ y ] = new Street();
+	}
+	
+	public void setStreet( Point p )
+	{		
+		world[ p.x ][ p.y ] = new Street();
 	}
 	
 	public void setHouse( int x, int y )
 	{
-		world[ x ][ y ] = Constants.HOUSE;
+		world[ x ][ y ] = new House();
 	}
 	
-	public void setCar( int x, int y )
+	public void setHouse( Point p )
 	{
-		world[ x ][ y ] = Constants.CAR;
+		world[ p.x ][ p.y ] = new House();
 	}
 	
-	public int getElement( int x, int y )
+	public void setCar( int x, int y, CarAgent c )
+	{
+		world[ x ][ y ] = c;
+	}
+	
+	public void setCar( Point p, CarAgent c )
+	{
+		world[ p.x ][ p.y ] = c;
+	}
+	
+	public WorldObjects getElement( int x, int y )
 	{
 		return world[ x ][ y ];		
+	}
+	
+	public WorldObjects getElement( Point p )
+	{
+		return world[ p.x ][ p.y ];		
 	}
 	
 	public boolean isEditable() 

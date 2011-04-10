@@ -155,4 +155,9 @@ public class PrincipalFrame extends JFrame
 			panel.getRight().repaint();
 		}
 	}
+
+	public PrincipalPanel getPanel() 
+	{
+		return panel;
+	}	
 }

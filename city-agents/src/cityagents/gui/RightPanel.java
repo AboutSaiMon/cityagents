@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 import cityagents.core.WorldMap;
+import cityagents.core.WorldObjects;
 import cityagents.util.Constants;
 
 public class RightPanel extends JPanel
@@ -22,10 +23,13 @@ public class RightPanel extends JPanel
 	
 	WorldMap world;
 	
+	private ImagesHandler handler;
+	
 	public RightPanel( PrincipalPanel p ) 
 	{
 		// TODO Auto-generated constructor stub
 		this.setOpaque( false );
+		handler = ImagesHandler.getInstance();
 		superiorPanel = p;
 		world = WorldMap.getInstance();
 		addListeners();
@@ -40,9 +44,18 @@ public class RightPanel extends JPanel
 		{
 			for( int j = 0; j < world.getWorldSize(); j++ )
 			{
-				Integer element = world.getElement( i , j );
-				graphics.drawImage( superiorPanel.images[ 0 ] , i * size + 20, j * size + 20, null );
-				graphics.drawImage( superiorPanel.images[ element ] , i * size + 20, j * size + 20, null );
+				WorldObjects element = world.getElement( i , j );
+				
+				graphics.drawImage( handler.getIMAGE_STREET() , i * size + 20, j * size + 20, null );
+				
+				if( element.getType().intValue() == Constants.CAR )
+				{									
+					graphics.drawImage( handler.getIMAGE_CAR() , i * size + 20, j * size + 20, null );
+				}
+				else if( element.getType().intValue() == Constants.HOUSE ) 
+				{
+					graphics.drawImage( handler.getIMAGE_HOUSE() , i * size + 20, j * size + 20, null );
+				}
 				graphics.drawRect( i * size + 20, j * size + 20, size, size );
 			}
 		}		
@@ -97,11 +110,7 @@ public class RightPanel extends JPanel
 					{
 					case Constants.STREET:
 						world.setStreet( i , j );
-						break;
-						
-					case Constants.CAR:
-						world.setCar( i , j );
-						break;
+						break;					
 					
 					case Constants.HOUSE:
 						world.setHouse( i , j );
