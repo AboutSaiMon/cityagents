@@ -20,20 +20,19 @@ public class LeftPanel extends JPanel
 	private JButton[] buttons;	
 	
 	public LeftPanel( PrincipalPanel p ) 
-	{
-	
+	{	
 		// TODO Auto-generated constructor stub
 		this.superiorPanel = p;
 		this.setPreferredSize( new Dimension( 150, 50 ) );
 		this.setOpaque( false );
+		ImagesHandler handler = ImagesHandler.getInstance();
 		
-		buttons = new JButton[ superiorPanel.images.length ];
+		buttons = new JButton[ 2 ];
 		this.setLayout( new GridLayout( buttons.length, 1 ) );
-		for( int i = 0; i < buttons.length; i++ )
-		{			
-			buttons[ i ] = new JButton( new ImageIcon( superiorPanel.images[ i ] ) );
-			this.add( buttons[ i ], i );
-		}
+		buttons[ 0 ] = new JButton( new ImageIcon( handler.getIMAGE_STREET() ) );
+		buttons[ 1 ] = new JButton( new ImageIcon( handler.getIMAGE_HOUSE() ) );
+		this.add( buttons[ 0 ], 0 );		
+		this.add( buttons[ 1 ], 1 );
 		clicked();
 	}
 	

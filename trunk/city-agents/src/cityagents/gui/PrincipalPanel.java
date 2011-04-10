@@ -18,14 +18,9 @@
 package cityagents.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import cityagents.util.Constants;
 
 /**
  *
@@ -38,23 +33,16 @@ public class PrincipalPanel extends JPanel {
 
 	private LeftPanel left;
 	private RightPanel right;
-	private final int numberOfImages = 2;
 	
 	/**
 	 * This variable needs to know which element is clicked.
 	 */
 	int currentChoice;
-		
-	/**
-	 * This is the vector of images used in the environment draw.
-	 */
-	Image[] images = new Image[ numberOfImages ];
-	
+			
 	public PrincipalPanel( JFrame f ) 
 	{
 		super();
-		this.frame = f;				
-		loadImages();
+		this.frame = f;		
 		left = new LeftPanel( this );
 		right = new RightPanel( this );
 		createPanel();
@@ -80,29 +68,5 @@ public class PrincipalPanel extends JPanel {
 		this.setLayout( new BorderLayout() );
 		this.add( left, BorderLayout.WEST );
 		this.add( right, BorderLayout.CENTER );
-	}
-	
-	private void loadImages()
-	{
-		Toolkit t = Toolkit.getDefaultToolkit();
-	
-		images[ 0 ] = t.getImage( Constants.IMAGES_PATH + "street.jpg" );
-		images[ 1 ] = t.getImage( Constants.IMAGES_PATH + "build.gif" );
-		MediaTracker mt = new MediaTracker( this );		
-		for( int i = 0; i < images.length; i++ )
-		{			
-			mt.addImage( images[ i ], i );
-		}
-		try 
-		{
-			for( int i = 0; i < images.length; i++ )
-			{
-				mt.waitForID( i );
-			}
-		} 
-		catch ( InterruptedException e ) 
-		{
-			e.printStackTrace();
-		}		
 	}
 }

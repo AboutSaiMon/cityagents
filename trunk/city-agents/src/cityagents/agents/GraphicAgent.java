@@ -17,8 +17,13 @@
  */
 package cityagents.agents;
 
-import cityagents.gui.PrincipalFrame;
 import jade.core.Agent;
+import jade.core.behaviours.TickerBehaviour;
+import jade.wrapper.StaleProxyException;
+
+import java.awt.Point;
+
+import cityagents.gui.PrincipalFrame;
 
 /**
  *
@@ -26,7 +31,6 @@ import jade.core.Agent;
  */
 public class GraphicAgent extends Agent 
 {
-
 	/**
 	 * 
 	 */
@@ -45,6 +49,37 @@ public class GraphicAgent extends Agent
 	{
 		super.setup();
 		principal = new PrincipalFrame();
+		
+		//TO DO: CREATE A NEW BEHAVIOUR THAT ADDS AGENTS RANDOMLY.
+		try 
+		{			
+			CarAgent c = new CarAgent();
+			Point[] arguments = new Point[ 2 ];
+			arguments[ 0 ] = new Point( 2, 3 );
+			arguments[ 1 ] = new Point( 3, 5 );
+			c.setArguments( arguments );
+			this.getContainerController().acceptNewAgent( "Ciao", c ).start();
+		} 
+		catch( StaleProxyException e ) 
+		{
+			e.printStackTrace();
+		}
+		
+		//THIS IS JUST A TRY. TO DO: ADD A NEW CLASS THAT PERFORM THIS OPERATION.
+		this.addBehaviour( new TickerBehaviour( this, 1000 ) 
+		{			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void onTick() 
+			{
+				principal.getPanel().getRight().repaint();
+			}
+		}
+		);
 	}
 	
 	/**
