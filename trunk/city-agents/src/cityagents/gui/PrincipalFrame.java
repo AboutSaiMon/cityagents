@@ -17,6 +17,8 @@
  */
 package cityagents.gui;
 
+import jade.core.Agent;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -29,6 +31,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import cityagents.behaviours.AddAgentRandomlyBehaviour;
 import cityagents.core.WorldMap;
 
 /**
@@ -41,9 +44,22 @@ public class PrincipalFrame extends JFrame
 
 	final PrincipalPanel panel;
 	WorldMap world;
+	Agent myAgent;
 	
-	public PrincipalFrame()
+	private JMenuItem addNewAgent;
+	private JMenuItem increaseDimension;
+	private JMenuItem decreaseDimension;
+	private JMenuItem addAgentsRandomly;
+	private JMenuItem load;
+	
+	int numberOfAgentsToAdd;
+	long seconds;
+	
+	public PrincipalFrame( Agent agent )
 	{
+		myAgent = agent;
+		numberOfAgentsToAdd = -1;
+		seconds = 0;
 		panel = new PrincipalPanel( this );
 		world = WorldMap.getInstance();
 		
@@ -61,68 +77,47 @@ public class PrincipalFrame extends JFrame
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu( "File" );
 		
-		JMenuItem load = new JMenuItem( "Open" );		
+		load = new JMenuItem( "Open" );		
 		file.add( load );
 				
 		JMenu world = new JMenu( "World" );
-		JMenuItem increaseDimension = new JMenuItem( "Increase Dimension" );
+		increaseDimension = new JMenuItem( "Increase Dimension" );
 		increaseDimension.addActionListener( new ActionListener() 
 		{
 			
 			@Override
 			public void actionPerformed( ActionEvent arg0 )
 			{
-				// TODO Auto-generated method stub
 				increase();
 			}
 		});
-		JMenuItem decreaseDimension = new JMenuItem( "Decrease Dimension" );
+		
+		decreaseDimension = new JMenuItem( "Decrease Dimension" );
 		decreaseDimension.addActionListener( new ActionListener() 
 		{
 			
 			@Override
 			public void actionPerformed( ActionEvent e )
 			{
-				// TODO Auto-generated method stub
 				decrease();
 			}
 		});
 		
-		this.setFocusable( true );
-		this.addKeyListener( new KeyListener()
-		{
-			
-			@Override
-			public void keyTyped( KeyEvent e ) 
-			{
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void keyReleased( KeyEvent e ) 
-			{
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void keyPressed( KeyEvent e ) 
-			{
-				// TODO Auto-generated method stub
-				if( e.getKeyChar() == '+' )
-				{
-					increase();
-				}
-				else if( e.getKeyChar() == '-' )
-				{
-					decrease();
-				}
-			}
-		});
+		addKeyListener();
 		
 		world.add( increaseDimension );
 		world.add( decreaseDimension );
+		
+		JMenu agents = new JMenu( "Agents" );
+		
+		addNewAgent = new JMenuItem( "Add New Agent" );
+		addNewAgent.setEnabled( false );
+		
+		addAgentsRandomly = new JMenuItem( "Add Agents Randomly" );
+		addAgentsRandomly.addActionListener( new AddAgentsRandomlyActionListener( this ) );
+		
+		agents.add( addNewAgent );
+		agents.add( addAgentsRandomly );
 		
 		JMenu about = new JMenu( "About" );
 		
@@ -131,6 +126,7 @@ public class PrincipalFrame extends JFrame
 		
 		menuBar.add( file );
 		menuBar.add( world );
+		menuBar.add( agents );
 		menuBar.add( about );
 
 		this.setJMenuBar( menuBar );
@@ -155,9 +151,58 @@ public class PrincipalFrame extends JFrame
 			panel.getRight().repaint();
 		}
 	}
+	
+	void addBehaviour()
+	{
+		if( numberOfAgentsToAdd != -1 && seconds != 0 )
+		{
+			myAgent.addBehaviour( new AddAgentRandomlyBehaviour( myAgent, seconds * 1000, numberOfAgentsToAdd ) );
+		}
+	}
+	
+	private void addKeyListener()
+	{
+		this.setFocusable( true );
+		this.addKeyListener( new KeyListener()
+		{
+			
+			@Override
+			public void keyTyped( KeyEvent e ) 
+			{
+			}
+			
+			@Override
+			public void keyReleased( KeyEvent e ) 
+			{	
+			}
+			
+			@Override
+			public void keyPressed( KeyEvent e ) 
+			{
+				if( e.getKeyChar() == '+' )
+				{
+					increase();
+				}
+				else if( e.getKeyChar() == '-' )
+				{
+					decrease();
+				}
+			}
+		});
+	}
 
 	public PrincipalPanel getPanel() 
 	{
 		return panel;
-	}	
+	}
+	
+	public void disableMenu()
+	{
+		addNewAgent.setEnabled( false );
+		increaseDimension.setEnabled( false );
+		decreaseDimension.setEnabled( false );
+		addAgentsRandomly.setEnabled( false );
+		load.setEnabled( false );
+		addAgentsRandomly.setEnabled( true );		
+	}
 }

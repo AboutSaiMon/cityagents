@@ -15,56 +15,44 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.agents;
+package cityagents.behaviours;
 
+import cityagents.agents.GraphicAgent;
 import jade.core.Agent;
-import cityagents.behaviours.RefreshPanelBehaviour;
-import cityagents.gui.PrincipalFrame;
+import jade.core.behaviours.TickerBehaviour;
 
 /**
  *
  * @author Deep Blue Team
  */
-public class GraphicAgent extends Agent 
-{
+public class RefreshPanelBehaviour extends TickerBehaviour {
+
+	/**
+	 * @param a
+	 * @param period
+	 */
+	public RefreshPanelBehaviour( Agent a, long period ) 
+	{
+		super( a, period );
+	}
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * This is the principal frame.
-	 */
-	PrincipalFrame principal;
-	
-	/**
-	 * This agent creates the graphic environment.
-	 */
 	@Override
-	protected void setup() 
+	protected void onTick() 
 	{
-		super.setup();
-		principal = new PrincipalFrame( this );
-		
-		this.addBehaviour( new RefreshPanelBehaviour( this, 1000 ) );		
+		if( myAgent instanceof GraphicAgent )
+		{
+			GraphicAgent g = ( GraphicAgent ) myAgent ;		
+			g.getPrincipal().getPanel().getRight().repaint();
+		}
+		else
+		{
+			this.stop();			
+		}
 	}
-	
-	/**
-	 * When the function doDelete is invoked it disposes the principal frame. 
-	 */
-	@Override
-	public void doDelete() 
-	{
-		super.doDelete();
-		if( principal != null )
-			principal.dispose();
-	}
-	
-	/**
-	 * @return the principal
-	 */
-	public PrincipalFrame getPrincipal() 
-	{
-		return principal;
-	}
+
 }
