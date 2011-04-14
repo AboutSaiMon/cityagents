@@ -19,8 +19,9 @@ package cityagents.gui;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import cityagents.core.WorldMap;
 
 /**
  *
@@ -29,7 +30,7 @@ import javax.swing.JPanel;
 public class PrincipalPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	private PrincipalFrame frame;
 
 	private LeftPanel left;
 	private RightPanel right;
@@ -39,7 +40,7 @@ public class PrincipalPanel extends JPanel {
 	 */
 	int currentChoice;
 			
-	public PrincipalPanel( JFrame f ) 
+	public PrincipalPanel( PrincipalFrame f ) 
 	{
 		super();
 		this.frame = f;		
@@ -48,7 +49,7 @@ public class PrincipalPanel extends JPanel {
 		createPanel();
 	}
 	
-	public JFrame getFrame() 
+	public PrincipalFrame getFrame() 
 	{
 		return frame;
 	}
@@ -68,5 +69,14 @@ public class PrincipalPanel extends JPanel {
 		this.setLayout( new BorderLayout() );
 		this.add( left, BorderLayout.WEST );
 		this.add( right, BorderLayout.CENTER );
+	}
+	
+	void removeLeftPanel()
+	{
+		this.remove( left );
+		this.repaint();
+		WorldMap world = WorldMap.getInstance();
+		world.setEditable( false );
+		this.frame.disableMenu();
 	}
 }

@@ -28,11 +28,42 @@ public class LeftPanel extends JPanel
 		ImagesHandler handler = ImagesHandler.getInstance();
 		
 		buttons = new JButton[ 2 ];
-		this.setLayout( new GridLayout( buttons.length, 1 ) );
+		this.setLayout( new GridLayout( buttons.length + 1, 1 ) );
 		buttons[ 0 ] = new JButton( new ImageIcon( handler.getIMAGE_STREET() ) );
 		buttons[ 1 ] = new JButton( new ImageIcon( handler.getIMAGE_HOUSE() ) );
+		JButton start = new JButton( "START ");
 		this.add( buttons[ 0 ], 0 );		
 		this.add( buttons[ 1 ], 1 );
+		this.add( start, 2 );
+		start.addMouseListener( new MouseListener() 
+		{
+			@Override
+			public void mouseReleased( MouseEvent arg0 ) 
+			{
+			}
+			
+			@Override
+			public void mousePressed( MouseEvent arg0 ) 
+			{
+			}
+			
+			@Override
+			public void mouseExited( MouseEvent arg0 ) 
+			{
+			}
+			
+			@Override
+			public void mouseEntered( MouseEvent arg0 ) 
+			{
+			}
+			
+			@Override
+			public void mouseClicked( MouseEvent arg0 ) 
+			{
+				superiorPanel.getFrame().addBehaviour();
+				superiorPanel.removeLeftPanel();
+			}
+		});
 		clicked();
 	}
 	
@@ -80,5 +111,5 @@ public class LeftPanel extends JPanel
 				}
 			});
 		}
-	}		
+	}
 }
