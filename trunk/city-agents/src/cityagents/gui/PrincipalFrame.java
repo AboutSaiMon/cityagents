@@ -65,6 +65,7 @@ public class PrincipalFrame extends JFrame {
 		setSize(dim.width / 2, dim.height / 2);
 		// sets the position to the center of the screen
 		setLocationRelativeTo(null);
+		setState(MAXIMIZED_BOTH);
 		// sets the default action when the exit button is pressed
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		// adds the main panel

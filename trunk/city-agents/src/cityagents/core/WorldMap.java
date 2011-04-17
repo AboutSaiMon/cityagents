@@ -18,20 +18,22 @@
 package cityagents.core;
 
 import java.awt.Point;
+import java.io.Serializable;
 
-import cityagents.agents.CarAgent;
+import cityagents.core.agents.CarAgent;
 
 /**
  * This class is a singleton class that contains the world map.
  * @author Deep Blue Team
  */
-public class WorldMap 
+public class WorldMap implements Serializable 
 {	
+	private static final long serialVersionUID = 2283101559110941224L;
+	
+	private static WorldMap thisInstance;
 	private WorldObjects[][] world;
 	private int worldSize = 16;
 	private boolean editable = true;
-	
-	private static WorldMap instance = null;	
 	
 	/**
 	 * 
@@ -40,6 +42,13 @@ public class WorldMap
 	{
 		world = new WorldObjects[ worldSize * 2 ][ worldSize ];
 		init();
+	}
+	
+	public static WorldMap getInstance() {
+		if( thisInstance == null ) {
+			thisInstance = new WorldMap();
+		}
+		return thisInstance;
 	}
 	
 	/**
@@ -54,15 +63,6 @@ public class WorldMap
 				world[ i ][ j ] = new Street();
 			}
 		}
-	}
-
-	public static WorldMap getInstance()
-	{
-		if( instance == null )
-		{				
-			instance = new WorldMap();
-		}
-		return instance;		
 	}
 	
 	public int getWorldSize()
