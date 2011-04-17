@@ -101,7 +101,7 @@ public class CaMenuBar extends JMenuBar {
 		addNewAgent = new JMenuItem("Add new");
 		addNewAgent.setEnabled(false);
 		addRandomAgent = new JMenuItem("Add random");
-		
+		addRandomAgent.addActionListener( new AddAgentsRandomlyActionListener() );
 		agent.add(addNewAgent);
 		agent.add(addRandomAgent);
 		
