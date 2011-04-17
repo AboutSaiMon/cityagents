@@ -15,57 +15,56 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.behaviours;
+package cityagents.core.agents;
 
-import java.awt.Point;
-
-import cityagents.agents.CarAgent;
 import jade.core.Agent;
-import jade.core.behaviours.TickerBehaviour;
-import jade.wrapper.StaleProxyException;
+import cityagents.core.behaviours.RefreshPanelBehaviour;
+import cityagents.gui.PrincipalFrame;
 
 /**
  *
  * @author Deep Blue Team
  */
-public class AddAgentRandomlyBehaviour extends TickerBehaviour 
+public class GraphicAgent extends Agent 
 {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	int numberOfAgentsToAdd;
 	/**
-	 * @param a
-	 * @param period
-	 * @param numberOfAgentsToAdd 
+	 * This is the principal frame.
 	 */
-	public AddAgentRandomlyBehaviour( Agent a, long period, int numberOfAgentsToAdd ) 
-	{
-		super( a, period );
-		this.numberOfAgentsToAdd = numberOfAgentsToAdd;
-	}	
-
+	PrincipalFrame principal;
+	
+	/**
+	 * This agent creates the graphic environment.
+	 */
 	@Override
-	protected void onTick() 
+	protected void setup() 
 	{
-		//STUFF TO DO
-		/*
-		CarAgent c = new CarAgent();
-		Point[] arguments = new Point[ 2 ];
-		arguments[ 0 ] = new Point( 2, 3 );
-		arguments[ 1 ] = new Point( 3, 5 );
-		c.setArguments( arguments );
-		try 
-		{
-			myAgent.getContainerController().acceptNewAgent( "Car", c ).start();
-		} catch (StaleProxyException e) 
-		{
-			e.printStackTrace();
-		}
-		*/
+		super.setup();
+		principal = PrincipalFrame.getInstance();
+		
+		this.addBehaviour( new RefreshPanelBehaviour( this, 1000 ) );		
 	}
-
+	
+	/**
+	 * When the function doDelete is invoked it disposes the principal frame. 
+	 */
+	@Override
+	public void doDelete() 
+	{
+		super.doDelete();
+		if( principal != null )
+			principal.dispose();
+	}
+	
+	/**
+	 * @return the principal
+	 */
+	public PrincipalFrame getPrincipal() 
+	{
+		return principal;
+	}
 }

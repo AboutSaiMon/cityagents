@@ -15,44 +15,57 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.behaviours;
+package cityagents.core.behaviours;
 
-import cityagents.agents.GraphicAgent;
+import java.awt.Point;
+
+import cityagents.core.agents.CarAgent;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
+import jade.wrapper.StaleProxyException;
 
 /**
  *
  * @author Deep Blue Team
  */
-public class RefreshPanelBehaviour extends TickerBehaviour {
-
-	/**
-	 * @param a
-	 * @param period
-	 */
-	public RefreshPanelBehaviour( Agent a, long period ) 
-	{
-		super( a, period );
-	}
+public class AddAgentRandomlyBehaviour extends TickerBehaviour 
+{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	int numberOfAgentsToAdd;
+	/**
+	 * @param a
+	 * @param period
+	 * @param numberOfAgentsToAdd 
+	 */
+	public AddAgentRandomlyBehaviour( Agent a, long period, int numberOfAgentsToAdd ) 
+	{
+		super( a, period );
+		this.numberOfAgentsToAdd = numberOfAgentsToAdd;
+	}	
+
 	@Override
 	protected void onTick() 
 	{
-		if( myAgent instanceof GraphicAgent )
+		//STUFF TO DO
+		/*
+		CarAgent c = new CarAgent();
+		Point[] arguments = new Point[ 2 ];
+		arguments[ 0 ] = new Point( 2, 3 );
+		arguments[ 1 ] = new Point( 3, 5 );
+		c.setArguments( arguments );
+		try 
 		{
-			GraphicAgent g = ( GraphicAgent ) myAgent ;		
-			g.getPrincipal().getPanel().getRight().repaint();
-		}
-		else
+			myAgent.getContainerController().acceptNewAgent( "Car", c ).start();
+		} catch (StaleProxyException e) 
 		{
-			this.stop();			
+			e.printStackTrace();
 		}
+		*/
 	}
 
 }

@@ -15,56 +15,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.agents;
+package cityagents;
 
-import jade.core.Agent;
-import cityagents.behaviours.RefreshPanelBehaviour;
 import cityagents.gui.PrincipalFrame;
 
 /**
  *
  * @author Deep Blue Team
  */
-public class GraphicAgent extends Agent 
-{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class CityAgentsWorld {
 
-	/**
-	 * This is the principal frame.
-	 */
-	PrincipalFrame principal;
-	
-	/**
-	 * This agent creates the graphic environment.
-	 */
-	@Override
-	protected void setup() 
-	{
-		super.setup();
-		principal = PrincipalFrame.getInstance();
-		
-		this.addBehaviour( new RefreshPanelBehaviour( this, 1000 ) );		
+	public static void main(String[] args) {
+		PrincipalFrame.getInstance();
 	}
 	
-	/**
-	 * When the function doDelete is invoked it disposes the principal frame. 
-	 */
-	@Override
-	public void doDelete() 
-	{
-		super.doDelete();
-		if( principal != null )
-			principal.dispose();
-	}
-	
-	/**
-	 * @return the principal
-	 */
-	public PrincipalFrame getPrincipal() 
-	{
-		return principal;
-	}
 }
