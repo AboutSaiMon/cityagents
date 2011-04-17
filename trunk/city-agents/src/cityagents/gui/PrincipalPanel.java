@@ -30,7 +30,6 @@ import cityagents.core.WorldMap;
 public class PrincipalPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private PrincipalFrame frame;
 
 	private LeftPanel left;
 	private RightPanel right;
@@ -40,18 +39,12 @@ public class PrincipalPanel extends JPanel {
 	 */
 	int currentChoice;
 			
-	public PrincipalPanel( PrincipalFrame f ) 
+	public PrincipalPanel() 
 	{
 		super();
-		this.frame = f;		
 		left = new LeftPanel( this );
 		right = new RightPanel( this );
 		createPanel();
-	}
-	
-	public PrincipalFrame getFrame() 
-	{
-		return frame;
 	}
 
 	public LeftPanel getLeft() 
@@ -77,6 +70,6 @@ public class PrincipalPanel extends JPanel {
 		this.repaint();
 		WorldMap world = WorldMap.getInstance();
 		world.setEditable( false );
-		this.frame.disableMenu();
+		PrincipalFrame.getInstance().disableMenu();
 	}
 }

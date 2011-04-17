@@ -21,7 +21,6 @@ public class LeftPanel extends JPanel
 	
 	public LeftPanel( PrincipalPanel p ) 
 	{	
-		// TODO Auto-generated constructor stub
 		this.superiorPanel = p;
 		this.setPreferredSize( new Dimension( 150, 50 ) );
 		this.setOpaque( false );
@@ -60,7 +59,7 @@ public class LeftPanel extends JPanel
 			@Override
 			public void mouseClicked( MouseEvent arg0 ) 
 			{
-				superiorPanel.getFrame().addBehaviour();
+				// TODO: superiorPanel.getFrame().addBehaviour();
 				superiorPanel.removeLeftPanel();
 			}
 		});
@@ -78,35 +77,30 @@ public class LeftPanel extends JPanel
 				@Override
 				public void mouseReleased( MouseEvent arg0 ) 
 				{
-					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void mousePressed( MouseEvent arg0 ) 
 				{
-					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void mouseExited( MouseEvent arg0 ) 
 				{
-					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void mouseEntered( MouseEvent arg0 ) 
 				{
-					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void mouseClicked( MouseEvent arg0 ) 
 				{
-					// TODO Auto-generated method stub
 					superiorPanel.currentChoice = choice;
 				}
 			});

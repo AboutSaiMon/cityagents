@@ -15,56 +15,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.agents;
+package cityagents.gui.listeners;
 
-import jade.core.Agent;
-import cityagents.behaviours.RefreshPanelBehaviour;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFileChooser;
+
+import cityagents.gui.LoadMapFrame;
 import cityagents.gui.PrincipalFrame;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
-public class GraphicAgent extends Agent 
-{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class LoadListener implements ActionListener {
 
-	/**
-	 * This is the principal frame.
-	 */
-	PrincipalFrame principal;
-	
-	/**
-	 * This agent creates the graphic environment.
-	 */
 	@Override
-	protected void setup() 
-	{
-		super.setup();
-		principal = PrincipalFrame.getInstance();
-		
-		this.addBehaviour( new RefreshPanelBehaviour( this, 1000 ) );		
+	public void actionPerformed(ActionEvent e) {
+		PrincipalFrame principalFrame = PrincipalFrame.getInstance();
+		LoadMapFrame fileChooser = LoadMapFrame.getInstance();
+		int action = fileChooser.showOpenDialog(principalFrame);
+		if( action == JFileChooser.APPROVE_OPTION ) {
+			principalFrame.loadMapFromFile(fileChooser.getSelectedFile());
+		}
 	}
-	
-	/**
-	 * When the function doDelete is invoked it disposes the principal frame. 
-	 */
-	@Override
-	public void doDelete() 
-	{
-		super.doDelete();
-		if( principal != null )
-			principal.dispose();
-	}
-	
-	/**
-	 * @return the principal
-	 */
-	public PrincipalFrame getPrincipal() 
-	{
-		return principal;
-	}
+
 }
