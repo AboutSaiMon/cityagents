@@ -44,9 +44,9 @@ public class AddAgentRandomlyFrame extends JFrame
 	/**
 	 * 
 	 */
-	public AddAgentRandomlyFrame( PrincipalFrame f ) 
+	public AddAgentRandomlyFrame() 
 	{
-		frame = f;
+		frame = PrincipalFrame.getInstance();
 		this.setTitle( "Add Agent Randomly" );
 		this.setResizable( false);
 		this.setVisible( true );

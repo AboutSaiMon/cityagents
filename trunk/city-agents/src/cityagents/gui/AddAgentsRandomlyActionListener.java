@@ -27,19 +27,17 @@ import java.awt.event.ActionListener;
 public class AddAgentsRandomlyActionListener implements ActionListener 
 {
 
-	private PrincipalFrame frame;
 	/**
 	 * 
 	 */	
-	public AddAgentsRandomlyActionListener( PrincipalFrame f ) 
+	public AddAgentsRandomlyActionListener() 
 	{
-		this.frame = f;
 	}
 	
 	@Override
 	public void actionPerformed( ActionEvent arg0 ) 
 	{
-		new AddAgentRandomlyFrame( frame );
+		new AddAgentRandomlyFrame();
 	}
 
 }
