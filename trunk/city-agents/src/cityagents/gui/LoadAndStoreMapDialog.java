@@ -15,30 +15,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui.listeners;
+package cityagents.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JFileChooser;
-
-import cityagents.gui.LoadMapFrame;
-import cityagents.gui.PrincipalFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * 
- * @author Deep Blue Team
- */
-public class LoadListener implements ActionListener {
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		PrincipalFrame principalFrame = PrincipalFrame.getInstance();
-		LoadMapFrame fileChooser = LoadMapFrame.getInstance();
-		int action = fileChooser.showOpenDialog(principalFrame);
-		if( action == JFileChooser.APPROVE_OPTION ) {
-			principalFrame.loadMapFromFile(fileChooser.getSelectedFile());
+*
+* @author Deep Blue Team
+*/
+public class LoadAndStoreMapDialog extends JFileChooser {
+	
+	private static final long serialVersionUID = -8344106388214626875L;
+	private static LoadAndStoreMapDialog thisInstance;
+	
+	/**
+	 * 
+	 */
+	private LoadAndStoreMapDialog() {
+		super();
+		addChoosableFileFilter(new FileNameExtensionFilter("MAP files", "map"));
+		setMultiSelectionEnabled(false);
+		setFileHidingEnabled(true);
+		setCurrentDirectory(new File("./"));
+	}
+	
+	public static LoadAndStoreMapDialog getInstance() {
+		if( thisInstance == null ) {
+			thisInstance = new LoadAndStoreMapDialog();
 		}
+		return thisInstance;
 	}
 
 }

@@ -90,8 +90,8 @@ public class AddAgentRandomlyFrame extends JFrame
 					{						
 						throw new Exception("Bad values intervals");
 					}				
-					frame.seconds = timer;
-					frame.numberOfAgentsToAdd = agents;
+					frame.setSeconds(timer);
+					frame.setNumberOfAgentsToAdd(agents);
 					JOptionPane.showMessageDialog( null, "Save completed", "OK", JOptionPane.OK_OPTION );					
 				}				
 				catch( Exception ex )

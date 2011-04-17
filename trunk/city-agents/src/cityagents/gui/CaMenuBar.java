@@ -25,7 +25,8 @@ import javax.swing.JSeparator;
 import cityagents.gui.listeners.DecreaseDimensionListener;
 import cityagents.gui.listeners.ExitListener;
 import cityagents.gui.listeners.IncreaseDimensionListener;
-import cityagents.gui.listeners.LoadListener;
+import cityagents.gui.listeners.LoadMapListener;
+import cityagents.gui.listeners.StoreMapListener;
 
 /**
 *
@@ -66,8 +67,9 @@ public class CaMenuBar extends JMenuBar {
 		file = new JMenu("File");
 		
 		loadMap = new JMenuItem("Load map");
-		loadMap.addActionListener(new LoadListener());
+		loadMap.addActionListener(new LoadMapListener());
 		storeMap = new JMenuItem("Store map");
+		storeMap.addActionListener(new StoreMapListener());
 		exit = new JMenuItem("Exit");
 		exit.addActionListener(new ExitListener());
 		

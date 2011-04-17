@@ -19,30 +19,38 @@ package cityagents.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import cityagents.core.WorldMap;
+import cityagents.gui.listeners.CaKeyListener;
+import cityagents.util.Logger;
 
 /**
  * 
  * @author Deep Blue Team
  */
 public class PrincipalFrame extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
+	
 	private static PrincipalFrame thisInstance;
 	private PrincipalPanel principalPanel;
 	private CaMenuBar menuBar;
-
-	WorldMap world;
-
-	int numberOfAgentsToAdd;
-	long seconds;
+	
+	private WorldMap world;
+	private int numberOfAgentsToAdd;
+	private long seconds;
 
 	private PrincipalFrame() {
 		super("City Agents");
@@ -66,28 +74,46 @@ public class PrincipalFrame extends JFrame {
 		menuBar = new CaMenuBar();
 		setJMenuBar(menuBar);
 		// adds the key listener
-		addKeyListener();
+		addKeyListener(new CaKeyListener());
 		// sets the visibility of the frame
 		setVisible(true);
 	}
-
-	private void initLookAndFeel() {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-		} catch (InstantiationException e) {
-		} catch (IllegalAccessException e) {
-		} catch (UnsupportedLookAndFeelException e) {
-		}
-	}
-
+	
 	public static PrincipalFrame getInstance() {
 		if (thisInstance == null) {
 			thisInstance = new PrincipalFrame();
 		}
 		return thisInstance;
 	}
-
+	
+	/**
+	 * @return the seconds
+	 */
+	public long getSeconds() {
+		return seconds;
+	}
+	
+	/**
+	 * @param seconds the seconds to set
+	 */
+	public void setSeconds(long seconds) {
+		this.seconds = seconds;
+	}
+	
+	/**
+	 * @return the numberOfAgentsToAdd
+	 */
+	public int getNumberOfAgentsToAdd() {
+		return numberOfAgentsToAdd;
+	}
+	
+	/**
+	 * @param numberOfAgentsToAdd the numberOfAgentsToAdd to set
+	 */
+	public void setNumberOfAgentsToAdd(int numberOfAgentsToAdd) {
+		this.numberOfAgentsToAdd = numberOfAgentsToAdd;
+	}
+	
 	public void increaseDimension() {
 		Integer size = world.getWorldSize();
 		if (size < 50) {
@@ -95,7 +121,7 @@ public class PrincipalFrame extends JFrame {
 			principalPanel.getRight().repaint();
 		}
 	}
-
+	
 	public void decreaseDimension() {
 		Integer size = world.getWorldSize();
 		if (size > 1) {
@@ -103,64 +129,59 @@ public class PrincipalFrame extends JFrame {
 			principalPanel.getRight().repaint();
 		}
 	}
-
-	/*
-	void addBehaviour() {
-		if (numberOfAgentsToAdd != -1 && seconds != 0) {
-			myAgent.addBehaviour(new AddAgentRandomlyBehaviour(myAgent,
-					seconds * 1000, numberOfAgentsToAdd));
-		}
-	}
-	*/
 	
-	private void addKeyListener() {
-		this.setFocusable(true);
-		this.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyChar() == '+') {
-					increaseDimension();
-				} else if (e.getKeyChar() == '-') {
-					decreaseDimension();
-				}
-			}
-		});
-	}
-
 	public PrincipalPanel getPanel() {
 		return principalPanel;
 	}
-
+	
 	public void disableMenu() {
 		menuBar.disableMenu();
 	}
 	
 	public void loadMapFromFile(File file) {
-		/*
-		FileInputStream fis = null;
-		ObjectInputStream ois = null;
-		
+		InputStream stream = null;
+		InputStream buffer = null;
+		ObjectInput input = null;
 		try {
-			fis = new FileInputStream("maps/world.ser");
-			ois = new ObjectInputStream(fis);
-			// car = (Car) ois.readObject();
+			stream = new FileInputStream(file);
+			buffer = new BufferedInputStream(stream);
+			input = new ObjectInputStream(buffer);
+			world = (WorldMap) input.readObject();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Logger.log(this, e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.log(this, e.getMessage());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			Logger.log(this, e.getMessage());
+		} finally {
+			if( input != null ) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					Logger.log(this, e.getMessage());
+				}
+			}
 		}
-		*/
 	}
+
+	private void initLookAndFeel() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			Logger.log(this, e.getMessage());
+		} catch (InstantiationException e) {
+			Logger.log(this, e.getMessage());
+		} catch (IllegalAccessException e) {
+			Logger.log(this, e.getMessage());
+		} catch (UnsupportedLookAndFeelException e) {
+			Logger.log(this, e.getMessage());
+		}
+	}
+
+	/*
+	 * void addBehaviour() { if (numberOfAgentsToAdd != -1 && seconds != 0) {
+	 * myAgent.addBehaviour(new AddAgentRandomlyBehaviour(myAgent, seconds *
+	 * 1000, numberOfAgentsToAdd)); } }
+	 */
 
 }
