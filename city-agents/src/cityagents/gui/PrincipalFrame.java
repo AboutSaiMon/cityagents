@@ -1,6 +1,6 @@
 /**
- * Describe Project.
- * Copyright (C) 2011 Deep Blue Team <see the team details file>
+ * City Agents is a framework for intelligent mobile agents.
+ * Copyright (C) 2011 Deep Blue Team
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,192 +17,150 @@
  */
 package cityagents.gui;
 
-import jade.core.Agent;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
-import cityagents.behaviours.AddAgentRandomlyBehaviour;
 import cityagents.core.WorldMap;
 
 /**
  * 
  * @author Deep Blue Team
  */
-public class PrincipalFrame extends JFrame 
-{
+public class PrincipalFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private static PrincipalFrame thisInstance;
+	private PrincipalPanel principalPanel;
+	private CaMenuBar menuBar;
 
-	final PrincipalPanel panel;
 	WorldMap world;
-	Agent myAgent;
-	
-	private JMenuItem addNewAgent;
-	private JMenuItem increaseDimension;
-	private JMenuItem decreaseDimension;
-	private JMenuItem addAgentsRandomly;
-	private JMenuItem load;
-	
+
 	int numberOfAgentsToAdd;
 	long seconds;
-	
-	public PrincipalFrame( Agent agent )
-	{
-		myAgent = agent;
+
+	private PrincipalFrame() {
+		super("City Agents");
 		numberOfAgentsToAdd = -1;
 		seconds = 0;
-		panel = new PrincipalPanel( this );
 		world = WorldMap.getInstance();
-		
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension dimension = toolkit.getScreenSize();
-		
-		this.setContentPane( panel );
-		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-		
-		this.setSize( dimension );
-		this.setTitle( "City Agents" );
-		this.setResizable( false );
-		this.setVisible( true );
-		
-		JMenuBar menuBar = new JMenuBar();
-		JMenu file = new JMenu( "File" );
-		
-		load = new JMenuItem( "Open" );		
-		file.add( load );
-				
-		JMenu world = new JMenu( "World" );
-		increaseDimension = new JMenuItem( "Increase Dimension" );
-		increaseDimension.addActionListener( new ActionListener() 
-		{
-			
-			@Override
-			public void actionPerformed( ActionEvent arg0 )
-			{
-				increase();
-			}
-		});
-		
-		decreaseDimension = new JMenuItem( "Decrease Dimension" );
-		decreaseDimension.addActionListener( new ActionListener() 
-		{
-			
-			@Override
-			public void actionPerformed( ActionEvent e )
-			{
-				decrease();
-			}
-		});
-		
+		// sets the look and feel of the OS
+		initLookAndFeel();
+		// gets the screen size
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		// sets the frame size
+		setSize(dim.width / 2, dim.height / 2);
+		// sets the position to the center of the screen
+		setLocationRelativeTo(null);
+		// sets the default action when the exit button is pressed
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		// adds the main panel
+		principalPanel = new PrincipalPanel();
+		setContentPane(principalPanel);
+		// adds the main menu
+		menuBar = new CaMenuBar();
+		setJMenuBar(menuBar);
+		// adds the key listener
 		addKeyListener();
-		
-		world.add( increaseDimension );
-		world.add( decreaseDimension );
-		
-		JMenu agents = new JMenu( "Agents" );
-		
-		addNewAgent = new JMenuItem( "Add New Agent" );
-		addNewAgent.setEnabled( false );
-		
-		addAgentsRandomly = new JMenuItem( "Add Agents Randomly" );
-		addAgentsRandomly.addActionListener( new AddAgentsRandomlyActionListener( this ) );
-		
-		agents.add( addNewAgent );
-		agents.add( addAgentsRandomly );
-		
-		JMenu about = new JMenu( "About" );
-		
-		JMenuItem help = new JMenuItem( "Help" );
-		about.add( help );
-		
-		menuBar.add( file );
-		menuBar.add( world );
-		menuBar.add( agents );
-		menuBar.add( about );
+		// sets the visibility of the frame
+		setVisible(true);
+	}
 
-		this.setJMenuBar( menuBar );
-	}
-	
-	private void increase()
-	{
-		Integer size = world.getWorldSize();
-		if( size < 50 )
-		{
-			world.resize( size + 1 );
-			panel.getRight().repaint();
-		}			
-	}
-	
-	private void decrease()
-	{
-		Integer size = world.getWorldSize();
-		if( size > 1 )
-		{
-			world.resize( size - 1 );
-			panel.getRight().repaint();
+	private void initLookAndFeel() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+		} catch (InstantiationException e) {
+		} catch (IllegalAccessException e) {
+		} catch (UnsupportedLookAndFeelException e) {
 		}
 	}
-	
-	void addBehaviour()
-	{
-		if( numberOfAgentsToAdd != -1 && seconds != 0 )
-		{
-			myAgent.addBehaviour( new AddAgentRandomlyBehaviour( myAgent, seconds * 1000, numberOfAgentsToAdd ) );
+
+	public static PrincipalFrame getInstance() {
+		if (thisInstance == null) {
+			thisInstance = new PrincipalFrame();
+		}
+		return thisInstance;
+	}
+
+	public void increaseDimension() {
+		Integer size = world.getWorldSize();
+		if (size < 50) {
+			world.resize(size + 1);
+			principalPanel.getRight().repaint();
 		}
 	}
+
+	public void decreaseDimension() {
+		Integer size = world.getWorldSize();
+		if (size > 1) {
+			world.resize(size - 1);
+			principalPanel.getRight().repaint();
+		}
+	}
+
+	/*
+	void addBehaviour() {
+		if (numberOfAgentsToAdd != -1 && seconds != 0) {
+			myAgent.addBehaviour(new AddAgentRandomlyBehaviour(myAgent,
+					seconds * 1000, numberOfAgentsToAdd));
+		}
+	}
+	*/
 	
-	private void addKeyListener()
-	{
-		this.setFocusable( true );
-		this.addKeyListener( new KeyListener()
-		{
-			
+	private void addKeyListener() {
+		this.setFocusable(true);
+		this.addKeyListener(new KeyListener() {
+
 			@Override
-			public void keyTyped( KeyEvent e ) 
-			{
+			public void keyTyped(KeyEvent e) {
 			}
-			
+
 			@Override
-			public void keyReleased( KeyEvent e ) 
-			{	
+			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
-			public void keyPressed( KeyEvent e ) 
-			{
-				if( e.getKeyChar() == '+' )
-				{
-					increase();
-				}
-				else if( e.getKeyChar() == '-' )
-				{
-					decrease();
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyChar() == '+') {
+					increaseDimension();
+				} else if (e.getKeyChar() == '-') {
+					decreaseDimension();
 				}
 			}
 		});
 	}
 
-	public PrincipalPanel getPanel() 
-	{
-		return panel;
+	public PrincipalPanel getPanel() {
+		return principalPanel;
+	}
+
+	public void disableMenu() {
+		menuBar.disableMenu();
 	}
 	
-	public void disableMenu()
-	{
-		addNewAgent.setEnabled( false );
-		increaseDimension.setEnabled( false );
-		decreaseDimension.setEnabled( false );
-		addAgentsRandomly.setEnabled( false );
-		load.setEnabled( false );
-		addAgentsRandomly.setEnabled( true );		
+	public void loadMapFromFile(File file) {
+		/*
+		FileInputStream fis = null;
+		ObjectInputStream ois = null;
+		
+		try {
+			fis = new FileInputStream("maps/world.ser");
+			ois = new ObjectInputStream(fis);
+			// car = (Car) ois.readObject();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		*/
 	}
+
 }
