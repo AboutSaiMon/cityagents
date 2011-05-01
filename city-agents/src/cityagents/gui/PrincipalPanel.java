@@ -20,6 +20,7 @@ package cityagents.gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import cityagents.core.WorldMap;
 
@@ -61,7 +62,9 @@ public class PrincipalPanel extends JPanel {
 	{
 		this.setLayout( new BorderLayout() );
 		this.add( left, BorderLayout.WEST );
-		this.add( right, BorderLayout.CENTER );
+		JScrollPane p = new JScrollPane( right );
+		p.setOpaque( false );
+		this.add( p, BorderLayout.CENTER );
 	}
 	
 	void removeLeftPanel()

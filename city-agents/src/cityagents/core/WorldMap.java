@@ -32,7 +32,7 @@ public class WorldMap implements Serializable
 	
 	private static WorldMap thisInstance;
 	private WorldObjects[][] world;
-	private int worldSize = 16;
+	private int worldSize = 30;
 	private boolean editable = true;
 	
 	/**
@@ -44,8 +44,10 @@ public class WorldMap implements Serializable
 		init();
 	}
 	
-	public static WorldMap getInstance() {
-		if( thisInstance == null ) {
+	public static WorldMap getInstance() 
+	{
+		if( thisInstance == null ) 
+		{
 			thisInstance = new WorldMap();
 		}
 		return thisInstance;
@@ -60,7 +62,7 @@ public class WorldMap implements Serializable
 		{
 			for( int j = 0; j < worldSize; j++ )
 			{
-				world[ i ][ j ] = new Street();
+				world[ i ][ j ] = new House();
 			}
 		}
 	}

@@ -64,7 +64,7 @@ public class PrincipalFrame extends JFrame {
 		// sets the frame size
 		setSize(dim.width / 2, dim.height / 2);
 		// sets the position to the center of the screen
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(null);		
 		setState(MAXIMIZED_BOTH);
 		// sets the default action when the exit button is pressed
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -78,6 +78,7 @@ public class PrincipalFrame extends JFrame {
 		addKeyListener(new CaKeyListener());
 		// sets the visibility of the frame
 		setVisible(true);
+		setFocusable( true );
 	}
 	
 	public static PrincipalFrame getInstance() {

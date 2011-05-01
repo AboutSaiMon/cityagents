@@ -83,8 +83,8 @@ public class ImagesHandler
 	{
 		Toolkit t = Toolkit.getDefaultToolkit();
 	
-		IMAGE_STREET = t.getImage( Constants.IMAGES_PATH + "street.jpg" );
-		IMAGE_HOUSE = t.getImage( Constants.IMAGES_PATH + "build.gif" );
+		IMAGE_STREET = t.getImage( Constants.IMAGES_PATH + "street_small.jpg" );
+		IMAGE_HOUSE = t.getImage( Constants.IMAGES_PATH + "build_small.gif" );
 		IMAGE_CAR = t.getImage( Constants.IMAGES_PATH + "car.gif" );
 		MediaTracker mt = new MediaTracker( new JPanel() );
 		mt.addImage( IMAGE_STREET, 0 );
