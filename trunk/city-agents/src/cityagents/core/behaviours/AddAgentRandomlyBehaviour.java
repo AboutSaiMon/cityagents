@@ -51,21 +51,19 @@ public class AddAgentRandomlyBehaviour extends TickerBehaviour
 	@Override
 	protected void onTick() 
 	{
-		//STUFF TO DO
-		/*
-		CarAgent c = new CarAgent();
-		Point[] arguments = new Point[ 2 ];
-		arguments[ 0 ] = new Point( 2, 3 );
-		arguments[ 1 ] = new Point( 3, 5 );
-		c.setArguments( arguments );
-		try 
-		{
-			myAgent.getContainerController().acceptNewAgent( "Car", c ).start();
-		} catch (StaleProxyException e) 
-		{
-			e.printStackTrace();
-		}
-		*/
+		//STUFF TO DO		
+//		CarAgent c = new CarAgent();
+//		Point[] arguments = new Point[ 2 ];
+//		arguments[ 0 ] = new Point( 2, 3 );
+//		arguments[ 1 ] = new Point( 3, 5 );
+//		c.setArguments( arguments );
+//		try 
+//		{
+//			myAgent.getContainerController().acceptNewAgent( "Car", c ).start();
+//		} catch (StaleProxyException e) 
+//		{
+//			e.printStackTrace();
+//		}		
 	}
 
 }
