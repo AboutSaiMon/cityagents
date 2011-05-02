@@ -45,6 +45,7 @@ public class GraphicAgent extends Agent
 	{
 		super.setup();
 		principal = PrincipalFrame.getInstance();
+		principal.setGraphicAgent( this );
 		
 		this.addBehaviour( new RefreshPanelBehaviour( this, 1000 ) );		
 	}
@@ -66,5 +67,5 @@ public class GraphicAgent extends Agent
 	public PrincipalFrame getPrincipal() 
 	{
 		return principal;
-	}
+	}	
 }

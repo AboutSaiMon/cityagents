@@ -17,10 +17,15 @@
  */
 package cityagents.core;
 
+import jade.wrapper.StaleProxyException;
+
 import java.awt.Point;
 import java.io.Serializable;
 
 import cityagents.core.agents.CarAgent;
+import cityagents.core.agents.GraphicAgent;
+import cityagents.gui.PrincipalFrame;
+import cityagents.util.Constants;
 
 /**
  * This class is a singleton class that contains the world map.
@@ -32,8 +37,10 @@ public class WorldMap implements Serializable
 	
 	private static WorldMap thisInstance;
 	private WorldObjects[][] world;
-	private int worldSize = 30;
+	private int worldSize = 20;
 	private boolean editable = true;
+	
+	private int numberOfAgents = 0;
 	
 	/**
 	 * 
@@ -84,22 +91,26 @@ public class WorldMap implements Serializable
 	
 	public void setStreet( int x, int y )
 	{		
-		world[ x ][ y ] = new Street();
+		if( editable )
+			world[ x ][ y ] = new Street();
 	}
 	
 	public void setStreet( Point p )
 	{		
-		world[ p.x ][ p.y ] = new Street();
+		if( editable )
+			world[ p.x ][ p.y ] = new Street();
 	}
 	
 	public void setHouse( int x, int y )
 	{
-		world[ x ][ y ] = new House();
+		if( editable )
+			world[ x ][ y ] = new House();
 	}
 	
 	public void setHouse( Point p )
 	{
-		world[ p.x ][ p.y ] = new House();
+		if( editable )
+			world[ p.x ][ p.y ] = new House();
 	}
 	
 	public void setCar( int x, int y, CarAgent c )
@@ -130,5 +141,53 @@ public class WorldMap implements Serializable
 	public void setEditable( boolean editable ) 
 	{
 		this.editable = editable;
+	}
+
+	/**
+	 * 
+	 */
+	public void startAgents() 
+	{
+		PrincipalFrame frame = PrincipalFrame.getInstance();
+		GraphicAgent g = frame.getGraphicAgent();
+		if( g != null )
+		{
+			for( int i = 0; i < ( worldSize * 2 ); i++ )
+			{
+				for( int j = 0; j < worldSize; j++ )
+				{
+					if( world[ i ][ j ].getType().intValue() == Constants.CAR )
+					{
+						CarAgent c = ( CarAgent ) world[ i ][ j ];
+						try 
+						{
+							g.getContainerController().acceptNewAgent( "Car" + numberOfAgents, c ).start();
+							numberOfAgents++;
+						} catch (StaleProxyException e) 
+						{
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void startAgent( int i, int j )	
+	{
+		PrincipalFrame frame = PrincipalFrame.getInstance();
+		GraphicAgent g = frame.getGraphicAgent();
+		if( world[ i ][ j ].getType().intValue() == Constants.CAR )
+		{
+			CarAgent c = ( CarAgent ) world[ i ][ j ];
+			try 
+			{
+				g.getContainerController().acceptNewAgent( "Car" + numberOfAgents, c ).start();
+				numberOfAgents++;
+			} catch (StaleProxyException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }

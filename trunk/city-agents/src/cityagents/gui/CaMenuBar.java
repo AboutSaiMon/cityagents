@@ -99,6 +99,7 @@ public class CaMenuBar extends JMenuBar {
 		agent = new JMenu("Agent");
 		
 		addNewAgent = new JMenuItem("Add new");
+		addNewAgent.addActionListener( new AddAgentActionListener() );
 		addNewAgent.setEnabled(false);
 		addRandomAgent = new JMenuItem("Add random");
 		addRandomAgent.addActionListener( new AddAgentsRandomlyActionListener() );
@@ -118,7 +119,7 @@ public class CaMenuBar extends JMenuBar {
 	}
 	
 	public void disableMenu() {
-		addNewAgent.setEnabled(false);
+		addNewAgent.setEnabled(true);
 		increaseDimension.setEnabled(false);
 		decreaseDimension.setEnabled(false);
 		addRandomAgent.setEnabled(false);

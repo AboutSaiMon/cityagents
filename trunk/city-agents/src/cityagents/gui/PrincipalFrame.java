@@ -33,6 +33,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import cityagents.core.WorldMap;
+import cityagents.core.agents.GraphicAgent;
 import cityagents.gui.listeners.CaKeyListener;
 import cityagents.util.Logger;
 
@@ -51,6 +52,8 @@ public class PrincipalFrame extends JFrame {
 	private WorldMap world;
 	private int numberOfAgentsToAdd;
 	private long seconds;
+	
+	private GraphicAgent graphicAgent;
 
 	private PrincipalFrame() {
 		super("City Agents");
@@ -178,6 +181,16 @@ public class PrincipalFrame extends JFrame {
 		} catch (UnsupportedLookAndFeelException e) {
 			Logger.log(this, e.getMessage());
 		}
+	}
+
+	public GraphicAgent getGraphicAgent() 
+	{
+		return graphicAgent;
+	}
+
+	public void setGraphicAgent( GraphicAgent graphicAgent ) 
+	{
+		this.graphicAgent = graphicAgent;
 	}
 
 	/*

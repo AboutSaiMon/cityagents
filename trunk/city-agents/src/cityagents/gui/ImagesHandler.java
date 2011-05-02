@@ -85,7 +85,7 @@ public class ImagesHandler
 	
 		IMAGE_STREET = t.getImage( Constants.IMAGES_PATH + "street_small.jpg" );
 		IMAGE_HOUSE = t.getImage( Constants.IMAGES_PATH + "build_small.gif" );
-		IMAGE_CAR = t.getImage( Constants.IMAGES_PATH + "car.gif" );
+		IMAGE_CAR = t.getImage( Constants.IMAGES_PATH + "car_small.gif" );
 		MediaTracker mt = new MediaTracker( new JPanel() );
 		mt.addImage( IMAGE_STREET, 0 );
 		mt.addImage( IMAGE_HOUSE, 1 );
