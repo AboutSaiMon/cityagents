@@ -26,14 +26,16 @@ public class LeftPanel extends JPanel
 		this.setOpaque( false );
 		ImagesHandler handler = ImagesHandler.getInstance();
 		
-		buttons = new JButton[ 2 ];
+		buttons = new JButton[ 3 ];
 		this.setLayout( new GridLayout( buttons.length + 1, 1 ) );
 		buttons[ 0 ] = new JButton( new ImageIcon( handler.getIMAGE_STREET() ) );
 		buttons[ 1 ] = new JButton( new ImageIcon( handler.getIMAGE_HOUSE() ) );
+		buttons[ 2 ] = new JButton( new ImageIcon( handler.getIMAGE_CAR() ) );
 		JButton start = new JButton( "START ");
 		this.add( buttons[ 0 ], 0 );		
 		this.add( buttons[ 1 ], 1 );
-		this.add( start, 2 );
+		this.add( buttons[ 2 ], 2 );
+		this.add( start, 3 );
 		start.addMouseListener( new MouseListener() 
 		{
 			@Override

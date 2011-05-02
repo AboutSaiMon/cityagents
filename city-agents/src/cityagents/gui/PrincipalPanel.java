@@ -73,6 +73,7 @@ public class PrincipalPanel extends JPanel {
 		this.repaint();
 		WorldMap world = WorldMap.getInstance();
 		world.setEditable( false );
+		world.startAgents();
 		PrincipalFrame.getInstance().disableMenu();
 	}
 }

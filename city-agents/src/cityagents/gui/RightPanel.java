@@ -9,10 +9,12 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObjects;
+import cityagents.core.agents.CarAgent;
 import cityagents.util.Constants;
 
 public class RightPanel extends JPanel
@@ -30,6 +32,8 @@ public class RightPanel extends JPanel
 	
 	private ImagesHandler handler;
 	private boolean startDraw = false;
+	private boolean addAnAgent = false;	
+	private Point agentStart;
 	private List< Point > cellsToDraw;
 	
 	public RightPanel( PrincipalPanel p ) 
@@ -55,8 +59,7 @@ public class RightPanel extends JPanel
 			{
 				WorldObjects element = world.getElement( i , j );
 				
-				graphics.drawImage( handler.getIMAGE_STREET() , i * size + 20, j * size + 20, null );
-				
+				graphics.drawImage( handler.getIMAGE_STREET() , i * size + 20, j * size + 20, null );				
 				if( element.getType().intValue() == Constants.CAR )
 				{									
 					graphics.drawImage( handler.getIMAGE_CAR() , i * size + 20, j * size + 20, null );
@@ -153,32 +156,71 @@ public class RightPanel extends JPanel
 			@Override
 			public void mouseClicked( MouseEvent e ) 
 			{				
-				// TODO Auto-generated method stub			
-				startDraw = true;
-				int x = e.getX();
-				int y = e.getY();
-				
-				int i = ( x - 20 ) / size;
-				int j = ( y - 20 ) / size;
-				
-				if( i >= 0 && i < ( world.getWorldSize() * 2 ) && j >= 0 && j < world.getWorldSize() )
+				// TODO Auto-generated method stub		
+				if( e.getButton() == MouseEvent.BUTTON3 )
+				{ 	//with right click can cancel the insert.
+					addAnAgent = false;
+					agentStart = null;
+				}
+				else
 				{
-					switch( superiorPanel.currentChoice ) 
-					{
-					case Constants.STREET:
-						world.setStreet( i , j );
-						break;					
+					startDraw = true;
+					int x = e.getX();
+					int y = e.getY();
 					
-					case Constants.HOUSE:
-						world.setHouse( i , j );
-						break;
-
-					default:
-						break;
-					}					
+					int i = ( x - 20 ) / size;
+					int j = ( y - 20 ) / size;
+					
+					if( i >= 0 && i < ( world.getWorldSize() * 2 ) && j >= 0 && j < world.getWorldSize() )
+					{
+						switch( superiorPanel.currentChoice ) 
+						{
+						case Constants.STREET:
+							world.setStreet( i , j );
+							break;					
+						
+						case Constants.HOUSE:
+							world.setHouse( i , j );
+							break;
+	
+						case Constants.CAR:
+							if( addAnAgent )
+							{
+								if( world.getElement( i, j ).getType().intValue() == Constants.STREET )
+								{
+									CarAgent c = new CarAgent();
+									Point[] arguments = new Point[ 2 ];
+									arguments[ 0 ] = new Point( agentStart );
+									arguments[ 1 ] = new Point( i, j );
+									c.setArguments( arguments );
+									world.setCar( agentStart.x, agentStart.y, c );
+									addAnAgent = false;
+									agentStart = null;
+									PrincipalFrame frame = PrincipalFrame.getInstance();
+									JOptionPane.showMessageDialog( frame, "Added Agent", "Added Agent", JOptionPane.INFORMATION_MESSAGE );
+									if( !world.isEditable() )
+										world.startAgent( i, j );
+								}
+							}
+							else
+							{		
+								if( world.getElement( i, j ).getType().intValue() == Constants.STREET )
+								{
+									addAnAgent = true;
+									agentStart = new Point( i, j );
+									PrincipalFrame frame = PrincipalFrame.getInstance();
+									JOptionPane.showMessageDialog( frame, "Set Destination.", "Destination", JOptionPane.INFORMATION_MESSAGE );	
+								}
+							}
+							break;	
+							
+						default:
+							break;
+						}					
+					}
 				}
 				repaint();
 			}
 		});
-	}
+	}	
 }
