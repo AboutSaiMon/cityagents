@@ -17,10 +17,15 @@
  */
 package cityagents.core.agents;
 
+import jade.core.AID;
 import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
 
 import java.awt.Point;
+import java.io.IOException;
+import java.util.HashMap;
 
+import cityagents.core.MessageContent;
 import cityagents.core.Street;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObjects;
@@ -42,12 +47,15 @@ public class CarAgent extends Agent implements WorldObjects
 	private Point start;
 	private Point destination;
 	private WorldMap world;
+	private HashMap< Integer, Object > mapTimeCrossroad; 
 	
 	@Override
 	protected void setup() 
 	{
 		super.setup();
 		Object[] args = this.getArguments();
+		mapTimeCrossroad = new HashMap< Integer, Object >();
+		
 		if( args == null )
 		{
 			doDelete();
@@ -97,5 +105,47 @@ public class CarAgent extends Agent implements WorldObjects
 	public Integer getType() 
 	{
 		return Constants.CAR;
+	}
+	
+	public void addNewEntryForTimeCrossroadMap( Integer time, Object crossroad )
+	{
+		mapTimeCrossroad.put( time, crossroad );
+	}
+	
+	public Object getCrossroadAtTime( Integer time )
+	{
+		return mapTimeCrossroad.get( time );		
+	}
+	
+	public boolean sendMessage( MessageContent messageContent, CarAgent[] receivers )
+	{
+		Integer time = messageContent.getTime();
+		if( mapTimeCrossroad.get( time ) == null )
+		{
+			ACLMessage message  = new ACLMessage( ACLMessage.INFORM );
+			try 
+			{
+				//Define the content of the message.
+				message.setContentObject( messageContent );
+			} 
+			catch( IOException e ) 
+			{
+				e.printStackTrace();
+				return false;
+			}
+			
+			//Set all recipients.
+			for( int i = 0; i < receivers.length; i++ )
+			{			
+				CarAgent c = receivers[ i ];
+				message.addReceiver( new AID( c.getLocalName(), AID.ISLOCALNAME) );
+			}
+			this.send( message );
+		}
+		else
+		{
+			return false;
+		}
+		return true;
 	}
 }
