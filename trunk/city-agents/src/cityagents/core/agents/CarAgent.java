@@ -30,7 +30,6 @@ import cityagents.core.Street;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObjects;
 import cityagents.util.Constants;
-import cityagents.util.Logger;
 
 /**
  *
@@ -95,7 +94,6 @@ public class CarAgent extends Agent implements WorldObjects
 		}
 		catch( Exception e )
 		{
-			Logger.log(this, e.getMessage());
 			doDelete();
 		}
 		
