@@ -17,11 +17,12 @@
  */
 package cityagents.core;
 
+import java.io.Serializable;
+
 /**
- *
+ * 
  * @author Deep Blue Team
  */
-public interface WorldObjects
-{
+public interface WorldObjects extends Serializable {
 	Integer getType();
 }
