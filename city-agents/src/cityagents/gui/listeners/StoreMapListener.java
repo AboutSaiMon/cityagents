@@ -26,7 +26,7 @@ import cityagents.gui.LoadAndStoreMapDialog;
 import cityagents.gui.PrincipalFrame;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
 public class StoreMapListener implements ActionListener {
@@ -36,8 +36,13 @@ public class StoreMapListener implements ActionListener {
 		PrincipalFrame frame = PrincipalFrame.getInstance();
 		LoadAndStoreMapDialog dialog = LoadAndStoreMapDialog.getInstance();
 		int action = dialog.showSaveDialog(frame);
-		if( action == JFileChooser.APPROVE_OPTION ) {
-			frame.storeMapToFile(dialog.getSelectedFile());
+		if (action == JFileChooser.APPROVE_OPTION) {
+			String filePath = dialog.getSelectedFile().getPath();
+			if (!filePath.endsWith(".map")) {
+				frame.storeMapToFile(filePath + ".map");
+			} else {
+				frame.storeMapToFile(filePath);
+			}
 		}
 	}
 

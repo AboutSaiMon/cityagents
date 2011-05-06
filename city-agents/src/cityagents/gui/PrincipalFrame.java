@@ -148,7 +148,8 @@ public class PrincipalFrame extends JFrame {
 		menuBar.disableMenu();
 	}
 	
-	public void loadMapFromFile(File file) {
+	public void loadMapFromFile(String filePath) {
+		File file = new File(filePath);
 		InputStream inputStream = null;
 		InputStream buffer = null;
 		ObjectInput input = null;
@@ -175,7 +176,8 @@ public class PrincipalFrame extends JFrame {
 		}
 	}
 	
-	public void storeMapToFile(File file) {
+	public void storeMapToFile(String filePath) {
+		File file = new File(filePath);
 		OutputStream outputStream = null;
 		OutputStream buffer = null;
 		ObjectOutput output = null;
