@@ -36,8 +36,9 @@ public class LoadMapListener implements ActionListener {
 		PrincipalFrame frame = PrincipalFrame.getInstance();
 		LoadAndStoreMapDialog dialog = LoadAndStoreMapDialog.getInstance();
 		int action = dialog.showOpenDialog(frame);
-		if( action == JFileChooser.APPROVE_OPTION ) {
-			frame.loadMapFromFile(dialog.getSelectedFile());
+		if (action == JFileChooser.APPROVE_OPTION) {
+			String filePath = dialog.getSelectedFile().getPath();
+			frame.loadMapFromFile(filePath);
 		}
 	}
 
