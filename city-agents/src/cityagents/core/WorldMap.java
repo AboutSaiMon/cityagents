@@ -79,6 +79,14 @@ public class WorldMap implements Serializable
 		return worldSize;
 	}
 	
+	public void setMap(WorldObjects[][] map) {
+		world = map;
+	}
+	
+	public WorldObjects[][] getMap() {
+		return world;
+	}
+	
 	public void resize( int newSize )
 	{
 		if( editable )
