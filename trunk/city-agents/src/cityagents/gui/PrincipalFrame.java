@@ -20,22 +20,27 @@ package cityagents.gui;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import cityagents.core.WorldMap;
+import cityagents.core.WorldObjects;
 import cityagents.core.agents.GraphicAgent;
 import cityagents.gui.listeners.CaKeyListener;
-import cityagents.util.Logger;
 
 /**
  * 
@@ -144,26 +149,51 @@ public class PrincipalFrame extends JFrame {
 	}
 	
 	public void loadMapFromFile(File file) {
-		InputStream stream = null;
+		InputStream inputStream = null;
 		InputStream buffer = null;
 		ObjectInput input = null;
 		try {
-			stream = new FileInputStream(file);
-			buffer = new BufferedInputStream(stream);
+			inputStream = new FileInputStream(file);
+			buffer = new BufferedInputStream(inputStream);
 			input = new ObjectInputStream(buffer);
-			world = (WorldMap) input.readObject();
+			world.setMap((WorldObjects[][]) input.readObject());
+			repaint();
 		} catch (FileNotFoundException e) {
-			Logger.log(this, e.getMessage());
+			e.printStackTrace();
 		} catch (IOException e) {
-			Logger.log(this, e.getMessage());
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			Logger.log(this, e.getMessage());
+			e.printStackTrace();
 		} finally {
 			if( input != null ) {
 				try {
 					input.close();
 				} catch (IOException e) {
-					Logger.log(this, e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public void storeMapToFile(File file) {
+		OutputStream outputStream = null;
+		OutputStream buffer = null;
+		ObjectOutput output = null;
+		try {
+			outputStream = new FileOutputStream(file);
+			buffer = new BufferedOutputStream(outputStream);
+			output = new ObjectOutputStream(buffer);
+			output.writeObject(world.getMap());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if( output != null ) {
+				try {
+					output.close();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 		}
@@ -173,13 +203,13 @@ public class PrincipalFrame extends JFrame {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
-			Logger.log(this, e.getMessage());
+			e.printStackTrace();
 		} catch (InstantiationException e) {
-			Logger.log(this, e.getMessage());
+			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			Logger.log(this, e.getMessage());
+			e.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e) {
-			Logger.log(this, e.getMessage());
+			e.printStackTrace();
 		}
 	}
 

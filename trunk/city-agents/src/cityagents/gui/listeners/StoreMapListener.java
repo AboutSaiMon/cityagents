@@ -36,6 +36,9 @@ public class StoreMapListener implements ActionListener {
 		PrincipalFrame frame = PrincipalFrame.getInstance();
 		LoadAndStoreMapDialog dialog = LoadAndStoreMapDialog.getInstance();
 		int action = dialog.showSaveDialog(frame);
+		if( action == JFileChooser.APPROVE_OPTION ) {
+			frame.storeMapToFile(dialog.getSelectedFile());
+		}
 	}
 
 }
