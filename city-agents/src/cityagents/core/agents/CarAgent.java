@@ -37,12 +37,7 @@ import cityagents.util.Constants;
  */
 public class CarAgent extends Agent implements WorldObjects
 {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -5719389862334582000L;
 	private Point start;
 	private Point destination;
 	private WorldMap world;

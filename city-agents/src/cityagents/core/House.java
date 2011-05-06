@@ -20,15 +20,15 @@ package cityagents.core;
 import cityagents.util.Constants;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
-public class House implements WorldObjects 
-{
+public class House implements WorldObjects {
 	
+	private static final long serialVersionUID = 8818888364445649106L;
+
 	@Override
-	public Integer getType() 
-	{
+	public Integer getType() {
 		return Constants.HOUSE;
 	}
 
