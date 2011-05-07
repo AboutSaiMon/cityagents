@@ -15,14 +15,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package cityagents.gui.listeners;
 
-import java.io.Serializable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import cityagents.gui.PrincipalPanel;
 
 /**
  * 
  * @author Deep Blue Team
  */
-public interface WorldObjects extends Serializable {
-	Integer getType();
+public class ObjectButtonListner extends MouseAdapter {
+
+	private PrincipalPanel panel;
+	private int choice;
+	private boolean startButton;
+
+	public ObjectButtonListner(PrincipalPanel panel) {
+		this.panel = panel;
+		startButton = true;
+	}
+
+	public ObjectButtonListner(PrincipalPanel panel, int choice) {
+		this.panel = panel;
+		this.choice = choice;
+		startButton = false;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (startButton) {
+			panel.removeLeftPanel();
+		} else {
+			panel.currentChoice = choice;
+		}
+	}
+
 }

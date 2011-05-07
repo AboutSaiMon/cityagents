@@ -38,7 +38,7 @@ public class PrincipalPanel extends JPanel {
 	/**
 	 * This variable needs to know which element is clicked.
 	 */
-	int currentChoice;
+	public int currentChoice;
 			
 	public PrincipalPanel() 
 	{
@@ -67,7 +67,7 @@ public class PrincipalPanel extends JPanel {
 		this.add( p, BorderLayout.CENTER );
 	}
 	
-	void removeLeftPanel()
+	public void removeLeftPanel()
 	{
 		this.remove( left );
 		this.repaint();

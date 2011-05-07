@@ -12,10 +12,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import cityagents.core.Grass;
+import cityagents.core.House;
+import cityagents.core.Street;
 import cityagents.core.WorldMap;
-import cityagents.core.WorldObjects;
+import cityagents.core.WorldObject;
 import cityagents.core.agents.CarAgent;
-import cityagents.util.Constants;
 
 public class RightPanel extends JPanel
 {
@@ -30,7 +32,7 @@ public class RightPanel extends JPanel
 	
 	WorldMap world;
 	
-	private ImagesHandler handler;
+	private ImagesHandler images;
 	private boolean startDraw = false;
 	private boolean addAnAgent = false;	
 	private Point agentStart;
@@ -38,9 +40,8 @@ public class RightPanel extends JPanel
 	
 	public RightPanel( PrincipalPanel p ) 
 	{
-		// TODO Auto-generated constructor stub
 		this.setOpaque( false );
-		handler = ImagesHandler.getInstance();
+		images = ImagesHandler.getInstance();
 		superiorPanel = p;
 		world = WorldMap.getInstance();
 		this.setPreferredSize( new Dimension( 52 * 2 * size, 52 * size ) );
@@ -51,24 +52,31 @@ public class RightPanel extends JPanel
 	@Override
 	protected void paintComponent( Graphics graphics ) 
 	{
-		// TODO Auto-generated method stub
 		super.paintComponent( graphics );
 		for( int i = 0; i < world.getWorldSize() * 2; i++ ) 
 		{
 			for( int j = 0; j < world.getWorldSize(); j++ )
 			{
-				WorldObjects element = world.getElement( i , j );
-				
-				graphics.drawImage( handler.getIMAGE_STREET() , i * size + 20, j * size + 20, null );				
-				if( element.getType().intValue() == Constants.CAR )
-				{									
-					graphics.drawImage( handler.getIMAGE_CAR() , i * size + 20, j * size + 20, null );
-				}
-				else if( element.getType().intValue() == Constants.HOUSE ) 
+				WorldObject element = world.getElement( i , j );
+								
+				if( element instanceof CarAgent )
 				{
-					graphics.drawImage( handler.getIMAGE_HOUSE() , i * size + 20, j * size + 20, null );
+					graphics.drawImage( images.getStreet() , i * size + 20, j * size + 20, null );
+					graphics.drawImage( images.getCar() , i * size + 20, j * size + 20, null );
 				}
-				graphics.drawRect( i * size + 20, j * size + 20, size, size );
+				else if( element instanceof Grass ) 
+				{
+					graphics.drawImage( images.getGrass() , i * size + 20, j * size + 20, null );
+				}
+				else if( element instanceof House )
+				{
+					graphics.drawImage( images.getGrass() , i * size + 20, j * size + 20, null );
+					graphics.drawImage( images.getHouse() , i * size + 20, j * size + 20, null );
+				}
+				else if( element instanceof Street )
+				{
+					graphics.drawImage( images.getStreet() , i * size + 20, j * size + 20, null );
+				}
 			}
 		}		
 	}
@@ -109,19 +117,22 @@ public class RightPanel extends JPanel
 			@Override
 			public void mouseReleased( MouseEvent e ) 
 			{
-				// TODO Auto-generated method stub
 				for( Point p : cellsToDraw )
 				{
 					int i = p.x;
 					int j = p.y;
 					switch( superiorPanel.currentChoice ) 
 					{
-					case Constants.STREET:
+					case WorldObject.STREET:
 						world.setStreet( i , j );
 						break;					
 					
-					case Constants.HOUSE:
-						world.setHouse( i , j );
+					case WorldObject.GRASS:
+						world.setGrass( i , j );
+						break;
+						
+					case WorldObject.HOUSE:
+						world.setHouse(i, j);
 						break;
 
 					default:
@@ -136,27 +147,23 @@ public class RightPanel extends JPanel
 			@Override
 			public void mousePressed( MouseEvent e ) 
 			{
-				// TODO Auto-generated method stub
 				startDraw = true;				
 			}
 			
 			@Override
 			public void mouseExited( MouseEvent e ) 
 			{
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void mouseEntered( MouseEvent e ) 
-			{
-				// TODO Auto-generated method stub									
+			{									
 			}
 			
 			@Override
 			public void mouseClicked( MouseEvent e ) 
 			{				
-				// TODO Auto-generated method stub		
 				if( e.getButton() == MouseEvent.BUTTON3 )
 				{ 	//with right click can cancel the insert.
 					addAnAgent = false;
@@ -175,18 +182,21 @@ public class RightPanel extends JPanel
 					{
 						switch( superiorPanel.currentChoice ) 
 						{
-						case Constants.STREET:
+						case WorldObject.STREET:
 							world.setStreet( i , j );
 							break;					
 						
-						case Constants.HOUSE:
-							world.setHouse( i , j );
+						case WorldObject.GRASS:
+							world.setGrass( i , j );
 							break;
+							
+						case WorldObject.HOUSE:
+							world.setHouse( i, j);
 	
-						case Constants.CAR:
+						case WorldObject.CAR:
 							if( addAnAgent )
 							{
-								if( world.getElement( i, j ).getType().intValue() == Constants.STREET )
+								if( world.getElement( i, j ) instanceof Street )
 								{
 									CarAgent c = new CarAgent();
 									Point[] arguments = new Point[ 2 ];
@@ -204,7 +214,7 @@ public class RightPanel extends JPanel
 							}
 							else
 							{		
-								if( world.getElement( i, j ).getType().intValue() == Constants.STREET )
+								if( world.getElement(i,j) instanceof Street )
 								{
 									addAnAgent = true;
 									agentStart = new Point( i, j );

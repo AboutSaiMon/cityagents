@@ -15,19 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.util;
-
-import java.io.File;
+package cityagents.core;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
-public interface Constants 
-{
-	public static String IMAGES_PATH = "src" + File.separator + "resources" + File.separator;	
+public abstract class Obstacle implements WorldObject {
 	
-	public final static int STREET = 0;
-	public final static int HOUSE = 1;
-	public final static int CAR = 2;
+	private static final long serialVersionUID = 8818888364445649106L;
+
 }

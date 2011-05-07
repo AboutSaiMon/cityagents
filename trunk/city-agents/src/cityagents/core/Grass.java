@@ -15,24 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import cityagents.core.WorldObject;
+package cityagents.core;
 
 /**
  *
  * @author Deep Blue Team
  */
-public class AddAgentActionListener implements ActionListener 
-{
+public class Grass extends Obstacle {
 
-	@Override
-	public void actionPerformed( ActionEvent arg0 ) 
-	{
-		PrincipalFrame frame = PrincipalFrame.getInstance();
-		frame.getPanel().currentChoice = WorldObject.CAR;
-	}
+	private static final long serialVersionUID = -5231483581428543806L;
+
 }
