@@ -26,6 +26,7 @@ import cityagents.gui.listeners.DecreaseDimensionListener;
 import cityagents.gui.listeners.ExitListener;
 import cityagents.gui.listeners.IncreaseDimensionListener;
 import cityagents.gui.listeners.LoadMapListener;
+import cityagents.gui.listeners.ContextMenuListener;
 import cityagents.gui.listeners.StoreMapListener;
 
 /**
@@ -91,6 +92,7 @@ public class CaMenuBar extends JMenuBar {
 		
 		world.add(increaseDimension);
 		world.add(decreaseDimension);
+		world.add(new JSeparator());
 		
 		add(world);
 	}

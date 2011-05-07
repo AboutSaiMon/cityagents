@@ -15,34 +15,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package cityagents.gui;
+
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+
+import cityagents.gui.listeners.ContextMenuListener;
 
 /**
- * 
+ *
  * @author Deep Blue Team
  */
-public class Street implements WorldObject {
+public class ContextMenu extends JPopupMenu {
 
-	private static final long serialVersionUID = -7588867486479307105L;
+	private static ContextMenu thisInstance;
+	private JMenuItem setDirection;
 	
-	private Direction direction;
-	
-	public Street() {
-		direction = Direction.NONE;
+	private ContextMenu() {
+		setDirection = new JMenuItem("Edit direction");
+		setDirection.addActionListener(new ContextMenuListener());
+		add(setDirection);
 	}
 	
-	/**
-	 * @return the direction
-	 */
-	public Direction getDirection() {
-		return direction;
+	public static ContextMenu getInstance() {
+		if( thisInstance == null ) {
+			thisInstance = new ContextMenu();
+		}
+		return thisInstance;
 	}
 	
-	/**
-	 * @param direction the direction to set
-	 */
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
-
 }

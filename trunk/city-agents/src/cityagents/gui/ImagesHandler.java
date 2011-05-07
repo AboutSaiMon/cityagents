@@ -40,6 +40,10 @@ public class ImagesHandler {
 	private Image house = null;
 	private Image houseButton = null;
 	private Image car = null;
+	private Image arrowNorth = null;
+	private Image arrowSouth = null;
+	private Image arrowWest = null;
+	private Image arrowEast = null;
 
 	private ImagesHandler() {
 		loadImages();
@@ -79,6 +83,34 @@ public class ImagesHandler {
 	public Image getCar() {
 		return car;
 	}
+	
+	/**
+	 * @return the arrow
+	 */
+	public Image getArrowNorth() {
+		return arrowNorth;
+	}
+	
+	/**
+	 * @return the arrowSouth
+	 */
+	public Image getArrowSouth() {
+		return arrowSouth;
+	}
+	
+	/**
+	 * @return the arrowWest
+	 */
+	public Image getArrowWest() {
+		return arrowWest;
+	}
+	
+	/**
+	 * @return the arrowEast
+	 */
+	public Image getArrowEast() {
+		return arrowEast;
+	}
 
 	private void loadImages() {
 		Toolkit t = Toolkit.getDefaultToolkit();
@@ -90,6 +122,10 @@ public class ImagesHandler {
 		house = t.getImage(IMAGES_PATH + "house.gif");
 		houseButton = t.getImage(IMAGES_PATH + "house-button.gif");
 		car = t.getImage(IMAGES_PATH + "car.gif");
+		arrowNorth = t.getImage(IMAGES_PATH + "arrow-n.png");
+		arrowSouth = t.getImage(IMAGES_PATH + "arrow-s.png");
+		arrowWest = t.getImage(IMAGES_PATH + "arrow-w.png");
+		arrowEast = t.getImage(IMAGES_PATH + "arrow-e.png");
 
 		MediaTracker mt = new MediaTracker(new JPanel());
 		mt.addImage(street, 0);
@@ -99,9 +135,13 @@ public class ImagesHandler {
 		mt.addImage(house, 4);
 		mt.addImage(houseButton, 5);
 		mt.addImage(car, 6);
+		mt.addImage(arrowNorth, 7);
+		mt.addImage(arrowSouth, 8);
+		mt.addImage(arrowWest, 9);
+		mt.addImage(arrowEast, 10);
 
 		try {
-			for (int i = 0; i <= 6; i++) {
+			for (int i = 0; i <= 10; i++) {
 				mt.waitForID(i);
 			}
 		} catch (InterruptedException e) {

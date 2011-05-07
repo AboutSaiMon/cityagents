@@ -88,6 +88,34 @@ public class WorldMap implements Serializable {
 		}
 	}
 
+	public void setDirection(Direction direction, int x, int y) {
+		if (editable) {
+			if (world[x][y] instanceof Street) {
+				Street street = (Street) world[x][y];
+				street.setDirection(direction);
+			}
+		}
+	}
+
+	/**
+	 * This method returns the direction of the street. It can
+	 * returns a null value.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public Direction getDirection(int x, int y) {
+		Direction direction = null;
+		if( editable) {
+			if (world[x][y] instanceof Street) {
+				Street street = (Street) world[x][y];
+				direction = street.getDirection();
+			}
+		}
+		return direction;
+	}
+
 	public void setStreet(int x, int y) {
 		if (editable)
 			world[x][y] = new Street();
@@ -107,15 +135,15 @@ public class WorldMap implements Serializable {
 		if (editable)
 			world[p.x][p.y] = new Grass();
 	}
-	
+
 	public void setHouse(int x, int y) {
-		if( editable) {
+		if (editable) {
 			world[x][y] = new House();
 		}
 	}
-	
+
 	public void setHouse(Point p) {
-		if( editable) {
+		if (editable) {
 			world[p.x][p.y] = new House();
 		}
 	}
@@ -127,7 +155,7 @@ public class WorldMap implements Serializable {
 	public void setCar(Point p, CarAgent c) {
 		world[p.x][p.y] = c;
 	}
-	
+
 	public WorldObject getElement(int x, int y) {
 		return world[x][y];
 	}
@@ -153,10 +181,12 @@ public class WorldMap implements Serializable {
 		if (g != null) {
 			for (int i = 0; i < (worldSize * 2); i++) {
 				for (int j = 0; j < worldSize; j++) {
-					if (world[i][j] instanceof CarAgent ) {
+					if (world[i][j] instanceof CarAgent) {
 						CarAgent c = (CarAgent) world[i][j];
 						try {
-							g.getContainerController().acceptNewAgent("Car" + numberOfAgents, c).start();
+							g.getContainerController()
+									.acceptNewAgent("Car" + numberOfAgents, c)
+									.start();
 							numberOfAgents++;
 						} catch (StaleProxyException e) {
 							e.printStackTrace();
@@ -170,10 +200,11 @@ public class WorldMap implements Serializable {
 	public void startAgent(int i, int j) {
 		PrincipalFrame frame = PrincipalFrame.getInstance();
 		GraphicAgent g = frame.getGraphicAgent();
-		if (world[i][j] instanceof CarAgent ) {
+		if (world[i][j] instanceof CarAgent) {
 			CarAgent c = (CarAgent) world[i][j];
 			try {
-				g.getContainerController().acceptNewAgent("Car" + numberOfAgents, c).start();
+				g.getContainerController()
+						.acceptNewAgent("Car" + numberOfAgents, c).start();
 				numberOfAgents++;
 			} catch (StaleProxyException e) {
 				e.printStackTrace();
