@@ -20,87 +20,92 @@ package cityagents.gui;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
+import java.io.File;
 
 import javax.swing.JPanel;
 
-import cityagents.util.Constants;
-
-
 /**
- *
+ * 
  * @author Deep Blue Team
  */
-public class ImagesHandler 
-{
-	private static ImagesHandler instance = null;	
-	
-	private Image IMAGE_CAR = null;
-	private Image IMAGE_STREET = null;
-	private Image IMAGE_HOUSE = null;
-	
-	/**
-	 * 
-	 */
-	private ImagesHandler() 
-	{
+public class ImagesHandler {
+
+	private static String IMAGES_PATH = "src" + File.separator + "resources" + File.separator;
+	private static ImagesHandler instance = null;
+
+	private Image street = null;
+	private Image streetButton = null;
+	private Image grass = null;
+	private Image grassButton = null;
+	private Image house = null;
+	private Image houseButton = null;
+	private Image car = null;
+
+	private ImagesHandler() {
 		loadImages();
 	}
-	
-	public static ImagesHandler getInstance()
-	{
-		if( instance == null )
-		{				
+
+	public static ImagesHandler getInstance() {
+		if (instance == null) {
 			instance = new ImagesHandler();
 		}
 		return instance;
 	}
-	
-	/**
-	 * @return the iMAGE_HOUSE
-	 */
-	public Image getIMAGE_HOUSE() 
-	{
-		return IMAGE_HOUSE;
+
+	public Image getGrass() {
+		return grass;
 	}
 	
-	/**
-	 * @return the iMAGE_STREET
-	 */
-	public Image getIMAGE_STREET() 
-	{
-		return IMAGE_STREET;
+	public Image getGrassButton() {
+		return grassButton;
+	}
+
+	public Image getStreet() {
+		return street;
 	}
 	
-	/**
-	 * @return the iMAGE_CAR
-	 */
-	public Image getIMAGE_CAR() 
-	{
-		return IMAGE_CAR;
+	public Image getStreetButton() {
+		return streetButton;
+	}
+
+	public Image getHouse() {
+		return house;
 	}
 	
-	private void loadImages()
-	{
+	public Image getHouseButton() {
+		return houseButton;
+	}
+	
+	public Image getCar() {
+		return car;
+	}
+
+	private void loadImages() {
 		Toolkit t = Toolkit.getDefaultToolkit();
-	
-		IMAGE_STREET = t.getImage( Constants.IMAGES_PATH + "street_small.jpg" );
-		IMAGE_HOUSE = t.getImage( Constants.IMAGES_PATH + "build_small.gif" );
-		IMAGE_CAR = t.getImage( Constants.IMAGES_PATH + "car_small.gif" );
-		MediaTracker mt = new MediaTracker( new JPanel() );
-		mt.addImage( IMAGE_STREET, 0 );
-		mt.addImage( IMAGE_HOUSE, 1 );
-		mt.addImage( IMAGE_CAR, 2 );
-		
-		try 
-		{
-			for( int i = 0; i < 2; i++ )
-			{
-				mt.waitForID( i );
+
+		street = t.getImage(IMAGES_PATH + "street.jpg");
+		streetButton = t.getImage(IMAGES_PATH + "street-button.jpg");
+		grass = t.getImage(IMAGES_PATH + "grass.gif");
+		grassButton = t.getImage(IMAGES_PATH + "grass-button.gif");
+		house = t.getImage(IMAGES_PATH + "house.jpg");
+		houseButton = t.getImage(IMAGES_PATH + "house-button.jpg");
+		car = t.getImage(IMAGES_PATH + "car.gif");
+
+		MediaTracker mt = new MediaTracker(new JPanel());
+		mt.addImage(street, 0);
+		mt.addImage(streetButton, 1);
+		mt.addImage(grass, 2);
+		mt.addImage(grassButton, 3);
+		mt.addImage(house, 4);
+		mt.addImage(houseButton, 5);
+		mt.addImage(car, 6);
+
+		try {
+			for (int i = 0; i <= 6; i++) {
+				mt.waitForID(i);
 			}
-		} 
-		catch ( InterruptedException e ) 
-		{
+		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 }

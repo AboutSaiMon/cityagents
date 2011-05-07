@@ -28,14 +28,13 @@ import java.util.HashMap;
 import cityagents.core.MessageContent;
 import cityagents.core.Street;
 import cityagents.core.WorldMap;
-import cityagents.core.WorldObjects;
-import cityagents.util.Constants;
+import cityagents.core.WorldObject;
 
 /**
  *
  * @author Deep Blue Team
  */
-public class CarAgent extends Agent implements WorldObjects
+public class CarAgent extends Agent implements WorldObject
 {
 	private static final long serialVersionUID = -5719389862334582000L;
 	private Point start;
@@ -65,8 +64,8 @@ public class CarAgent extends Agent implements WorldObjects
 				int worldSize = world.getWorldSize();
 				if( start.x >= 0 && start.y < worldSize && destination.x >= 0 && destination.y < ( worldSize * 2 ) )
 				{
-					WorldObjects elementAtStart = world.getElement( start );
-					WorldObjects elementAtDestination = world.getElement( destination );
+					WorldObject elementAtStart = world.getElement( start );
+					WorldObject elementAtDestination = world.getElement( destination );
 					
 					if( elementAtStart instanceof Street && elementAtDestination instanceof Street )
 					{
@@ -92,12 +91,6 @@ public class CarAgent extends Agent implements WorldObjects
 			doDelete();
 		}
 		
-	}
-
-	@Override
-	public Integer getType() 
-	{
-		return Constants.CAR;
 	}
 	
 	public void addNewEntryForTimeCrossroadMap( Integer time, Object crossroad )

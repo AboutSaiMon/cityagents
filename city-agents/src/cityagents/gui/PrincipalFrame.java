@@ -38,7 +38,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import cityagents.core.WorldMap;
-import cityagents.core.WorldObjects;
+import cityagents.core.WorldObject;
 import cityagents.core.agents.GraphicAgent;
 import cityagents.gui.listeners.CaKeyListener;
 
@@ -72,8 +72,7 @@ public class PrincipalFrame extends JFrame {
 		// sets the frame size
 		setSize(dim.width / 2, dim.height / 2);
 		// sets the position to the center of the screen
-		setLocationRelativeTo(null);		
-		setState(MAXIMIZED_BOTH);
+		setLocationRelativeTo(null);
 		// sets the default action when the exit button is pressed
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		// adds the main panel
@@ -84,9 +83,9 @@ public class PrincipalFrame extends JFrame {
 		setJMenuBar(menuBar);
 		// adds the key listener
 		addKeyListener(new CaKeyListener());
+		setFocusable(true);
 		// sets the visibility of the frame
 		setVisible(true);
-		setFocusable( true );
 	}
 	
 	public static PrincipalFrame getInstance() {
@@ -157,7 +156,7 @@ public class PrincipalFrame extends JFrame {
 			inputStream = new FileInputStream(file);
 			buffer = new BufferedInputStream(inputStream);
 			input = new ObjectInputStream(buffer);
-			world.setMap((WorldObjects[][]) input.readObject());
+			world.setMap((WorldObject[][]) input.readObject());
 			repaint();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

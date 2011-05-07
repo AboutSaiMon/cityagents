@@ -15,24 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui;
+package cityagents.core;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import cityagents.core.WorldObject;
+import java.io.Serializable;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
-public class AddAgentActionListener implements ActionListener 
-{
-
-	@Override
-	public void actionPerformed( ActionEvent arg0 ) 
-	{
-		PrincipalFrame frame = PrincipalFrame.getInstance();
-		frame.getPanel().currentChoice = WorldObject.CAR;
-	}
+public interface WorldObject extends Serializable {
+	
+	public static final int STREET = 0;
+	public static final int GRASS = 1;
+	public static final int HOUSE = 2;
+	public static final int CAR = 3;
+	
 }

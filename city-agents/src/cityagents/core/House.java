@@ -17,19 +17,12 @@
  */
 package cityagents.core;
 
-import cityagents.util.Constants;
-
 /**
  * 
  * @author Deep Blue Team
  */
-public class House implements WorldObjects {
+public class House extends Obstacle {
 	
 	private static final long serialVersionUID = 8818888364445649106L;
-
-	@Override
-	public Integer getType() {
-		return Constants.HOUSE;
-	}
 
 }

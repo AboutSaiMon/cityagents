@@ -25,154 +25,140 @@ import java.io.Serializable;
 import cityagents.core.agents.CarAgent;
 import cityagents.core.agents.GraphicAgent;
 import cityagents.gui.PrincipalFrame;
-import cityagents.util.Constants;
 
 /**
  * This class is a singleton class that contains the world map.
+ * 
  * @author Deep Blue Team
  */
-public class WorldMap implements Serializable 
-{	
+public class WorldMap implements Serializable {
+
 	private static final long serialVersionUID = 2283101559110941224L;
-	
+
 	private static WorldMap thisInstance;
-	private WorldObjects[][] world;
+	private WorldObject[][] world;
 	private int worldSize = 20;
 	private boolean editable = true;
-	
+
 	private int numberOfAgents = 0;
-	
+
 	/**
 	 * 
 	 */
-	private WorldMap() 
-	{
-		world = new WorldObjects[ worldSize * 2 ][ worldSize ];
+	private WorldMap() {
+		world = new WorldObject[worldSize * 2][worldSize];
 		init();
 	}
-	
-	public static WorldMap getInstance() 
-	{
-		if( thisInstance == null ) 
-		{
+
+	public static WorldMap getInstance() {
+		if (thisInstance == null) {
 			thisInstance = new WorldMap();
 		}
 		return thisInstance;
 	}
-	
+
 	/**
 	 * 
 	 */
-	private void init() 
-	{
-		for( int i = 0; i < ( worldSize * 2 ); i++ )
-		{
-			for( int j = 0; j < worldSize; j++ )
-			{
-				world[ i ][ j ] = new House();
+	private void init() {
+		for (int i = 0; i < (worldSize * 2); i++) {
+			for (int j = 0; j < worldSize; j++) {
+				world[i][j] = new Grass();
 			}
 		}
 	}
-	
-	public int getWorldSize()
-	{
+
+	public int getWorldSize() {
 		return worldSize;
 	}
-	
-	public void setMap(WorldObjects[][] map) {
+
+	public void setMap(WorldObject[][] map) {
 		world = map;
 	}
-	
-	public WorldObjects[][] getMap() {
+
+	public WorldObject[][] getMap() {
 		return world;
 	}
-	
-	public void resize( int newSize )
-	{
-		if( editable )
-		{
+
+	public void resize(int newSize) {
+		if (editable) {
 			worldSize = newSize;
-			world = new WorldObjects[ worldSize * 2 ][ worldSize ];
+			world = new WorldObject[worldSize * 2][worldSize];
 			init();
 		}
 	}
-	
-	public void setStreet( int x, int y )
-	{		
-		if( editable )
-			world[ x ][ y ] = new Street();
+
+	public void setStreet(int x, int y) {
+		if (editable)
+			world[x][y] = new Street();
+	}
+
+	public void setStreet(Point p) {
+		if (editable)
+			world[p.x][p.y] = new Street();
+	}
+
+	public void setGrass(int x, int y) {
+		if (editable)
+			world[x][y] = new Grass();
+	}
+
+	public void setGrass(Point p) {
+		if (editable)
+			world[p.x][p.y] = new Grass();
 	}
 	
-	public void setStreet( Point p )
-	{		
-		if( editable )
-			world[ p.x ][ p.y ] = new Street();
+	public void setHouse(int x, int y) {
+		if( editable) {
+			world[x][y] = new House();
+		}
 	}
 	
-	public void setHouse( int x, int y )
-	{
-		if( editable )
-			world[ x ][ y ] = new House();
+	public void setHouse(Point p) {
+		if( editable) {
+			world[p.x][p.y] = new House();
+		}
+	}
+
+	public void setCar(int x, int y, CarAgent c) {
+		world[x][y] = c;
+	}
+
+	public void setCar(Point p, CarAgent c) {
+		world[p.x][p.y] = c;
 	}
 	
-	public void setHouse( Point p )
-	{
-		if( editable )
-			world[ p.x ][ p.y ] = new House();
+	public WorldObject getElement(int x, int y) {
+		return world[x][y];
 	}
-	
-	public void setCar( int x, int y, CarAgent c )
-	{
-		world[ x ][ y ] = c;
+
+	public WorldObject getElement(Point p) {
+		return world[p.x][p.y];
 	}
-	
-	public void setCar( Point p, CarAgent c )
-	{
-		world[ p.x ][ p.y ] = c;
-	}
-	
-	public WorldObjects getElement( int x, int y )
-	{
-		return world[ x ][ y ];		
-	}
-	
-	public WorldObjects getElement( Point p )
-	{
-		return world[ p.x ][ p.y ];		
-	}
-	
-	public boolean isEditable() 
-	{
+
+	public boolean isEditable() {
 		return editable;
 	}
 
-	public void setEditable( boolean editable ) 
-	{
+	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
 
 	/**
 	 * 
 	 */
-	public void startAgents() 
-	{
+	public void startAgents() {
 		PrincipalFrame frame = PrincipalFrame.getInstance();
 		GraphicAgent g = frame.getGraphicAgent();
-		if( g != null )
-		{
-			for( int i = 0; i < ( worldSize * 2 ); i++ )
-			{
-				for( int j = 0; j < worldSize; j++ )
-				{
-					if( world[ i ][ j ].getType().intValue() == Constants.CAR )
-					{
-						CarAgent c = ( CarAgent ) world[ i ][ j ];
-						try 
-						{
-							g.getContainerController().acceptNewAgent( "Car" + numberOfAgents, c ).start();
+		if (g != null) {
+			for (int i = 0; i < (worldSize * 2); i++) {
+				for (int j = 0; j < worldSize; j++) {
+					if (world[i][j] instanceof CarAgent ) {
+						CarAgent c = (CarAgent) world[i][j];
+						try {
+							g.getContainerController().acceptNewAgent("Car" + numberOfAgents, c).start();
 							numberOfAgents++;
-						} catch (StaleProxyException e) 
-						{
+						} catch (StaleProxyException e) {
 							e.printStackTrace();
 						}
 					}
@@ -180,22 +166,19 @@ public class WorldMap implements Serializable
 			}
 		}
 	}
-	
-	public void startAgent( int i, int j )	
-	{
+
+	public void startAgent(int i, int j) {
 		PrincipalFrame frame = PrincipalFrame.getInstance();
 		GraphicAgent g = frame.getGraphicAgent();
-		if( world[ i ][ j ].getType().intValue() == Constants.CAR )
-		{
-			CarAgent c = ( CarAgent ) world[ i ][ j ];
-			try 
-			{
-				g.getContainerController().acceptNewAgent( "Car" + numberOfAgents, c ).start();
+		if (world[i][j] instanceof CarAgent ) {
+			CarAgent c = (CarAgent) world[i][j];
+			try {
+				g.getContainerController().acceptNewAgent("Car" + numberOfAgents, c).start();
 				numberOfAgents++;
-			} catch (StaleProxyException e) 
-			{
+			} catch (StaleProxyException e) {
 				e.printStackTrace();
 			}
 		}
 	}
+
 }
