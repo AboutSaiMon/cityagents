@@ -15,34 +15,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package cityagents.gui.listeners;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import cityagents.gui.PrincipalFrame;
+import cityagents.gui.RightPanel;
 
 /**
- * 
+ *
  * @author Deep Blue Team
  */
-public class Street implements WorldObject {
+public class ContextMenuListener implements ActionListener {
 
-	private static final long serialVersionUID = -7588867486479307105L;
+	private RightPanel panel;
 	
-	private Direction direction;
-	
-	public Street() {
-		direction = Direction.NONE;
+	public ContextMenuListener() {
+		panel = PrincipalFrame.getInstance().getRightPanel();
 	}
 	
-	/**
-	 * @return the direction
-	 */
-	public Direction getDirection() {
-		return direction;
-	}
-	
-	/**
-	 * @param direction the direction to set
-	 */
-	public void setDirection(Direction direction) {
-		this.direction = direction;
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		panel.setEditDirection(true);
 	}
 
 }

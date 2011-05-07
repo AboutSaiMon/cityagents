@@ -3,234 +3,169 @@ package cityagents.gui;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import cityagents.core.Direction;
 import cityagents.core.Grass;
 import cityagents.core.House;
 import cityagents.core.Street;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
 import cityagents.core.agents.CarAgent;
+import cityagents.gui.listeners.RPanelMouseListener;
 
-public class RightPanel extends JPanel
-{
-	/**
-	 * 
-	 */
+public class RightPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-		
 	private static final int size = 30;
-	
 	private PrincipalPanel superiorPanel;
-	
-	WorldMap world;
-	
+	private WorldMap world;
 	private ImagesHandler images;
+
+	private List<Point> cellToDraw;
 	private boolean startDraw = false;
-	private boolean addAnAgent = false;	
-	private Point agentStart;
-	private List< Point > cellsToDraw;
-	
-	public RightPanel( PrincipalPanel p ) 
-	{
-		this.setOpaque( false );
+	private boolean addAnAgent = false;
+	private boolean editDirection = false;
+	private Direction currentDirection = Direction.NONE;
+
+	public RightPanel(PrincipalPanel p) {
+		this.setOpaque(false);
 		images = ImagesHandler.getInstance();
 		superiorPanel = p;
 		world = WorldMap.getInstance();
-		this.setPreferredSize( new Dimension( 52 * 2 * size, 52 * size ) );
-		cellsToDraw = new ArrayList< Point >();
-		addListeners();
+		cellToDraw = new ArrayList<Point>();
+		this.setPreferredSize(new Dimension(52 * 2 * size, 52 * size));
+		addMouseListener(new RPanelMouseListener(this, size));
+		addMouseMotionListener(new RPanelMouseListener(this, size));
+	}
+	
+	/**
+	 * @return the currentDirection
+	 */
+	public Direction getCurrentDirection() {
+		return currentDirection;
+	}
+	
+	/**
+	 * @param currentDirection the currentDirection to set
+	 */
+	public void setCurrentDirection(Direction currentDirection) {
+		this.currentDirection = currentDirection;
+	}
+
+	/**
+	 * @param editDirection
+	 *            the editDirection to set
+	 */
+	public void setEditDirection(boolean editDirection) {
+		this.editDirection = editDirection;
+	}
+
+	/**
+	 * @return the editDirection
+	 */
+	public boolean isEditDirection() {
+		return editDirection;
+	}
+
+	/**
+	 * @return the startDraw
+	 */
+	public boolean isStartDraw() {
+		return startDraw;
+	}
+
+	public void setStartDraw(boolean flag) {
+		startDraw = flag;
+	}
+
+	/**
+	 * @return the addAnAgent
+	 */
+	public boolean isAddAnAgent() {
+		return addAnAgent;
+	}
+
+	public void setAddAnAgent(boolean flag) {
+		addAnAgent = flag;
+	}
+
+	public void addCellToDraw(Point p) {
+		cellToDraw.add(p);
+	}
+
+	public List<Point> getCellsToDraw() {
+		return Collections.unmodifiableList(cellToDraw);
+	}
+
+	public void clearCellToDraw() {
+		cellToDraw.clear();
+	}
+
+	/**
+	 * @return the superiorPanel
+	 */
+	public PrincipalPanel getSuperiorPanel() {
+		return superiorPanel;
 	}
 
 	@Override
-	protected void paintComponent( Graphics graphics ) 
-	{
-		super.paintComponent( graphics );
-		for( int i = 0; i < world.getWorldSize() * 2; i++ ) 
-		{
-			for( int j = 0; j < world.getWorldSize(); j++ )
-			{
-				WorldObject element = world.getElement( i , j );
-								
-				if( element instanceof CarAgent )
-				{
-					graphics.drawImage( images.getStreet() , i * size + 20, j * size + 20, null );
-					graphics.drawImage( images.getCar() , i * size + 20, j * size + 20, null );
-				}
-				else if( element instanceof Grass ) 
-				{
-					graphics.drawImage( images.getGrass() , i * size + 20, j * size + 20, null );
-				}
-				else if( element instanceof House )
-				{
-					graphics.drawImage( images.getGrass() , i * size + 20, j * size + 20, null );
-					graphics.drawImage( images.getHouse() , i * size + 20, j * size + 20, null );
-				}
-				else if( element instanceof Street )
-				{
-					graphics.drawImage( images.getStreet() , i * size + 20, j * size + 20, null );
+	protected void paintComponent(Graphics graphics) {
+		super.paintComponent(graphics);
+		for (int i = 0; i < world.getWorldSize() * 2; i++) {
+			for (int j = 0; j < world.getWorldSize(); j++) {
+				WorldObject element = world.getElement(i, j);
+
+				if (element instanceof CarAgent) {
+					graphics.drawImage(images.getStreet(), i * size + 20, j	* size + 20, null);
+					graphics.drawImage(images.getCar(), i * size + 20, j * size	+ 20, null);
+				} else if (element instanceof Grass) {
+					graphics.drawImage(images.getGrass(), i * size + 20, j * size + 20, null);
+				} else if (element instanceof House) {
+					graphics.drawImage(images.getGrass(), i * size + 20, j * size + 20, null);
+					graphics.drawImage(images.getHouse(), i * size + 20, j * size + 20, null);
+				} else if (element instanceof Street) {
+					graphics.drawImage(images.getStreet(), i * size + 20, j * size + 20, null);
+					if( isEditDirection() ) {
+						drawDirection(graphics, element, i, j);
+					}
 				}
 			}
-		}		
+		}
 	}
 	
-	private void addListeners()
-	{
-		this.addMouseMotionListener( new MouseMotionListener() 
-		{
-		
-			@Override
-			public void mouseMoved( MouseEvent e ) 
-			{
-			}
+	private void drawDirection(Graphics graphics, WorldObject element, int i, int j) {
+		Street street = (Street) element;
+		Direction dir = street.getDirection();
+		if( dir.equals(Direction.NORTH)) {
+			graphics.drawImage(images.getArrowNorth(), i * size + 20, j * size + 20, null);
+		} else if( dir.equals(Direction.SOUTH)) {
+			graphics.drawImage(images.getArrowSouth(), i * size + 20, j * size + 20, null);
+		} else if( dir.equals(Direction.WEST)) {
+			graphics.drawImage(images.getArrowWest(), i * size + 20, j * size + 20, null);
+		} else if( dir.equals(Direction.EAST)) {
+			graphics.drawImage(images.getArrowEast(), i * size + 20, j * size + 20, null);
+		} else if( dir.equals(Direction.NORTH_WEST)) {
 			
-			@Override
-			public void mouseDragged( MouseEvent e ) 
-			{
-				if( startDraw )
-				{
-					int x = e.getX();
-					int y = e.getY();
-					
-					int i = ( x - 20 ) / size;
-					int j = ( y - 20 ) / size;
-					
-					if( i >= 0 && i < ( world.getWorldSize() * 2 ) && j >= 0 && j < world.getWorldSize() )
-					{
-						Point p = new Point( i, j );
-						cellsToDraw.add( p );
-					}
-				}
-			}
-		});
-		
-		this.addMouseListener( new MouseListener() 
-		{
+		} else if( dir.equals(Direction.NORTH_EAST)) {
 			
-			@Override
-			public void mouseReleased( MouseEvent e ) 
-			{
-				for( Point p : cellsToDraw )
-				{
-					int i = p.x;
-					int j = p.y;
-					switch( superiorPanel.currentChoice ) 
-					{
-					case WorldObject.STREET:
-						world.setStreet( i , j );
-						break;					
-					
-					case WorldObject.GRASS:
-						world.setGrass( i , j );
-						break;
-						
-					case WorldObject.HOUSE:
-						world.setHouse(i, j);
-						break;
-
-					default:
-						break;
-					}								
-				}
-				repaint();
-				cellsToDraw.clear();
-				startDraw = false;
-			}
+		} else if( dir.equals(Direction.SOUTH_WEST)) {
 			
-			@Override
-			public void mousePressed( MouseEvent e ) 
-			{
-				startDraw = true;				
-			}
+		} else if( dir.equals(Direction.SOUTH_EAST)) {
 			
-			@Override
-			public void mouseExited( MouseEvent e ) 
-			{
-				
-			}
+		} else if( dir.equals(Direction.NORTH_WEST_EAST)) {
 			
-			@Override
-			public void mouseEntered( MouseEvent e ) 
-			{									
-			}
+		} else if( dir.equals(Direction.NORTH_WEST_EAST)) {
 			
-			@Override
-			public void mouseClicked( MouseEvent e ) 
-			{				
-				if( e.getButton() == MouseEvent.BUTTON3 )
-				{ 	//with right click can cancel the insert.
-					addAnAgent = false;
-					agentStart = null;
-				}
-				else
-				{
-					startDraw = true;
-					int x = e.getX();
-					int y = e.getY();
-					
-					int i = ( x - 20 ) / size;
-					int j = ( y - 20 ) / size;
-					
-					if( i >= 0 && i < ( world.getWorldSize() * 2 ) && j >= 0 && j < world.getWorldSize() )
-					{
-						switch( superiorPanel.currentChoice ) 
-						{
-						case WorldObject.STREET:
-							world.setStreet( i , j );
-							break;					
-						
-						case WorldObject.GRASS:
-							world.setGrass( i , j );
-							break;
-							
-						case WorldObject.HOUSE:
-							world.setHouse( i, j);
-	
-						case WorldObject.CAR:
-							if( addAnAgent )
-							{
-								if( world.getElement( i, j ) instanceof Street )
-								{
-									CarAgent c = new CarAgent();
-									Point[] arguments = new Point[ 2 ];
-									arguments[ 0 ] = new Point( agentStart );
-									arguments[ 1 ] = new Point( i, j );
-									c.setArguments( arguments );
-									world.setCar( agentStart.x, agentStart.y, c );
-									addAnAgent = false;
-									agentStart = null;
-									PrincipalFrame frame = PrincipalFrame.getInstance();
-									JOptionPane.showMessageDialog( frame, "Added Agent", "Added Agent", JOptionPane.INFORMATION_MESSAGE );
-									if( !world.isEditable() )
-										world.startAgent( i, j );
-								}
-							}
-							else
-							{		
-								if( world.getElement(i,j) instanceof Street )
-								{
-									addAnAgent = true;
-									agentStart = new Point( i, j );
-									PrincipalFrame frame = PrincipalFrame.getInstance();
-									JOptionPane.showMessageDialog( frame, "Set Destination.", "Destination", JOptionPane.INFORMATION_MESSAGE );	
-								}
-							}
-							break;	
-							
-						default:
-							break;
-						}					
-					}
-				}
-				repaint();
-			}
-		});
-	}	
+		} else if( dir.equals(Direction.SOUTH_WEST_EAST)) {
+			
+		} else if( dir.equals(Direction.WEST_NORTH_SOUTH)) {
+			
+		} else if( dir.equals(Direction.EAST_NORTH_SOUTH)) {
+			
+		}
+	}
 }

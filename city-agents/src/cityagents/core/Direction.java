@@ -18,31 +18,15 @@
 package cityagents.core;
 
 /**
- * 
+ *
  * @author Deep Blue Team
  */
-public class Street implements WorldObject {
+public enum Direction {
 
-	private static final long serialVersionUID = -7588867486479307105L;
+	NONE,
+	NORTH, SOUTH, WEST, EAST, 
+	NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST, 
+	NORTH_WEST_EAST, SOUTH_WEST_EAST,
+	WEST_NORTH_SOUTH, EAST_NORTH_SOUTH
 	
-	private Direction direction;
-	
-	public Street() {
-		direction = Direction.NONE;
-	}
-	
-	/**
-	 * @return the direction
-	 */
-	public Direction getDirection() {
-		return direction;
-	}
-	
-	/**
-	 * @param direction the direction to set
-	 */
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
-
 }

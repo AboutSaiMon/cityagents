@@ -223,6 +223,10 @@ public class PrincipalFrame extends JFrame {
 	{
 		this.graphicAgent = graphicAgent;
 	}
+	
+	public RightPanel getRightPanel() {
+		return principalPanel.getRight();
+	}
 
 	/*
 	 * void addBehaviour() { if (numberOfAgentsToAdd != -1 && seconds != 0) {
