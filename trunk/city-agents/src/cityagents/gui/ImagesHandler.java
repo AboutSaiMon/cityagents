@@ -87,8 +87,8 @@ public class ImagesHandler {
 		streetButton = t.getImage(IMAGES_PATH + "street-button.jpg");
 		grass = t.getImage(IMAGES_PATH + "grass.gif");
 		grassButton = t.getImage(IMAGES_PATH + "grass-button.gif");
-		house = t.getImage(IMAGES_PATH + "house.jpg");
-		houseButton = t.getImage(IMAGES_PATH + "house-button.jpg");
+		house = t.getImage(IMAGES_PATH + "house.gif");
+		houseButton = t.getImage(IMAGES_PATH + "house-button.gif");
 		car = t.getImage(IMAGES_PATH + "car.gif");
 
 		MediaTracker mt = new MediaTracker(new JPanel());
