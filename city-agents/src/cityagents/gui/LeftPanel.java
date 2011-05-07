@@ -19,12 +19,12 @@ public class LeftPanel extends JPanel {
 	private PrincipalPanel superiorPanel;
 	private JButton street;
 	private JButton grass;
-	//private JButton house;
+	private JButton house;
 	private JButton car;
 	private JButton start;
 
 	public LeftPanel(PrincipalPanel p) {
-		setLayout(new GridLayout(4, 1));
+		setLayout(new GridLayout(5, 1));
 		superiorPanel = p;
 		setPreferredSize(new Dimension(150, 50));
 		setOpaque(false);
@@ -34,15 +34,16 @@ public class LeftPanel extends JPanel {
 		street.addMouseListener(new ObjectButtonListner(superiorPanel, STREET));
 		grass = new JButton(new ImageIcon(handler.getGrassButton()));
 		grass.addMouseListener(new ObjectButtonListner(superiorPanel, GRASS));
-		//house = new JButton(new ImageIcon(handler.getHouseButton()));
-		//house.addMouseListener(new ObjectButtonListner(superiorPanel, HOUSE));
+		house = new JButton(new ImageIcon(handler.getHouseButton()));
+		house.addMouseListener(new ObjectButtonListner(superiorPanel, HOUSE));
 		car = new JButton(new ImageIcon(handler.getCar()));
 		car.addMouseListener(new ObjectButtonListner(superiorPanel, CAR));
 		start = new JButton("START");
 		start.addMouseListener(new ObjectButtonListner(superiorPanel));
 		add(street, 0);
 		add(grass, 1);
-		add(car, 2);
-		add(start, 3);
+		add(house, 2);
+		add(car, 3);
+		add(start, 4);
 	}
 }
