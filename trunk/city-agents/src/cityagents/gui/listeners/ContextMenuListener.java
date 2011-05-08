@@ -38,6 +38,7 @@ public class ContextMenuListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		panel.setEditDirection(true);
+		panel.repaint();
 	}
 
 }
