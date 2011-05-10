@@ -196,9 +196,9 @@ public class ImagesHandler {
 	private void loadImages() {
 		Toolkit t = Toolkit.getDefaultToolkit();
 
-		street = t.getImage(IMAGES_PATH + "street.jpg");
+		street = t.getImage(IMAGES_PATH + "street-new.jpg");
 		streetButton = t.getImage(IMAGES_PATH + "street-button.jpg");
-		grass = t.getImage(IMAGES_PATH + "grass.gif");
+		grass = t.getImage(IMAGES_PATH + "grass-new.gif");
 		grassButton = t.getImage(IMAGES_PATH + "grass-button.gif");
 		house = t.getImage(IMAGES_PATH + "house.gif");
 		houseButton = t.getImage(IMAGES_PATH + "house-button.gif");

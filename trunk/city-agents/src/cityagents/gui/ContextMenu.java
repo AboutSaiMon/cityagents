@@ -29,6 +29,11 @@ import cityagents.gui.util.Labels;
  */
 public class ContextMenu extends JPopupMenu {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4224252607713811091L;
+	
 	private static ContextMenu thisInstance;
 	private JMenuItem setDirection;
 	
