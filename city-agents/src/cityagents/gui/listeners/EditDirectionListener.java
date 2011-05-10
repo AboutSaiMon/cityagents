@@ -17,6 +17,7 @@
  */
 package cityagents.gui.listeners;
 
+import static cityagents.gui.util.Labels.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,15 +45,35 @@ public class EditDirectionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem source = (JMenuItem) e.getSource();
-		if( source.getText().equals("North")) {
+		if( source.getText().equals(NORTH)) {
 			panel.setCurrentDirection(Direction.NORTH);
-		} else if( source.getText().equals("South")) {
+		} else if( source.getText().equals(SOUTH)) {
 			panel.setCurrentDirection(Direction.SOUTH);
-		} else if( source.getText().equals("West")) {
+		} else if( source.getText().equals(WEST)) {
 			panel.setCurrentDirection(Direction.WEST);
-		} else if( source.getText().equals("East")) {
+		} else if( source.getText().equals(EAST)) {
 			panel.setCurrentDirection(Direction.EAST);
-		} else if( source.getText().equals("Close")) {
+		} else if( source.getText().equals(NORTH_WEST)) {
+			panel.setCurrentDirection(Direction.NORTH_WEST);
+		} else if( source.getText().equals(NORTH_EAST)) {
+			panel.setCurrentDirection(Direction.NORTH_EAST);
+		} else if( source.getText().equals(SOUTH_WEST)) {
+			panel.setCurrentDirection(Direction.SOUTH_WEST);
+		} else if( source.getText().equals(SOUTH_EAST)) {
+			panel.setCurrentDirection(Direction.SOUTH_EAST);
+		} else if( source.getText().equals(NORTH_SOUTH)) {
+			panel.setCurrentDirection(Direction.NORTH_SOUTH);
+		} else if( source.getText().equals(WEST_EAST)) {
+			panel.setCurrentDirection(Direction.WEST_EAST);
+		} else if( source.getText().equals(NORTH_WEST_EAST)) {
+			panel.setCurrentDirection(Direction.NORTH_WEST_EAST);
+		} else if( source.getText().equals(SOUTH_WEST_EAST)) {
+			panel.setCurrentDirection(Direction.SOUTH_WEST_EAST);
+		} else if( source.getText().equals(WEST_NORTH_SOUTH)) {
+			panel.setCurrentDirection(Direction.WEST_NORTH_SOUTH);
+		} else if( source.getText().equals(EAST_NORTH_SOUTH)) {
+			panel.setCurrentDirection(Direction.EAST_NORTH_SOUTH);
+		} else if( source.getText().equals(CLOSE)) {
 			panel.setEditDirection(false);
 			panel.repaint();
 		}

@@ -30,7 +30,8 @@ import javax.swing.JPanel;
  */
 public class ImagesHandler {
 
-	private static String IMAGES_PATH = "src" + File.separator + "resources" + File.separator;
+	private static String IMAGES_PATH = "src" + File.separator + "resources"
+			+ File.separator;
 	private static ImagesHandler instance = null;
 
 	private Image street = null;
@@ -40,10 +41,20 @@ public class ImagesHandler {
 	private Image house = null;
 	private Image houseButton = null;
 	private Image car = null;
-	private Image arrowNorth = null;
-	private Image arrowSouth = null;
-	private Image arrowWest = null;
-	private Image arrowEast = null;
+	private Image north = null;
+	private Image south = null;
+	private Image west = null;
+	private Image east = null;
+	private Image northWest = null;
+	private Image northEast = null;
+	private Image southWest = null;
+	private Image southEast = null;
+	private Image northSouth = null;
+	private Image westEast = null;
+	private Image northWestEast = null;
+	private Image southWestEast = null;
+	private Image westNorthSouth = null;
+	private Image eastNorthSouth = null;
 
 	private ImagesHandler() {
 		loadImages();
@@ -59,7 +70,7 @@ public class ImagesHandler {
 	public Image getGrass() {
 		return grass;
 	}
-	
+
 	public Image getGrassButton() {
 		return grassButton;
 	}
@@ -67,7 +78,7 @@ public class ImagesHandler {
 	public Image getStreet() {
 		return street;
 	}
-	
+
 	public Image getStreetButton() {
 		return streetButton;
 	}
@@ -75,41 +86,111 @@ public class ImagesHandler {
 	public Image getHouse() {
 		return house;
 	}
-	
+
 	public Image getHouseButton() {
 		return houseButton;
 	}
-	
+
 	public Image getCar() {
 		return car;
 	}
-	
+
 	/**
-	 * @return the arrow
+	 * @return the north
 	 */
-	public Image getArrowNorth() {
-		return arrowNorth;
+	public Image getNorth() {
+		return north;
 	}
-	
+
 	/**
-	 * @return the arrowSouth
+	 * @return the south
 	 */
-	public Image getArrowSouth() {
-		return arrowSouth;
+	public Image getSouth() {
+		return south;
 	}
-	
+
 	/**
-	 * @return the arrowWest
+	 * @return the west
 	 */
-	public Image getArrowWest() {
-		return arrowWest;
+	public Image getWest() {
+		return west;
 	}
-	
+
 	/**
-	 * @return the arrowEast
+	 * @return the east
 	 */
-	public Image getArrowEast() {
-		return arrowEast;
+	public Image getEast() {
+		return east;
+	}
+
+	/**
+	 * @return the northWest
+	 */
+	public Image getNorthWest() {
+		return northWest;
+	}
+
+	/**
+	 * @return the northEast
+	 */
+	public Image getNorthEast() {
+		return northEast;
+	}
+
+	/**
+	 * @return the southWest
+	 */
+	public Image getSouthWest() {
+		return southWest;
+	}
+
+	/**
+	 * @return the southEast
+	 */
+	public Image getSouthEast() {
+		return southEast;
+	}
+
+	/**
+	 * @return the northSouth
+	 */
+	public Image getNorthSouth() {
+		return northSouth;
+	}
+
+	/**
+	 * @return the westEast
+	 */
+	public Image getWestEast() {
+		return westEast;
+	}
+
+	/**
+	 * @return the northWestEast
+	 */
+	public Image getNorthWestEast() {
+		return northWestEast;
+	}
+
+	/**
+	 * @return the southWestEast
+	 */
+	public Image getSouthWestEast() {
+		return southWestEast;
+	}
+
+	/**
+	 * @return the westNorthSouth
+	 */
+	public Image getWestNorthSouth() {
+		return westNorthSouth;
+	}
+
+	/**
+	 * @return the eastNorthSouth
+	 */
+	public Image getEastNorthSouth() {
+		return eastNorthSouth;
 	}
 
 	private void loadImages() {
@@ -122,10 +203,21 @@ public class ImagesHandler {
 		house = t.getImage(IMAGES_PATH + "house.gif");
 		houseButton = t.getImage(IMAGES_PATH + "house-button.gif");
 		car = t.getImage(IMAGES_PATH + "car.gif");
-		arrowNorth = t.getImage(IMAGES_PATH + "arrow-n.png");
-		arrowSouth = t.getImage(IMAGES_PATH + "arrow-s.png");
-		arrowWest = t.getImage(IMAGES_PATH + "arrow-w.png");
-		arrowEast = t.getImage(IMAGES_PATH + "arrow-e.png");
+		north = t.getImage(IMAGES_PATH + "north.png");
+		south = t.getImage(IMAGES_PATH + "south.png");
+		west = t.getImage(IMAGES_PATH + "west.png");
+		east = t.getImage(IMAGES_PATH + "east.png");
+		northWest = t.getImage(IMAGES_PATH + "north-west.png");
+		northEast = t.getImage(IMAGES_PATH + "north-east.png");
+		southWest = t.getImage(IMAGES_PATH + "south-west.png");
+		southEast = t.getImage(IMAGES_PATH + "south-east.png");
+		northWest = t.getImage(IMAGES_PATH + "north-west.png");
+		northSouth = t.getImage(IMAGES_PATH + "north-south.png");
+		westEast = t.getImage(IMAGES_PATH + "west-east.png");
+		northWestEast = t.getImage(IMAGES_PATH + "north-west-east.png");
+		southWestEast = t.getImage(IMAGES_PATH + "south-west-east.png");
+		westNorthSouth = t.getImage(IMAGES_PATH + "west-north-south.png");
+		eastNorthSouth = t.getImage(IMAGES_PATH + "east-north-south.png");
 
 		MediaTracker mt = new MediaTracker(new JPanel());
 		mt.addImage(street, 0);
@@ -135,13 +227,23 @@ public class ImagesHandler {
 		mt.addImage(house, 4);
 		mt.addImage(houseButton, 5);
 		mt.addImage(car, 6);
-		mt.addImage(arrowNorth, 7);
-		mt.addImage(arrowSouth, 8);
-		mt.addImage(arrowWest, 9);
-		mt.addImage(arrowEast, 10);
+		mt.addImage(north, 7);
+		mt.addImage(south, 8);
+		mt.addImage(west, 9);
+		mt.addImage(east, 10);
+		mt.addImage(northWest, 11);
+		mt.addImage(northEast, 12);
+		mt.addImage(southWest, 13);
+		mt.addImage(southEast, 14);
+		mt.addImage(northSouth, 15);
+		mt.addImage(westEast, 16);
+		mt.addImage(northWestEast, 17);
+		mt.addImage(southWestEast, 18);
+		mt.addImage(westNorthSouth, 19);
+		mt.addImage(eastNorthSouth, 20);
 
 		try {
-			for (int i = 0; i <= 10; i++) {
+			for (int i = 0; i <= 18; i++) {
 				mt.waitForID(i);
 			}
 		} catch (InterruptedException e) {

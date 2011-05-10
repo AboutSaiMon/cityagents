@@ -17,6 +17,8 @@
  */
 package cityagents.gui;
 
+import static cityagents.gui.util.Labels.*;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -26,7 +28,6 @@ import cityagents.gui.listeners.DecreaseDimensionListener;
 import cityagents.gui.listeners.ExitListener;
 import cityagents.gui.listeners.IncreaseDimensionListener;
 import cityagents.gui.listeners.LoadMapListener;
-import cityagents.gui.listeners.ContextMenuListener;
 import cityagents.gui.listeners.StoreMapListener;
 
 /**
@@ -65,13 +66,13 @@ public class CaMenuBar extends JMenuBar {
 	}
 	
 	private void setFileMenu() {
-		file = new JMenu("File");
+		file = new JMenu(FILE);
 		
-		loadMap = new JMenuItem("Load map");
+		loadMap = new JMenuItem(LOAD_MAP);
 		loadMap.addActionListener(new LoadMapListener());
-		storeMap = new JMenuItem("Store map");
+		storeMap = new JMenuItem(STORE_MAP);
 		storeMap.addActionListener(new StoreMapListener());
-		exit = new JMenuItem("Exit");
+		exit = new JMenuItem(EXIT);
 		exit.addActionListener(new ExitListener());
 		
 		file.add(loadMap);
@@ -83,11 +84,11 @@ public class CaMenuBar extends JMenuBar {
 	}
 	
 	private void setWorldMenu() {
-		world = new JMenu("World");
+		world = new JMenu(WORLD);
 		
-		increaseDimension = new JMenuItem("Increase dimension");
+		increaseDimension = new JMenuItem(INCREASE_DIMENSION);
 		increaseDimension.addActionListener(new IncreaseDimensionListener());
-		decreaseDimension = new JMenuItem("Decrease dimension");
+		decreaseDimension = new JMenuItem(DECREASE_DIMENSION);
 		decreaseDimension.addActionListener(new DecreaseDimensionListener());
 		
 		world.add(increaseDimension);
@@ -98,12 +99,12 @@ public class CaMenuBar extends JMenuBar {
 	}
 	
 	private void setAgentMenu() {
-		agent = new JMenu("Agent");
+		agent = new JMenu(AGENT);
 		
-		addNewAgent = new JMenuItem("Add new");
+		addNewAgent = new JMenuItem(ADD_NEW);
 		addNewAgent.addActionListener( new AddAgentActionListener() );
 		addNewAgent.setEnabled(false);
-		addRandomAgent = new JMenuItem("Add random");
+		addRandomAgent = new JMenuItem(ADD_RANDOM);
 		addRandomAgent.addActionListener( new AddAgentsRandomlyActionListener() );
 		agent.add(addNewAgent);
 		agent.add(addRandomAgent);
@@ -112,9 +113,9 @@ public class CaMenuBar extends JMenuBar {
 	}
 	
 	private void setHelpMenu() {
-		help = new JMenu("Help");
+		help = new JMenu(HELP);
 		
-		about = new JMenuItem("About City Agents");
+		about = new JMenuItem(ABOUT);
 		help.add(about);
 		
 		add(help);

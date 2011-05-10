@@ -21,6 +21,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import cityagents.gui.listeners.ContextMenuListener;
+import cityagents.gui.util.Labels;
 
 /**
  *
@@ -32,7 +33,7 @@ public class ContextMenu extends JPopupMenu {
 	private JMenuItem setDirection;
 	
 	private ContextMenu() {
-		setDirection = new JMenuItem("Edit direction");
+		setDirection = new JMenuItem(Labels.EDIT_DIRECTIONS);
 		setDirection.addActionListener(new ContextMenuListener());
 		add(setDirection);
 	}

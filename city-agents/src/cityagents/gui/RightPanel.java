@@ -2,7 +2,9 @@ package cityagents.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -141,31 +143,33 @@ public class RightPanel extends JPanel {
 		Street street = (Street) element;
 		Direction dir = street.getDirection();
 		if( dir.equals(Direction.NORTH)) {
-			graphics.drawImage(images.getArrowNorth(), i * size + 20, j * size + 20, null);
+			graphics.drawImage(images.getNorth(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.SOUTH)) {
-			graphics.drawImage(images.getArrowSouth(), i * size + 20, j * size + 20, null);
+			graphics.drawImage(images.getSouth(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.WEST)) {
-			graphics.drawImage(images.getArrowWest(), i * size + 20, j * size + 20, null);
+			graphics.drawImage(images.getWest(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.EAST)) {
-			graphics.drawImage(images.getArrowEast(), i * size + 20, j * size + 20, null);
+			graphics.drawImage(images.getEast(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.NORTH_WEST)) {
-			
+			graphics.drawImage(images.getNorthWest(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.NORTH_EAST)) {
-			
+			graphics.drawImage(images.getNorthEast(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.SOUTH_WEST)) {
-			
+			graphics.drawImage(images.getSouthWest(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.SOUTH_EAST)) {
-			
+			graphics.drawImage(images.getSouthEast(), i * size + 20, j * size + 20, null);
+		} else if( dir.equals(Direction.NORTH_SOUTH)) {
+			graphics.drawImage(images.getNorthSouth(), i * size + 20, j * size + 20, null);
+		} else if( dir.equals(Direction.WEST_EAST)) {
+			graphics.drawImage(images.getWestEast(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.NORTH_WEST_EAST)) {
-			
-		} else if( dir.equals(Direction.NORTH_WEST_EAST)) {
-			
+			graphics.drawImage(images.getNorthWestEast(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.SOUTH_WEST_EAST)) {
-			
+			graphics.drawImage(images.getSouthWestEast(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.WEST_NORTH_SOUTH)) {
-			
+			graphics.drawImage(images.getWestNorthSouth(), i * size + 20, j * size + 20, null);
 		} else if( dir.equals(Direction.EAST_NORTH_SOUTH)) {
-			
+			graphics.drawImage(images.getEastNorthSouth(), i * size + 20, j * size + 20, null);
 		}
 	}
 }
