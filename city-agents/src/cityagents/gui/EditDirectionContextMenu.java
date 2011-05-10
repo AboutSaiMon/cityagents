@@ -17,14 +17,32 @@
  */
 package cityagents.gui;
 
-import static cityagents.gui.util.Labels.*;
+import static cityagents.gui.util.Labels.CLOSE;
+import static cityagents.gui.util.Labels.EAST;
+import static cityagents.gui.util.Labels.EAST_MENU;
+import static cityagents.gui.util.Labels.EAST_NORTH_SOUTH;
+import static cityagents.gui.util.Labels.NORTH;
+import static cityagents.gui.util.Labels.NORTH_EAST;
+import static cityagents.gui.util.Labels.NORTH_MENU;
+import static cityagents.gui.util.Labels.NORTH_SOUTH;
+import static cityagents.gui.util.Labels.NORTH_WEST;
+import static cityagents.gui.util.Labels.NORTH_WEST_EAST;
+import static cityagents.gui.util.Labels.SOUTH;
+import static cityagents.gui.util.Labels.SOUTH_EAST;
+import static cityagents.gui.util.Labels.SOUTH_MENU;
+import static cityagents.gui.util.Labels.SOUTH_WEST;
+import static cityagents.gui.util.Labels.SOUTH_WEST_EAST;
+import static cityagents.gui.util.Labels.WEST;
+import static cityagents.gui.util.Labels.WEST_EAST;
+import static cityagents.gui.util.Labels.WEST_MENU;
+import static cityagents.gui.util.Labels.WEST_NORTH_SOUTH;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 
 import cityagents.gui.listeners.EditDirectionListener;
-import cityagents.gui.util.Labels;
 
 /**
  *
@@ -32,6 +50,10 @@ import cityagents.gui.util.Labels;
  */
 public class EditDirectionContextMenu extends JPopupMenu {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6944338975767373350L;
 	private static EditDirectionContextMenu thisInstance;
 	private JMenu northMenu;
 	private JMenu southMenu;

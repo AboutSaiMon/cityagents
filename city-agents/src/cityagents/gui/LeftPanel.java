@@ -16,6 +16,11 @@ import cityagents.gui.listeners.ObjectButtonListner;
 
 public class LeftPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5538974501052082795L;
+	
 	private PrincipalPanel superiorPanel;
 	private JButton street;
 	private JButton grass;
