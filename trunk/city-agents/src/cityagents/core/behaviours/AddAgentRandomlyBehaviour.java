@@ -17,12 +17,8 @@
  */
 package cityagents.core.behaviours;
 
-import java.awt.Point;
-
-import cityagents.core.agents.CarAgent;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
-import jade.wrapper.StaleProxyException;
 
 /**
  *

@@ -24,30 +24,26 @@ import cityagents.gui.listeners.ContextMenuListener;
 import cityagents.gui.util.Labels;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
 public class ContextMenu extends JPopupMenu {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4224252607713811091L;
-	
 	private static ContextMenu thisInstance;
 	private JMenuItem setDirection;
-	
+
 	private ContextMenu() {
 		setDirection = new JMenuItem(Labels.EDIT_DIRECTIONS);
 		setDirection.addActionListener(new ContextMenuListener());
 		add(setDirection);
 	}
-	
+
 	public static ContextMenu getInstance() {
-		if( thisInstance == null ) {
+		if (thisInstance == null) {
 			thisInstance = new ContextMenu();
 		}
 		return thisInstance;
 	}
-	
+
 }
