@@ -50,9 +50,6 @@ import cityagents.gui.listeners.EditDirectionListener;
  */
 public class EditDirectionContextMenu extends JPopupMenu {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6944338975767373350L;
 	private static EditDirectionContextMenu thisInstance;
 	private JMenu northMenu;
