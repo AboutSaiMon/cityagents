@@ -38,7 +38,8 @@ import cityagents.gui.RightPanel;
  * 
  * @author Deep Blue Team
  */
-public class RPanelMouseListener extends MouseAdapter {
+public class RPanelMouseListener extends MouseAdapter
+{
 
 	private PrincipalPanel superiorPanel;
 	private RightPanel panel;
@@ -46,7 +47,8 @@ public class RPanelMouseListener extends MouseAdapter {
 	private WorldMap world;
 	private Point agentStart;
 
-	public RPanelMouseListener(RightPanel panel, int size) {
+	public RPanelMouseListener( RightPanel panel, int size )
+	{
 		this.panel = panel;
 		this.size = size;
 		superiorPanel = panel.getSuperiorPanel();
@@ -54,49 +56,59 @@ public class RPanelMouseListener extends MouseAdapter {
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
+	public void mouseDragged( MouseEvent e )
+	{
 		// si segna le celle selezionate
-		if (panel.isStartDraw()) {
-			int x = e.getX();
-			int y = e.getY();
+		if( panel.isStartDraw() )
+		{
+			int y = e.getX();
+			int x = e.getY();
 
-			int i = (x - 20) / size;
-			int j = (y - 20) / size;
+			int i = ( x - 20 ) / size;
+			int j = ( y - 20 ) / size;
 
-			if (i >= 0 && i < (world.getWorldSize() * 2) && j >= 0
-					&& j < world.getWorldSize()) {
-				Point p = new Point(i, j);
-				panel.addCellToDraw(p);
+			if( i >= 0 && i < world.getWorldSize() && j >= 0 && j < ( world.getWorldSize() * 2 ) )
+			{
+				Point p = new Point( i, j );
+				panel.addCellToDraw( p );
 			}
 		}
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
+	public void mouseReleased( MouseEvent e )
+	{
 		// se è stato cliccato il tasto sinistro
-		if (e.getButton() == MouseEvent.BUTTON1) {
+		if( e.getButton() == MouseEvent.BUTTON1 )
+		{
 			// se è in modalità di editing delle direzioni
-			if (panel.isEditDirection()) {
+			if( panel.isEditDirection() )
+			{
 				Direction direction = panel.getCurrentDirection();
-				for (Point p : panel.getCellsToDraw()) {
+				for( Point p : panel.getCellsToDraw() )
+				{
 					// setta la direzione di tutte le celle cliccate
-					world.setDirection(direction, p.x, p.y);
+					world.setDirection( direction, p.x, p.y );
 				}
-			} else {
-				for (Point p : panel.getCellsToDraw()) {
+			}
+			else
+			{
+				for( Point p : panel.getCellsToDraw() )
+				{
 					int i = p.x;
 					int j = p.y;
-					switch (superiorPanel.currentChoice) {
+					switch( superiorPanel.currentChoice )
+					{
 					case WorldObject.STREET:
-						world.setStreet(i, j);
+						world.setStreet( i, j );
 						break;
 
 					case WorldObject.GRASS:
-						world.setGrass(i, j);
+						world.setGrass( i, j );
 						break;
 
 					case WorldObject.HOUSE:
-						world.setHouse(i, j);
+						world.setHouse( i, j );
 						break;
 
 					default:
@@ -106,78 +118,85 @@ public class RPanelMouseListener extends MouseAdapter {
 			}
 			panel.repaint();
 			panel.clearCellToDraw();
-			panel.setStartDraw(false);
+			panel.setStartDraw( false );
 		}
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			panel.setStartDraw(true);
+	public void mousePressed( MouseEvent e )
+	{
+		if( e.getButton() == MouseEvent.BUTTON1 )
+		{
+			panel.setStartDraw( true );
 		}
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked( MouseEvent e )
+	{
 		// se non è nella modalità di editing delle direzioni
-		if (!panel.isEditDirection()) {
+		if( !panel.isEditDirection() )
+		{
 			// ed è stato premuto il tasto destro
-			if (e.getButton() == MouseEvent.BUTTON3) {
+			if( e.getButton() == MouseEvent.BUTTON3 )
+			{
 				/*
 				 * with right click can cancel the insert. addAnAgent = false;
 				 * agentStart = null;
 				 */
 
 				// visualizza il menù contestuale per l'editing delle direzioni
-				ContextMenu.getInstance().show(e.getComponent(), e.getX(), e.getY());
-			} else if (e.getButton() == MouseEvent.BUTTON1) {
+				ContextMenu.getInstance().show( e.getComponent(), e.getX(), e.getY() );
+			}
+			else if( e.getButton() == MouseEvent.BUTTON1 )
+			{
 				// se invece è stato premuto il tasto sinistro
-				panel.setStartDraw(true);
-				int x = e.getX();
-				int y = e.getY();
+				panel.setStartDraw( true );
+				int y = e.getX();
+				int x = e.getY();
+				
+				int i = ( x - 20 ) / size;
+				int j = ( y - 20 ) / size;
 
-				int i = (x - 20) / size;
-				int j = (y - 20) / size;
-
-				if (i >= 0 && i < (world.getWorldSize() * 2) && j >= 0
-						&& j < world.getWorldSize()) {
-					switch (superiorPanel.currentChoice) {
+				if( i >= 0 && i < world.getWorldSize() && j >= 0 && j < ( world.getWorldSize() * 2 ) )
+				{
+					switch( superiorPanel.currentChoice )
+					{
 					case WorldObject.STREET:
-						world.setStreet(i, j);
+						world.setStreet( i, j );
 						break;
 					case WorldObject.GRASS:
-						world.setGrass(i, j);
+						world.setGrass( i, j );
 						break;
 					case WorldObject.HOUSE:
-						world.setHouse(i, j);
+						world.setHouse( i, j );
 					case WorldObject.CAR:
-						if (panel.isAddAnAgent()) {
-							if (world.getElement(i, j) instanceof Street) {
+						if( panel.isAddAnAgent() )
+						{
+							if( world.getElement( i, j ) instanceof Street )
+							{
 								CarAgent c = new CarAgent();
-								Point[] arguments = new Point[2];
-								arguments[0] = new Point(agentStart);
-								arguments[1] = new Point(i, j);
-								c.setArguments(arguments);
-								world.setCar(agentStart.x, agentStart.y, c);
-								panel.setAddAnAgent(false);
+								Point[] arguments = new Point[ 2 ];
+								arguments[ 0 ] = new Point( agentStart );
+								arguments[ 1 ] = new Point( i, j );
+								c.setArguments( arguments );
+								world.setCar( agentStart.x, agentStart.y, c );
+								panel.setAddAnAgent( false );
 								agentStart = null;
-								PrincipalFrame frame = PrincipalFrame
-										.getInstance();
-								JOptionPane.showMessageDialog(frame,
-										"Added Agent", "Added Agent",
-										JOptionPane.INFORMATION_MESSAGE);
-								if (!world.isEditable())
-									world.startAgent(i, j);
+								PrincipalFrame frame = PrincipalFrame.getInstance();
+								JOptionPane.showMessageDialog( frame, "Added Agent", "Added Agent", JOptionPane.INFORMATION_MESSAGE );
+								if( !world.isEditable() )
+									world.startAgent( i, j );
 							}
-						} else {
-							if (world.getElement(i, j) instanceof Street) {
-								panel.setAddAnAgent(true);
-								agentStart = new Point(i, j);
-								PrincipalFrame frame = PrincipalFrame
-										.getInstance();
-								JOptionPane.showMessageDialog(frame,
-										"Set Destination.", "Destination",
-										JOptionPane.INFORMATION_MESSAGE);
+						}
+						else
+						{
+							if( world.getElement( i, j ) instanceof Street )
+							{
+								panel.setAddAnAgent( true );
+								agentStart = new Point( i, j );
+								PrincipalFrame frame = PrincipalFrame.getInstance();
+								JOptionPane.showMessageDialog( frame, "Set Destination.", "Destination", JOptionPane.INFORMATION_MESSAGE );
 							}
 						}
 						break;
@@ -185,23 +204,29 @@ public class RPanelMouseListener extends MouseAdapter {
 				}
 			}
 			panel.repaint();
-		} else {
-			if (e.getButton() == MouseEvent.BUTTON3) {
-			// altrimenti se ci troviamo già nella modalità di editing delle
-			// direzioni e viene cliccato il tasto tre, viene visualizzato il menù contestuale di editing
-			EditDirectionContextMenu.getInstance().show(e.getComponent(),
-					e.getX(), e.getY());
-			} else if (e.getButton() == MouseEvent.BUTTON1 ) {
-				panel.setStartDraw(true);
-				int x = e.getX();
-				int y = e.getY();
+		}
+		else
+		{
+			if( e.getButton() == MouseEvent.BUTTON3 )
+			{
+				// altrimenti se ci troviamo già nella modalità di editing delle
+				// direzioni e viene cliccato il tasto tre, viene visualizzato
+				// il menù contestuale di editing
+				EditDirectionContextMenu.getInstance().show( e.getComponent(), e.getX(), e.getY() );
+			}
+			else if( e.getButton() == MouseEvent.BUTTON1 )
+			{
+				panel.setStartDraw( true );
+				int y = e.getX();
+				int x = e.getY();				
 
-				int i = (x - 20) / size;
-				int j = (y - 20) / size;
+				int i = ( x - 20 ) / size;
+				int j = ( y - 20 ) / size;
 
-				if (i >= 0 && i < (world.getWorldSize() * 2) && j >= 0 && j < world.getWorldSize()) {
+				if( i >= 0 && i < world.getWorldSize() && j >= 0 && ( j < world.getWorldSize() * 2 ) )
+				{
 					Direction direction = panel.getCurrentDirection();
-					world.setDirection(direction, i, j);
+					world.setDirection( direction, i, j );
 				}
 			}
 		}

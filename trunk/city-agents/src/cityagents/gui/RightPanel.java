@@ -35,42 +35,47 @@ import cityagents.core.WorldObject;
 import cityagents.core.agents.CarAgent;
 import cityagents.gui.listeners.RPanelMouseListener;
 
-public class RightPanel extends JPanel {
-	
+public class RightPanel extends JPanel
+{
+
 	private static final long serialVersionUID = 1L;
 	private static final int size = 30;
 	private PrincipalPanel superiorPanel;
 	private WorldMap world;
 	private ImagesHandler images;
 
-	private List<Point> cellToDraw;
+	private List< Point > cellToDraw;
 	private boolean startDraw = false;
 	private boolean addAnAgent = false;
 	private boolean editDirection = false;
 	private Direction currentDirection = Direction.NONE;
 
-	public RightPanel(PrincipalPanel p) {
-		this.setOpaque(false);
+	public RightPanel( PrincipalPanel p )
+	{
+		this.setOpaque( false );
 		images = ImagesHandler.getInstance();
 		superiorPanel = p;
 		world = WorldMap.getInstance();
-		cellToDraw = new ArrayList<Point>();
-		this.setPreferredSize(new Dimension(52 * 2 * size, 52 * size));
-		addMouseListener(new RPanelMouseListener(this, size));
-		addMouseMotionListener(new RPanelMouseListener(this, size));
+		cellToDraw = new ArrayList< Point >();
+		this.setPreferredSize( new Dimension( 52 * 2 * size, 52 * size ) );
+		addMouseListener( new RPanelMouseListener( this, size ) );
+		addMouseMotionListener( new RPanelMouseListener( this, size ) );
 	}
-	
+
 	/**
 	 * @return the currentDirection
 	 */
-	public Direction getCurrentDirection() {
+	public Direction getCurrentDirection()
+	{
 		return currentDirection;
 	}
-	
+
 	/**
-	 * @param currentDirection the currentDirection to set
+	 * @param currentDirection
+	 *            the currentDirection to set
 	 */
-	public void setCurrentDirection(Direction currentDirection) {
+	public void setCurrentDirection( Direction currentDirection )
+	{
 		this.currentDirection = currentDirection;
 	}
 
@@ -78,114 +83,163 @@ public class RightPanel extends JPanel {
 	 * @param editDirection
 	 *            the editDirection to set
 	 */
-	public void setEditDirection(boolean editDirection) {
+	public void setEditDirection( boolean editDirection )
+	{
 		this.editDirection = editDirection;
 	}
 
 	/**
 	 * @return the editDirection
 	 */
-	public boolean isEditDirection() {
+	public boolean isEditDirection()
+	{
 		return editDirection;
 	}
 
 	/**
 	 * @return the startDraw
 	 */
-	public boolean isStartDraw() {
+	public boolean isStartDraw()
+	{
 		return startDraw;
 	}
 
-	public void setStartDraw(boolean flag) {
+	public void setStartDraw( boolean flag )
+	{
 		startDraw = flag;
 	}
 
 	/**
 	 * @return the addAnAgent
 	 */
-	public boolean isAddAnAgent() {
+	public boolean isAddAnAgent()
+	{
 		return addAnAgent;
 	}
 
-	public void setAddAnAgent(boolean flag) {
+	public void setAddAnAgent( boolean flag )
+	{
 		addAnAgent = flag;
 	}
 
-	public void addCellToDraw(Point p) {
-		cellToDraw.add(p);
+	public void addCellToDraw( Point p )
+	{
+		cellToDraw.add( p );
 	}
 
-	public List<Point> getCellsToDraw() {
-		return Collections.unmodifiableList(cellToDraw);
+	public List< Point > getCellsToDraw()
+	{
+		return Collections.unmodifiableList( cellToDraw );
 	}
 
-	public void clearCellToDraw() {
+	public void clearCellToDraw()
+	{
 		cellToDraw.clear();
 	}
 
 	/**
 	 * @return the superiorPanel
 	 */
-	public PrincipalPanel getSuperiorPanel() {
+	public PrincipalPanel getSuperiorPanel()
+	{
 		return superiorPanel;
 	}
 
 	@Override
-	protected void paintComponent(Graphics graphics) {
-		super.paintComponent(graphics);
-		for (int i = 0; i < world.getWorldSize() * 2; i++) {
-			for (int j = 0; j < world.getWorldSize(); j++) {
-				WorldObject element = world.getElement(i, j);
+	protected void paintComponent( Graphics graphics )
+	{
+		super.paintComponent( graphics );
+		for( int j = 0; j < world.getWorldSize(); j++ )
+		{
+			for( int i = 0; i < world.getWorldSize() * 2; i++ )
+			{
+				WorldObject element = world.getElement( j, i );
 
-				if (element instanceof CarAgent) {
-					graphics.drawImage(images.getStreet(), i * size + 20, j	* size + 20, null);
-					graphics.drawImage(images.getCar(), i * size + 20, j * size	+ 20, null);
-				} else if (element instanceof Grass) {
-					graphics.drawImage(images.getGrass(), i * size + 20, j * size + 20, null);
-				} else if (element instanceof House) {
-					graphics.drawImage(images.getGrass(), i * size + 20, j * size + 20, null);
-					graphics.drawImage(images.getHouse(), i * size + 20, j * size + 20, null);
-				} else if (element instanceof Street) {
-					graphics.drawImage(images.getStreet(), i * size + 20, j * size + 20, null);
-					if( isEditDirection() ) {
-						drawDirection(graphics, element, i, j);
+				if( element instanceof CarAgent )
+				{
+					graphics.drawImage( images.getStreet(), i * size + 20, j * size + 20, null );
+					graphics.drawImage( images.getCar(), i * size + 20, j * size + 20, null );
+				}
+				else if( element instanceof Grass )
+				{
+					graphics.drawImage( images.getGrass(), i * size + 20, j * size + 20, null );
+				}
+				else if( element instanceof House )
+				{
+					graphics.drawImage( images.getGrass(), i * size + 20, j * size + 20, null );
+					graphics.drawImage( images.getHouse(), i * size + 20, j * size + 20, null );
+				}
+				else if( element instanceof Street )
+				{
+					graphics.drawImage( images.getStreet(), i * size + 20, j * size + 20, null );
+					if( isEditDirection() )
+					{
+						drawDirection( graphics, element, i, j );
 					}
 				}
 			}
 		}
 	}
-	
-	private void drawDirection(Graphics graphics, WorldObject element, int i, int j) {
-		Street street = (Street) element;
+
+	private void drawDirection( Graphics graphics, WorldObject element, int i, int j )
+	{
+		Street street = ( Street ) element;
 		Direction dir = street.getDirection();
-		if( dir.equals(Direction.NORTH)) {
-			graphics.drawImage(images.getNorth(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.SOUTH)) {
-			graphics.drawImage(images.getSouth(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.WEST)) {
-			graphics.drawImage(images.getWest(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.EAST)) {
-			graphics.drawImage(images.getEast(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.NORTH_WEST)) {
-			graphics.drawImage(images.getNorthWest(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.NORTH_EAST)) {
-			graphics.drawImage(images.getNorthEast(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.SOUTH_WEST)) {
-			graphics.drawImage(images.getSouthWest(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.SOUTH_EAST)) {
-			graphics.drawImage(images.getSouthEast(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.NORTH_SOUTH)) {
-			graphics.drawImage(images.getNorthSouth(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.WEST_EAST)) {
-			graphics.drawImage(images.getWestEast(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.NORTH_WEST_EAST)) {
-			graphics.drawImage(images.getNorthWestEast(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.SOUTH_WEST_EAST)) {
-			graphics.drawImage(images.getSouthWestEast(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.WEST_NORTH_SOUTH)) {
-			graphics.drawImage(images.getWestNorthSouth(), i * size + 20, j * size + 20, null);
-		} else if( dir.equals(Direction.EAST_NORTH_SOUTH)) {
-			graphics.drawImage(images.getEastNorthSouth(), i * size + 20, j * size + 20, null);
+		if( dir.equals( Direction.NORTH ) )
+		{
+			graphics.drawImage( images.getNorth(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.SOUTH ) )
+		{
+			graphics.drawImage( images.getSouth(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.WEST ) )
+		{
+			graphics.drawImage( images.getWest(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.EAST ) )
+		{
+			graphics.drawImage( images.getEast(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.NORTH_WEST ) )
+		{
+			graphics.drawImage( images.getNorthWest(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.NORTH_EAST ) )
+		{
+			graphics.drawImage( images.getNorthEast(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.SOUTH_WEST ) )
+		{
+			graphics.drawImage( images.getSouthWest(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.SOUTH_EAST ) )
+		{
+			graphics.drawImage( images.getSouthEast(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.NORTH_SOUTH ) )
+		{
+			graphics.drawImage( images.getNorthSouth(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.WEST_EAST ) )
+		{
+			graphics.drawImage( images.getWestEast(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.NORTH_WEST_EAST ) )
+		{
+			graphics.drawImage( images.getNorthWestEast(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.SOUTH_WEST_EAST ) )
+		{
+			graphics.drawImage( images.getSouthWestEast(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.WEST_NORTH_SOUTH ) )
+		{
+			graphics.drawImage( images.getWestNorthSouth(), i * size + 20, j * size + 20, null );
+		}
+		else if( dir.equals( Direction.EAST_NORTH_SOUTH ) )
+		{
+			graphics.drawImage( images.getEastNorthSouth(), i * size + 20, j * size + 20, null );
 		}
 	}
 }
