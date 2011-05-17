@@ -23,7 +23,6 @@ import jade.lang.acl.ACLMessage;
 
 import java.awt.Point;
 import java.io.IOException;
-import java.util.HashMap;
 
 import cityagents.core.MessageContent;
 import cityagents.core.Street;
@@ -31,7 +30,7 @@ import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
 public class CarAgent extends Agent implements WorldObject
@@ -40,98 +39,96 @@ public class CarAgent extends Agent implements WorldObject
 	private Point start;
 	private Point destination;
 	private WorldMap world;
-	private HashMap< Integer, Object > mapTimeCrossroad; 
-	
+	private int mySpeed;
+
 	@Override
-	protected void setup() 
+	protected void setup()
 	{
 		super.setup();
 		Object[] args = this.getArguments();
-		mapTimeCrossroad = new HashMap< Integer, Object >();
-		
+
 		if( args == null )
 		{
 			doDelete();
 		}
-		
+
 		world = WorldMap.getInstance();
 		try
 		{
 			if( args[ 0 ] instanceof Point && args[ 1 ] instanceof Point )
-			{						
+			{
 				start = ( Point ) args[ 0 ];
-				destination = ( Point ) args[ 1 ];		
+				destination = ( Point ) args[ 1 ];
 				int worldSize = world.getWorldSize();
 				if( start.x >= 0 && start.y < worldSize && destination.x >= 0 && destination.y < ( worldSize * 2 ) )
 				{
 					WorldObject elementAtStart = world.getElement( start );
 					WorldObject elementAtDestination = world.getElement( destination );
-					
+
 					if( elementAtStart instanceof Street && elementAtDestination instanceof Street )
 					{
 						world.setCar( start, this );
 					}
 					else
 					{
-						throw new Exception( "Invalid position." );						
-					}					
+						throw new Exception( "Invalid position." );
+					}
 				}
 				else
 				{
-					throw new Exception( "Bad Intervals." );			
+					throw new Exception( "Bad Intervals." );
 				}
 			}
 			else
 			{
-				throw new Exception( "Wrong args." );				
+				throw new Exception( "Wrong args." );
 			}
 		}
 		catch( Exception e )
 		{
 			doDelete();
 		}
-		
+
 	}
-	
-	public void addNewEntryForTimeCrossroadMap( Integer time, Object crossroad )
-	{
-		mapTimeCrossroad.put( time, crossroad );
-	}
-	
-	public Object getCrossroadAtTime( Integer time )
-	{
-		return mapTimeCrossroad.get( time );		
-	}
-	
+
 	public boolean sendMessage( MessageContent messageContent, CarAgent[] receivers )
 	{
-		Integer time = messageContent.getTime();
-		if( mapTimeCrossroad.get( time ) == null )
+		ACLMessage message = new ACLMessage( ACLMessage.PROPOSE );
+		try
 		{
-			ACLMessage message  = new ACLMessage( ACLMessage.INFORM );
-			try 
-			{
-				//Define the content of the message.
-				message.setContentObject( messageContent );
-			} 
-			catch( IOException e ) 
-			{
-				e.printStackTrace();
-				return false;
-			}
-			
-			//Set all recipients.
-			for( int i = 0; i < receivers.length; i++ )
-			{			
-				CarAgent c = receivers[ i ];
-				message.addReceiver( new AID( c.getLocalName(), AID.ISLOCALNAME) );
-			}
-			this.send( message );
+			// Define the content of the message.
+			message.setContentObject( messageContent );
 		}
-		else
+		catch( IOException e )
 		{
+			e.printStackTrace();
 			return false;
 		}
+
+		// Set all recipients.
+		for( int i = 0; i < receivers.length; i++ )
+		{
+			CarAgent c = receivers[ i ];
+			message.addReceiver( new AID( c.getLocalName(), AID.ISLOCALNAME ) );
+		}
+		this.send( message );
+
 		return true;
+	}
+
+	/**
+	 * @return the mySpeed
+	 */
+	public int getMySpeed()
+	{
+		return mySpeed;
+	}
+
+	/**
+	 * @param mySpeed the mySpeed to set
+	 */
+	public void setMySpeed( int mySpeed )
+	{
+		this.mySpeed = mySpeed;
 	}
 }

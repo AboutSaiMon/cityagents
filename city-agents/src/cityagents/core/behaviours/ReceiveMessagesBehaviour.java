@@ -24,10 +24,10 @@ import cityagents.core.MessageContent;
 import cityagents.core.agents.CarAgent;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
-public class ReceiveMessagesBehaviour extends CyclicBehaviour 
+public class ReceiveMessagesBehaviour extends CyclicBehaviour
 {
 
 	/**
@@ -36,22 +36,34 @@ public class ReceiveMessagesBehaviour extends CyclicBehaviour
 	private static final long serialVersionUID = -7033032060839647236L;
 
 	@Override
-	public void action() 
+	public void action()
 	{
 		if( myAgent instanceof CarAgent )
 		{
 			CarAgent agent = ( CarAgent ) myAgent;
-			//Get incoming message.
+			// Get incoming message.
 			ACLMessage message = agent.receive();
 			if( message != null )
 			{
 				MessageContent content;
-				try 
+				try
 				{
-					content = (MessageContent) message.getContentObject();
-					agent.addNewEntryForTimeCrossroadMap( content.getTime(), content.getCrossroad() );
+					content = ( MessageContent ) message.getContentObject();
+
+					ACLMessage reply = message.createReply();
+					if( agent.getMySpeed() > content.getSpeed() )
+					{
+						reply.setContent( "" + agent.getMySpeed() );
+						reply.setPerformative( ACLMessage.REJECT_PROPOSAL );
+					}
+					else
+					{
+						reply.setContent( null );
+						reply.setPerformative( ACLMessage.ACCEPT_PROPOSAL );
+					}
+					agent.send( reply );
 				}
-				catch( UnreadableException e ) 
+				catch( UnreadableException e )
 				{
 					e.printStackTrace();
 				}

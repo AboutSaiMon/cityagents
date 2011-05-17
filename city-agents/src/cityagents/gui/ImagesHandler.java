@@ -243,7 +243,7 @@ public class ImagesHandler {
 		mt.addImage(eastNorthSouth, 20);
 
 		try {
-			for (int i = 0; i <= 18; i++) {
+			for (int i = 0; i <= 20; i++) {
 				mt.waitForID(i);
 			}
 		} catch (InterruptedException e) {

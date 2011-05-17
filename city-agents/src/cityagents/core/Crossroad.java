@@ -17,54 +17,53 @@
  */
 package cityagents.core;
 
-import java.io.Serializable;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
  * @author Deep Blue Team
  */
-public class MessageContent implements Serializable
-{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6162966011809057417L;
+public class Crossroad 
+{	
+	private Queue< String > carsQueue;
 	
-	Crossroad crossroad;
-	int speed;
+	private static Crossroad thisInstance;
 	
 	/**
 	 * 
 	 */
-	public MessageContent( Crossroad crossroad, int mySpeed ) 
+	private Crossroad() 
 	{
-		this.crossroad = crossroad;
-		this.speed = mySpeed;
-	}
-
-	public Crossroad getCrossroad() 
-	{
-		return crossroad;
-	}
-
-	public void setCrossroad( Crossroad crossroad ) 
-	{
-		this.crossroad = crossroad;
+		carsQueue = new LinkedList< String >();
 	}
 	
-	/**
-	 * @return the Speed
-	 */
-	public int getSpeed()
+	public static Crossroad getInstance() 
 	{
-		return speed;
+		if ( thisInstance == null ) 
+		{
+			thisInstance = new Crossroad();
+		}
+		return thisInstance;
+	}
+		
+	public void addCarInQueue( String myId )
+	{
+		carsQueue.add( myId );
 	}
 	
-	/**
-	 * @param mySpeed the speed to set
-	 */
-	public void setSpeed( int mySpeed )
+	public void removeFromQueue( String myId )	
 	{
-		this.speed = mySpeed;
-	}	
+		String head = carsQueue.peek();
+		if( head != null && head.equalsIgnoreCase( myId ) )
+		{
+			carsQueue.poll();
+		}
+	}
+	
+	public String getTop()
+	{
+		return carsQueue.peek();		
+	}
 }

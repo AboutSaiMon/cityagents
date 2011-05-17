@@ -31,8 +31,8 @@ import cityagents.gui.PrincipalFrame;
  * 
  * @author Deep Blue Team
  */
-public class WorldMap implements Serializable {
-
+public class WorldMap implements Serializable
+{
 	private static final long serialVersionUID = 2283101559110941224L;
 
 	private static WorldMap thisInstance;
@@ -45,13 +45,16 @@ public class WorldMap implements Serializable {
 	/**
 	 * 
 	 */
-	private WorldMap() {
-		world = new WorldObject[worldSize * 2][worldSize];
+	private WorldMap()
+	{
+		world = new WorldObject[ worldSize ][ worldSize * 2 ];
 		init();
 	}
 
-	public static WorldMap getInstance() {
-		if (thisInstance == null) {
+	public static WorldMap getInstance()
+	{
+		if( thisInstance == null )
+		{
 			thisInstance = new WorldMap();
 		}
 		return thisInstance;
@@ -60,135 +63,169 @@ public class WorldMap implements Serializable {
 	/**
 	 * 
 	 */
-	private void init() {
-		for (int i = 0; i < (worldSize * 2); i++) {
-			for (int j = 0; j < worldSize; j++) {
-				world[i][j] = new Grass();
+	private void init()
+	{
+		for( int i = 0; i < worldSize; i++ )
+		{
+			for( int j = 0; j < worldSize * 2; j++ )
+			{
+				world[ i ][ j ] = new Grass();
 			}
 		}
 	}
 
-	public int getWorldSize() {
+	public int getWorldSize()
+	{
 		return worldSize;
 	}
 
-	public void setMap(WorldObject[][] map) {
+	public void setMap( WorldObject[][] map )
+	{
 		world = map;
 	}
 
-	public WorldObject[][] getMap() {
+	public WorldObject[][] getMap()
+	{
 		return world;
 	}
 
-	public void resize(int newSize) {
-		if (editable) {
+	public void resize( int newSize )
+	{
+		if( editable )
+		{
 			worldSize = newSize;
-			world = new WorldObject[worldSize * 2][worldSize];
+			world = new WorldObject[ worldSize ][ worldSize * 2 ];
 			init();
 		}
 	}
 
-	public void setDirection(Direction direction, int x, int y) {
-		if (editable) {
-			if (world[x][y] instanceof Street) {
-				Street street = (Street) world[x][y];
-				street.setDirection(direction);
+	public void setDirection( Direction direction, int x, int y )
+	{
+		if( editable )
+		{
+			if( world[ x ][ y ] instanceof Street )
+			{
+				Street street = ( Street ) world[ x ][ y ];
+				street.setDirection( direction );
 			}
 		}
 	}
 
 	/**
-	 * This method returns the direction of the street. It can
-	 * returns a null value.
+	 * This method returns the direction of the street. It can returns a null
+	 * value.
 	 * 
 	 * @param x
 	 * @param y
 	 * @return
 	 */
-	public Direction getDirection(int x, int y) {
+	public Direction getDirection( int x, int y )
+	{
 		Direction direction = null;
-		if( editable) {
-			if (world[x][y] instanceof Street) {
-				Street street = (Street) world[x][y];
+		if( editable )
+		{
+			if( world[ x ][ y ] instanceof Street )
+			{
+				Street street = ( Street ) world[ x ][ y ];
 				direction = street.getDirection();
 			}
 		}
 		return direction;
 	}
 
-	public void setStreet(int x, int y) {
-		if (editable)
-			world[x][y] = new Street();
+	public void setStreet( int x, int y )
+	{
+		if( editable )
+			world[ x ][ y ] = new Street();
 	}
 
-	public void setStreet(Point p) {
-		if (editable)
-			world[p.x][p.y] = new Street();
+	public void setStreet( Point p )
+	{
+		if( editable )
+			world[ p.x ][ p.y ] = new Street();
 	}
 
-	public void setGrass(int x, int y) {
-		if (editable)
-			world[x][y] = new Grass();
+	public void setGrass( int x, int y )
+	{
+		if( editable )
+			world[ x ][ y ] = new Grass();
 	}
 
-	public void setGrass(Point p) {
-		if (editable)
-			world[p.x][p.y] = new Grass();
+	public void setGrass( Point p )
+	{
+		if( editable )
+			world[ p.x ][ p.y ] = new Grass();
 	}
 
-	public void setHouse(int x, int y) {
-		if (editable) {
-			world[x][y] = new House();
+	public void setHouse( int x, int y )
+	{
+		if( editable )
+		{
+			world[ x ][ y ] = new House();
 		}
 	}
 
-	public void setHouse(Point p) {
-		if (editable) {
-			world[p.x][p.y] = new House();
+	public void setHouse( Point p )
+	{
+		if( editable )
+		{
+			world[ p.x ][ p.y ] = new House();
 		}
 	}
 
-	public void setCar(int x, int y, CarAgent c) {
-		world[x][y] = c;
+	public void setCar( int x, int y, CarAgent c )
+	{
+		world[ x ][ y ] = c;
 	}
 
-	public void setCar(Point p, CarAgent c) {
-		world[p.x][p.y] = c;
+	public void setCar( Point p, CarAgent c )
+	{
+		world[ p.x ][ p.y ] = c;
 	}
 
-	public WorldObject getElement(int x, int y) {
-		return world[x][y];
+	public WorldObject getElement( int x, int y )
+	{
+		return world[ x ][ y ];
 	}
 
-	public WorldObject getElement(Point p) {
-		return world[p.x][p.y];
+	public WorldObject getElement( Point p )
+	{
+		return world[ p.x ][ p.y ];
 	}
 
-	public boolean isEditable() {
+	public boolean isEditable()
+	{
 		return editable;
 	}
 
-	public void setEditable(boolean editable) {
+	public void setEditable( boolean editable )
+	{
 		this.editable = editable;
 	}
 
 	/**
 	 * 
 	 */
-	public void startAgents() {
+	public void startAgents()
+	{
 		PrincipalFrame frame = PrincipalFrame.getInstance();
 		GraphicAgent g = frame.getGraphicAgent();
-		if (g != null) {
-			for (int i = 0; i < (worldSize * 2); i++) {
-				for (int j = 0; j < worldSize; j++) {
-					if (world[i][j] instanceof CarAgent) {
-						CarAgent c = (CarAgent) world[i][j];
-						try {
-							g.getContainerController()
-									.acceptNewAgent("Car" + numberOfAgents, c)
-									.start();
+		if( g != null )
+		{
+			for( int i = 0; i < ( worldSize * 2 ); i++ )
+			{
+				for( int j = 0; j < worldSize; j++ )
+				{
+					if( world[ i ][ j ] instanceof CarAgent )
+					{
+						CarAgent c = ( CarAgent ) world[ i ][ j ];
+						try
+						{
+							g.getContainerController().acceptNewAgent( "Car" + numberOfAgents, c ).start();
 							numberOfAgents++;
-						} catch (StaleProxyException e) {
+						}
+						catch( StaleProxyException e )
+						{
 							e.printStackTrace();
 						}
 					}
@@ -197,16 +234,20 @@ public class WorldMap implements Serializable {
 		}
 	}
 
-	public void startAgent(int i, int j) {
+	public void startAgent( int i, int j )
+	{
 		PrincipalFrame frame = PrincipalFrame.getInstance();
 		GraphicAgent g = frame.getGraphicAgent();
-		if (world[i][j] instanceof CarAgent) {
-			CarAgent c = (CarAgent) world[i][j];
-			try {
-				g.getContainerController()
-						.acceptNewAgent("Car" + numberOfAgents, c).start();
+		if( world[ i ][ j ] instanceof CarAgent )
+		{
+			CarAgent c = ( CarAgent ) world[ i ][ j ];
+			try
+			{
+				g.getContainerController().acceptNewAgent( "Car" + numberOfAgents, c ).start();
 				numberOfAgents++;
-			} catch (StaleProxyException e) {
+			}
+			catch( StaleProxyException e )
+			{
 				e.printStackTrace();
 			}
 		}
