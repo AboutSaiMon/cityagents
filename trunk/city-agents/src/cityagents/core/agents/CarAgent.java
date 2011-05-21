@@ -17,14 +17,10 @@
  */
 package cityagents.core.agents;
 
-import jade.core.AID;
 import jade.core.Agent;
-import jade.lang.acl.ACLMessage;
 
 import java.awt.Point;
-import java.io.IOException;
 
-import cityagents.core.MessageContent;
 import cityagents.core.Street;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
@@ -40,6 +36,7 @@ public class CarAgent extends Agent implements WorldObject
 	private Point destination;
 	private WorldMap world;
 	private int mySpeed;
+	private int myTraffic;
 
 	@Override
 	protected void setup()
@@ -89,32 +86,7 @@ public class CarAgent extends Agent implements WorldObject
 			doDelete();
 		}
 
-	}
-
-	public boolean sendMessage( MessageContent messageContent, CarAgent[] receivers )
-	{
-		ACLMessage message = new ACLMessage( ACLMessage.PROPOSE );
-		try
-		{
-			// Define the content of the message.
-			message.setContentObject( messageContent );
-		}
-		catch( IOException e )
-		{
-			e.printStackTrace();
-			return false;
-		}
-
-		// Set all recipients.
-		for( int i = 0; i < receivers.length; i++ )
-		{
-			CarAgent c = receivers[ i ];
-			message.addReceiver( new AID( c.getLocalName(), AID.ISLOCALNAME ) );
-		}
-		this.send( message );
-
-		return true;
-	}
+	}	
 
 	/**
 	 * @return the mySpeed
@@ -130,5 +102,21 @@ public class CarAgent extends Agent implements WorldObject
 	public void setMySpeed( int mySpeed )
 	{
 		this.mySpeed = mySpeed;
+	}
+	
+	/**
+	 * @return the myTraffic
+	 */
+	public int getMyTraffic()
+	{
+		return myTraffic;
+	}
+	
+	/**
+	 * @param myTraffic the myTraffic to set
+	 */
+	public void setMyTraffic( int myTraffic )
+	{
+		this.myTraffic = myTraffic;
 	}
 }
