@@ -32,14 +32,16 @@ public class MessageContent implements Serializable
 	
 	Crossroad crossroad;
 	int speed;
+	int traffic;
 	
 	/**
 	 * 
 	 */
-	public MessageContent( Crossroad crossroad, int mySpeed ) 
+	public MessageContent( Crossroad crossroad, int mySpeed, int traffic ) 
 	{
 		this.crossroad = crossroad;
 		this.speed = mySpeed;
+		this.traffic = traffic;
 	}
 
 	public Crossroad getCrossroad() 
@@ -66,5 +68,21 @@ public class MessageContent implements Serializable
 	public void setSpeed( int mySpeed )
 	{
 		this.speed = mySpeed;
-	}	
+	}
+	
+	/**
+	 * @return the traffic
+	 */
+	public int getTraffic()
+	{
+		return traffic;
+	}
+	
+	/**
+	 * @param traffic the traffic to set
+	 */
+	public void setTraffic( int traffic )
+	{
+		this.traffic = traffic;
+	}
 }

@@ -41,32 +41,71 @@ public class ReceiveMessagesBehaviour extends CyclicBehaviour
 		if( myAgent instanceof CarAgent )
 		{
 			CarAgent agent = ( CarAgent ) myAgent;
-			// Get incoming message.
+			//Get incoming message.
 			ACLMessage message = agent.receive();
 			if( message != null )
 			{
 				MessageContent content;
 				try
 				{
-					content = ( MessageContent ) message.getContentObject();
-
-					ACLMessage reply = message.createReply();
-					if( agent.getMySpeed() > content.getSpeed() )
+					Object contentObject = message.getContentObject();					
+					
+					if( contentObject instanceof MessageContent )
 					{
-						reply.setContent( "" + agent.getMySpeed() );
-						reply.setPerformative( ACLMessage.REJECT_PROPOSAL );
+						content = ( MessageContent ) message.getContentObject();
+						ACLMessage reply = message.createReply();
+						if( agent.getMyTraffic() == content.getTraffic() )
+						{
+							if( agent.getMySpeed() > content.getSpeed() )
+							{
+								reply.setContent( agent.getMyTraffic() + "," + agent.getMySpeed());
+								reply.setPerformative( ACLMessage.REJECT_PROPOSAL );
+							}
+							else
+							{
+								reply.setContent( agent.getMyTraffic() + "," + agent.getMySpeed());
+								reply.setPerformative( ACLMessage.ACCEPT_PROPOSAL );
+							}
+						}
+						else
+						{
+							if( agent.getMyTraffic() < content.getTraffic() )
+							{
+								reply.setContent( agent.getMyTraffic() + "," + agent.getMySpeed());
+								reply.setPerformative( ACLMessage.REJECT_PROPOSAL );
+							}
+							else
+							{
+								reply.setContent( agent.getMyTraffic() + "," + agent.getMySpeed());
+								reply.setPerformative( ACLMessage.ACCEPT_PROPOSAL );
+							}
+						}
+						
+						agent.send( reply );
 					}
 					else
 					{
-						reply.setContent( null );
-						reply.setPerformative( ACLMessage.ACCEPT_PROPOSAL );
+						if( contentObject instanceof String )
+						{
+							String contentReply = ( String ) contentObject;
+							if( contentReply != null )
+							{
+								if( message.getPerformative() == ACLMessage.ACCEPT_PROPOSAL )
+								{
+									//dosomething;
+								}
+								else
+								{
+									//not accepted;
+								}
+							}
+						}
 					}
-					agent.send( reply );
 				}
 				catch( UnreadableException e )
 				{
 					e.printStackTrace();
-				}
+				}				
 			}
 		}
 	}
