@@ -37,6 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import cityagents.core.Street;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
 import cityagents.core.agents.GraphicAgent;
@@ -47,18 +48,34 @@ import cityagents.gui.listeners.CaKeyListener;
  * @author Deep Blue Team
  */
 public class PrincipalFrame extends JFrame {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private static PrincipalFrame thisInstance;
 	private PrincipalPanel principalPanel;
 	private CaMenuBar menuBar;
-	
+
 	private WorldMap world;
 	private int numberOfAgentsToAdd;
 	private long seconds;
-	
+
 	private GraphicAgent graphicAgent;
+
+	// TODO: questo metodo fa un debug della matrice di oggetti
+	public void printWorldMap() {
+		WorldObject[][] obj = world.getMap();
+		for (WorldObject[] o1 : obj) {
+			for (WorldObject o2 : o1) {
+				if( o2 instanceof Street ) {
+					Street s = (Street) o2;
+					System.out.print(s.getDirection() + " ");
+				} else {
+					System.out.print("**** ");
+				}
+			}
+			System.out.println();
+		}
+	}
 
 	private PrincipalFrame() {
 		super("City Agents");
@@ -87,42 +104,44 @@ public class PrincipalFrame extends JFrame {
 		// sets the visibility of the frame
 		setVisible(true);
 	}
-	
+
 	public static PrincipalFrame getInstance() {
 		if (thisInstance == null) {
 			thisInstance = new PrincipalFrame();
 		}
 		return thisInstance;
 	}
-	
+
 	/**
 	 * @return the seconds
 	 */
 	public long getSeconds() {
 		return seconds;
 	}
-	
+
 	/**
-	 * @param seconds the seconds to set
+	 * @param seconds
+	 *            the seconds to set
 	 */
 	public void setSeconds(long seconds) {
 		this.seconds = seconds;
 	}
-	
+
 	/**
 	 * @return the numberOfAgentsToAdd
 	 */
 	public int getNumberOfAgentsToAdd() {
 		return numberOfAgentsToAdd;
 	}
-	
+
 	/**
-	 * @param numberOfAgentsToAdd the numberOfAgentsToAdd to set
+	 * @param numberOfAgentsToAdd
+	 *            the numberOfAgentsToAdd to set
 	 */
 	public void setNumberOfAgentsToAdd(int numberOfAgentsToAdd) {
 		this.numberOfAgentsToAdd = numberOfAgentsToAdd;
 	}
-	
+
 	public void increaseDimension() {
 		Integer size = world.getWorldSize();
 		if (size < 50) {
@@ -130,7 +149,7 @@ public class PrincipalFrame extends JFrame {
 			principalPanel.getRight().repaint();
 		}
 	}
-	
+
 	public void decreaseDimension() {
 		Integer size = world.getWorldSize();
 		if (size > 1) {
@@ -138,15 +157,15 @@ public class PrincipalFrame extends JFrame {
 			principalPanel.getRight().repaint();
 		}
 	}
-	
+
 	public PrincipalPanel getPanel() {
 		return principalPanel;
 	}
-	
+
 	public void disableMenu() {
 		menuBar.disableMenu();
 	}
-	
+
 	public void loadMapFromFile(String filePath) {
 		File file = new File(filePath);
 		InputStream inputStream = null;
@@ -165,7 +184,7 @@ public class PrincipalFrame extends JFrame {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} finally {
-			if( input != null ) {
+			if (input != null) {
 				try {
 					input.close();
 				} catch (IOException e) {
@@ -174,7 +193,7 @@ public class PrincipalFrame extends JFrame {
 			}
 		}
 	}
-	
+
 	public void storeMapToFile(String filePath) {
 		File file = new File(filePath);
 		OutputStream outputStream = null;
@@ -190,7 +209,7 @@ public class PrincipalFrame extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if( output != null ) {
+			if (output != null) {
 				try {
 					output.close();
 				} catch (IOException e) {
@@ -214,16 +233,14 @@ public class PrincipalFrame extends JFrame {
 		}
 	}
 
-	public GraphicAgent getGraphicAgent() 
-	{
+	public GraphicAgent getGraphicAgent() {
 		return graphicAgent;
 	}
 
-	public void setGraphicAgent( GraphicAgent graphicAgent ) 
-	{
+	public void setGraphicAgent(GraphicAgent graphicAgent) {
 		this.graphicAgent = graphicAgent;
 	}
-	
+
 	public RightPanel getRightPanel() {
 		return principalPanel.getRight();
 	}

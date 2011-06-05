@@ -24,6 +24,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
+import cityagents.gui.listeners.AddAgentActionListener;
+import cityagents.gui.listeners.AddAgentsRandomlyActionListener;
 import cityagents.gui.listeners.DecreaseDimensionListener;
 import cityagents.gui.listeners.ExitListener;
 import cityagents.gui.listeners.IncreaseDimensionListener;

@@ -20,25 +20,41 @@ package cityagents.gui.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JMenuItem;
+
 import cityagents.gui.PrincipalFrame;
 import cityagents.gui.RightPanel;
+import cityagents.gui.util.Labels;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
 public class ContextMenuListener implements ActionListener {
 
+	private static ContextMenuListener thisInstance;
 	private RightPanel panel;
-	
-	public ContextMenuListener() {
+
+	private ContextMenuListener() {
 		panel = PrincipalFrame.getInstance().getRightPanel();
 	}
-	
+
+	public static ContextMenuListener getInstance() {
+		if (thisInstance == null) {
+			thisInstance = new ContextMenuListener();
+		}
+		return thisInstance;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		panel.setEditDirection(true);
-		panel.repaint();
+		JMenuItem item = (JMenuItem) e.getSource();
+		if( item.getText().equals(Labels.EDIT_DIRECTIONS)) {
+			panel.setEditDirection(true);
+			panel.repaint();
+		} else if( item.getText().equals(Labels.GENERATE_GRAPH)) {
+			PrincipalFrame.getInstance().printWorldMap();
+		}
 	}
 
 }
