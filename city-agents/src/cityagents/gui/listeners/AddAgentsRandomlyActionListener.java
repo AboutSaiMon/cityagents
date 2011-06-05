@@ -15,24 +15,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui;
+package cityagents.gui.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import cityagents.core.WorldObject;
+import cityagents.gui.AddAgentRandomlyFrame;
 
 /**
  *
  * @author Deep Blue Team
  */
-public class AddAgentActionListener implements ActionListener 
+public class AddAgentsRandomlyActionListener implements ActionListener 
 {
-
+	
 	@Override
 	public void actionPerformed( ActionEvent arg0 ) 
 	{
-		PrincipalFrame frame = PrincipalFrame.getInstance();
-		frame.getPanel().currentChoice = WorldObject.CAR;
+		new AddAgentRandomlyFrame();
 	}
+
 }

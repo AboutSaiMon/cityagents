@@ -34,6 +34,7 @@ import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
 import cityagents.core.agents.CarAgent;
 import cityagents.gui.listeners.RPanelMouseListener;
+import cityagents.gui.util.ImagesHandler;
 
 public class RightPanel extends JPanel
 {

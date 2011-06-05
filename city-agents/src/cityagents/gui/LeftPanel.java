@@ -30,6 +30,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import cityagents.gui.listeners.ObjectButtonListner;
+import cityagents.gui.util.ImagesHandler;
 
 public class LeftPanel extends JPanel {
 

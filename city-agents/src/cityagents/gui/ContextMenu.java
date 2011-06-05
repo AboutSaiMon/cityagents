@@ -31,12 +31,16 @@ public class ContextMenu extends JPopupMenu {
 
 	private static final long serialVersionUID = 4224252607713811091L;
 	private static ContextMenu thisInstance;
-	private JMenuItem setDirection;
+	private JMenuItem editDirection;
+	private JMenuItem generateGraph;
 
 	private ContextMenu() {
-		setDirection = new JMenuItem(Labels.EDIT_DIRECTIONS);
-		setDirection.addActionListener(new ContextMenuListener());
-		add(setDirection);
+		editDirection = new JMenuItem(Labels.EDIT_DIRECTIONS);
+		editDirection.addActionListener(ContextMenuListener.getInstance());
+		add(editDirection);
+		generateGraph = new JMenuItem(Labels.GENERATE_GRAPH);
+		generateGraph.addActionListener(ContextMenuListener.getInstance());
+		add(generateGraph);
 	}
 
 	public static ContextMenu getInstance() {

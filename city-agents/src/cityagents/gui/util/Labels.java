@@ -52,6 +52,7 @@ public interface Labels {
 	/* *** ContextMenu.java *** */
 	
 	public static final String EDIT_DIRECTIONS = "Edit directions";
+	public static final String GENERATE_GRAPH = "Generate graph";
 	
 	/* *** CaMenuBar.java *** */
 	
