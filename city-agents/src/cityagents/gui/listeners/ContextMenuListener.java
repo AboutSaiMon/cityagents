@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
+import cityagents.core.WorldMap;
 import cityagents.gui.PrincipalFrame;
 import cityagents.gui.RightPanel;
 import cityagents.gui.util.Labels;
@@ -53,7 +54,7 @@ public class ContextMenuListener implements ActionListener {
 			panel.setEditDirection(true);
 			panel.repaint();
 		} else if( item.getText().equals(Labels.GENERATE_GRAPH)) {
-			PrincipalFrame.getInstance().printWorldMap();
+			WorldMap.getInstance().generateWorldGraph();
 		}
 	}
 
