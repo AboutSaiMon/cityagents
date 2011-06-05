@@ -20,7 +20,7 @@ package cityagents;
 import cityagents.gui.PrincipalFrame;
 
 /**
- *
+ * 
  * @author Deep Blue Team
  */
 public class CityAgentsWorld {
@@ -28,5 +28,5 @@ public class CityAgentsWorld {
 	public static void main(String[] args) {
 		PrincipalFrame.getInstance();
 	}
-	
+
 }

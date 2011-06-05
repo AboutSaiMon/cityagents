@@ -38,6 +38,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import cityagents.core.Street;
+import cityagents.core.WorldGraph;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
 import cityagents.core.agents.GraphicAgent;
@@ -60,22 +61,6 @@ public class PrincipalFrame extends JFrame {
 	private long seconds;
 
 	private GraphicAgent graphicAgent;
-
-	// TODO: questo metodo fa un debug della matrice di oggetti
-	public void printWorldMap() {
-		WorldObject[][] obj = world.getMap();
-		for (WorldObject[] o1 : obj) {
-			for (WorldObject o2 : o1) {
-				if( o2 instanceof Street ) {
-					Street s = (Street) o2;
-					System.out.print(s.getDirection() + " ");
-				} else {
-					System.out.print("**** ");
-				}
-			}
-			System.out.println();
-		}
-	}
 
 	private PrincipalFrame() {
 		super("City Agents");
