@@ -18,52 +18,34 @@
 package cityagents.core;
 
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.awt.Point;
+import java.io.Serializable;
 
 /**
  *
  * @author Deep Blue Team
  */
-public class Crossroad 
+public class Crossroad implements Serializable
 {	
-	private Queue< String > carsQueue;
-	
-	private static Crossroad thisInstance;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3424215509496641153L;
+	private Point position;
 	
 	/**
 	 * 
 	 */
-	private Crossroad() 
+	public Crossroad( Point position ) 
 	{
-		carsQueue = new LinkedList< String >();
+		this.position = position; 
 	}
-	
-	public static Crossroad getInstance() 
+			
+	/**
+	 * @return the position
+	 */
+	public Point getPosition()
 	{
-		if ( thisInstance == null ) 
-		{
-			thisInstance = new Crossroad();
-		}
-		return thisInstance;
-	}
-		
-	public void addCarInQueue( String myId )
-	{
-		carsQueue.add( myId );
-	}
-	
-	public void removeFromQueue( String myId )	
-	{
-		String head = carsQueue.peek();
-		if( head != null && head.equalsIgnoreCase( myId ) )
-		{
-			carsQueue.poll();
-		}
-	}
-	
-	public String getTop()
-	{
-		return carsQueue.peek();		
+		return position;
 	}
 }

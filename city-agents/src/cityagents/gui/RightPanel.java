@@ -32,7 +32,6 @@ import cityagents.core.House;
 import cityagents.core.Street;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
-import cityagents.core.agents.CarAgent;
 import cityagents.gui.listeners.RPanelMouseListener;
 import cityagents.gui.util.ImagesHandler;
 
@@ -150,18 +149,13 @@ public class RightPanel extends JPanel
 	protected void paintComponent( Graphics graphics )
 	{
 		super.paintComponent( graphics );
-		for( int j = 0; j < world.getWorldSize(); j++ )
+		for( int j = 0; j < world.getMap().length; j++ )
 		{
-			for( int i = 0; i < world.getWorldSize() * 2; i++ )
+			for( int i = 0; i < world.getMap()[ j ].length; i++ )
 			{
 				WorldObject element = world.getElement( j, i );
 
-				if( element instanceof CarAgent )
-				{
-					graphics.drawImage( images.getStreet(), i * size + 20, j * size + 20, null );
-					graphics.drawImage( images.getCar(), i * size + 20, j * size + 20, null );
-				}
-				else if( element instanceof Grass )
+				if( element instanceof Grass )
 				{
 					graphics.drawImage( images.getGrass(), i * size + 20, j * size + 20, null );
 				}
@@ -176,6 +170,23 @@ public class RightPanel extends JPanel
 					if( isEditDirection() )
 					{
 						drawDirection( graphics, element, i, j );
+					}
+					else
+					{
+						Street elem = ( Street ) element;
+						if( elem.getAgent() != null )
+						{
+							if( elem.getDirection() == Direction.EAST )
+								graphics.drawImage( images.getCarEast(), i * size + 20, j * size + 20, null );
+							else if( elem.getDirection() == Direction.WEST )
+								graphics.drawImage( images.getCarWest(), i * size + 20, j * size + 20, null );
+							else if( elem.getDirection() == Direction.NORTH )
+								graphics.drawImage( images.getCarNorth(), i * size + 20, j * size + 20, null );
+							else if( elem.getDirection() == Direction.SOUTH )
+								graphics.drawImage( images.getCarSouth(), i * size + 20, j * size + 20, null );
+							else
+								graphics.drawImage( images.getCar(), i * size + 20, j * size + 20, null );
+						}
 					}
 				}
 			}

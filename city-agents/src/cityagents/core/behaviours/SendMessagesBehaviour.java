@@ -21,7 +21,7 @@ import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 
-import java.io.IOException;
+import java.util.List;
 
 import cityagents.core.MessageContent;
 import cityagents.core.agents.CarAgent;
@@ -35,20 +35,20 @@ public class SendMessagesBehaviour extends Behaviour
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6361518040672645588L;	
-	
-	MessageContent messageContent; 
-	CarAgent[] receivers;
-	
+	private static final long serialVersionUID = 6361518040672645588L;
+
+	MessageContent messageContent;
+	List< CarAgent > receivers;
+
 	/**
 	 * 
 	 */
-	public SendMessagesBehaviour( MessageContent messageContent, CarAgent[] receivers )
+	public SendMessagesBehaviour( MessageContent messageContent, List< CarAgent > receivers )
 	{
 		this.messageContent = messageContent;
 		this.receivers = receivers;
 	}
-	
+
 	@Override
 	public void action()
 	{
@@ -60,29 +60,21 @@ public class SendMessagesBehaviour extends Behaviour
 	{
 		return true;
 	}
-	
-	private boolean sendMessage( MessageContent messageContent, CarAgent[] receivers )
+
+	private void sendMessage( MessageContent messageContent, List< CarAgent > receivers )
 	{
 		ACLMessage message = new ACLMessage( ACLMessage.PROPOSE );
-		try
-		{
-			// Define the content of the message.
-			message.setContentObject( messageContent );
-		}
-		catch( IOException e )
-		{
-			e.printStackTrace();
-			return false;
-		}
+		message.setContent( "MSG:::" +
+				messageContent.getCrossroad().getPosition().x + ":::" + 
+				messageContent.getCrossroad().getPosition().y + ":::" +
+				messageContent.getSpeed() + ":::" + 
+				messageContent.getTraffic() );		
 
 		// Set all recipients.
-		for( int i = 0; i < receivers.length; i++ )
+		for( CarAgent c : receivers )
 		{
-			CarAgent c = receivers[ i ];
 			message.addReceiver( new AID( c.getLocalName(), AID.ISLOCALNAME ) );
 		}
 		myAgent.send( message );
-
-		return true;
 	}
 }

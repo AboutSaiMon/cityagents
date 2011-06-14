@@ -41,6 +41,10 @@ public class ImagesHandler {
 	private Image house = null;
 	private Image houseButton = null;
 	private Image car = null;
+	private Image carNorth = null;
+	private Image carSouth = null;
+	private Image carEast = null;
+	private Image carWest = null;
 	private Image north = null;
 	private Image south = null;
 	private Image west = null;
@@ -95,6 +99,38 @@ public class ImagesHandler {
 		return car;
 	}
 
+	/**
+	 * @return the carEast
+	 */
+	public Image getCarEast()
+	{
+		return carEast;
+	}
+	
+	/**
+	 * @return the carSouth
+	 */
+	public Image getCarSouth()
+	{
+		return carSouth;
+	}
+	
+	/**
+	 * @return the carNorth
+	 */
+	public Image getCarNorth()
+	{
+		return carNorth;
+	}
+	
+	/**
+	 * @return the carWest
+	 */
+	public Image getCarWest()
+	{
+		return carWest;
+	}
+	
 	/**
 	 * @return the north
 	 */
@@ -202,7 +238,7 @@ public class ImagesHandler {
 		grassButton = t.getImage(IMAGES_PATH + "grass-button.gif");
 		house = t.getImage(IMAGES_PATH + "house.gif");
 		houseButton = t.getImage(IMAGES_PATH + "house-button.gif");
-		car = t.getImage(IMAGES_PATH + "car.gif");
+		car = t.getImage(IMAGES_PATH + "car_1.gif");		
 		north = t.getImage(IMAGES_PATH + "north.png");
 		south = t.getImage(IMAGES_PATH + "south.png");
 		west = t.getImage(IMAGES_PATH + "west.png");
@@ -218,6 +254,10 @@ public class ImagesHandler {
 		southWestEast = t.getImage(IMAGES_PATH + "south-west-east.png");
 		westNorthSouth = t.getImage(IMAGES_PATH + "west-north-south.png");
 		eastNorthSouth = t.getImage(IMAGES_PATH + "east-north-south.png");
+		carNorth = t.getImage(IMAGES_PATH + "car_north.gif");
+		carWest = t.getImage(IMAGES_PATH + "car_west.gif");
+		carEast = t.getImage(IMAGES_PATH + "car_east.gif");
+		carSouth = t.getImage(IMAGES_PATH + "car_south.gif");
 
 		MediaTracker mt = new MediaTracker(new JPanel());
 		mt.addImage(street, 0);
@@ -226,7 +266,7 @@ public class ImagesHandler {
 		mt.addImage(grassButton, 3);
 		mt.addImage(house, 4);
 		mt.addImage(houseButton, 5);
-		mt.addImage(car, 6);
+		mt.addImage(car, 6);		
 		mt.addImage(north, 7);
 		mt.addImage(south, 8);
 		mt.addImage(west, 9);
@@ -241,9 +281,13 @@ public class ImagesHandler {
 		mt.addImage(southWestEast, 18);
 		mt.addImage(westNorthSouth, 19);
 		mt.addImage(eastNorthSouth, 20);
+		mt.addImage(carNorth, 21);
+		mt.addImage(carWest, 22);
+		mt.addImage(carEast, 23);
+		mt.addImage(carSouth, 24);
 
 		try {
-			for (int i = 0; i <= 20; i++) {
+			for (int i = 0; i <= 24; i++) {
 				mt.waitForID(i);
 			}
 		} catch (InterruptedException e) {

@@ -20,10 +20,16 @@ package cityagents.core.agents;
 import jade.core.Agent;
 
 import java.awt.Point;
+import java.util.List;
+
+import org.jgrapht.alg.DijkstraShortestPath;
+import org.jgrapht.graph.DefaultEdge;
 
 import cityagents.core.Street;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
+import cityagents.core.behaviours.MovementsBehaviour;
+import cityagents.core.behaviours.ReceiveMessagesBehaviour;
 
 /**
  * 
@@ -37,6 +43,8 @@ public class CarAgent extends Agent implements WorldObject
 	private WorldMap world;
 	private int mySpeed;
 	private int myTraffic;
+	private List< DefaultEdge > myPath;
+	private boolean canCross = false;
 
 	@Override
 	protected void setup()
@@ -55,9 +63,10 @@ public class CarAgent extends Agent implements WorldObject
 			if( args[ 0 ] instanceof Point && args[ 1 ] instanceof Point )
 			{
 				start = ( Point ) args[ 0 ];
-				destination = ( Point ) args[ 1 ];
+				destination = ( Point ) args[ 1 ];				
 				int worldSize = world.getWorldSize();
-				if( start.x >= 0 && start.y < worldSize && destination.x >= 0 && destination.y < ( worldSize * 2 ) )
+				if( start.x >= 0 && start.x < worldSize && start.y >= 0 && start.y < ( worldSize * 2 ) 
+				&& destination.x >= 0 && destination.x < worldSize && destination.y >= 0 && destination.y < ( worldSize * 2 ) )
 				{
 					WorldObject elementAtStart = world.getElement( start );
 					WorldObject elementAtDestination = world.getElement( destination );
@@ -83,10 +92,22 @@ public class CarAgent extends Agent implements WorldObject
 		}
 		catch( Exception e )
 		{
+			e.printStackTrace();
 			doDelete();
 		}
+		calculateMyPath();		
+		
+		addBehaviour( new MovementsBehaviour( this, 1000 ) );
+		addBehaviour( new ReceiveMessagesBehaviour() );
+	}
 
-	}	
+	/**
+	 * @return the destination
+	 */
+	public Point getDestination()
+	{
+		return destination;
+	}
 
 	/**
 	 * @return the mySpeed
@@ -97,11 +118,28 @@ public class CarAgent extends Agent implements WorldObject
 	}
 
 	/**
-	 * @param mySpeed the mySpeed to set
+	 * @return the start
+	 */
+	public Point getStart()
+	{
+		return start;
+	}
+
+	/**
+	 * @param mySpeed
+	 *            the mySpeed to set
 	 */
 	public void setMySpeed( int mySpeed )
 	{
 		this.mySpeed = mySpeed;
+	}
+
+	/**
+	 * @return the myPath
+	 */
+	public List< DefaultEdge > getMyPath()
+	{
+		return myPath;
 	}
 	
 	/**
@@ -111,12 +149,40 @@ public class CarAgent extends Agent implements WorldObject
 	{
 		return myTraffic;
 	}
-	
+
 	/**
-	 * @param myTraffic the myTraffic to set
+	 * @param myTraffic
+	 *            the myTraffic to set
 	 */
 	public void setMyTraffic( int myTraffic )
 	{
 		this.myTraffic = myTraffic;
+	}
+
+	private void calculateMyPath()
+	{
+		world.generateWorldGraph();	
+
+		DijkstraShortestPath< Point, DefaultEdge > shortestPath = new DijkstraShortestPath< Point, DefaultEdge >( world.getWorldGraph(), start, destination );
+				
+		myPath = shortestPath.getPathEdgeList();
+		if( myPath == null || myPath.size() == 0 )
+		{			
+			world.removeCar( start );
+			this.doDelete();
+		}
+	}
+	
+	/**
+	 * @return the canCross
+	 */
+	public boolean canCross()
+	{
+		return canCross;
+	}
+	
+	public void setCanCross( boolean b )
+	{
+		canCross = b;
 	}
 }

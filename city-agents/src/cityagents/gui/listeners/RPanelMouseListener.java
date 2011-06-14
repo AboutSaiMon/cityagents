@@ -181,12 +181,13 @@ public class RPanelMouseListener extends MouseAdapter
 								arguments[ 1 ] = new Point( i, j );
 								c.setArguments( arguments );
 								world.setCar( agentStart.x, agentStart.y, c );
-								panel.setAddAnAgent( false );
-								agentStart = null;
-								PrincipalFrame frame = PrincipalFrame.getInstance();
-								JOptionPane.showMessageDialog( frame, "Added Agent", "Added Agent", JOptionPane.INFORMATION_MESSAGE );
 								if( !world.isEditable() )
-									world.startAgent( i, j );
+									world.startAgent( agentStart.x, agentStart.y );
+								
+								PrincipalFrame frame = PrincipalFrame.getInstance();
+								JOptionPane.showMessageDialog( frame, "Added Agent", "Added Agent", JOptionPane.INFORMATION_MESSAGE );								
+								panel.setAddAnAgent( false );								
+								agentStart = null;
 							}
 						}
 						else
