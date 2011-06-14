@@ -69,10 +69,8 @@ public class PrincipalFrame extends JFrame {
 		world = WorldMap.getInstance();
 		// sets the look and feel of the OS
 		initLookAndFeel();
-		// gets the screen size
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		// sets the frame size
-		setSize(dim.width / 2, dim.height / 2);
+		setSize( 1500, 700 );
 		// sets the position to the center of the screen
 		setLocationRelativeTo(null);
 		// sets the default action when the exit button is pressed

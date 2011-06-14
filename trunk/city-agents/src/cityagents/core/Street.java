@@ -17,6 +17,8 @@
  */
 package cityagents.core;
 
+import cityagents.core.agents.CarAgent;
+
 /**
  * 
  * @author Deep Blue Team
@@ -26,9 +28,11 @@ public class Street implements WorldObject {
 	private static final long serialVersionUID = -7588867486479307105L;
 	
 	private Direction direction;
+	private CarAgent agent;
 	
 	public Street() {
 		direction = Direction.NONE;
+		agent = null;
 	}
 	
 	/**
@@ -45,4 +49,20 @@ public class Street implements WorldObject {
 		this.direction = direction;
 	}
 
+	/**
+	 * @return the agent
+	 */
+	public CarAgent getAgent()
+	{
+		return agent;
+	}
+	
+	/**
+	 * @param agent the agent to set
+	 */
+	public void setAgent( CarAgent agent )
+	{
+		this.agent = agent;
+	}
+	
 }

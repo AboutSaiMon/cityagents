@@ -19,7 +19,10 @@ package cityagents.core.behaviours;
 
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.UnreadableException;
+
+import java.awt.Point;
+
+import cityagents.core.Crossroad;
 import cityagents.core.MessageContent;
 import cityagents.core.agents.CarAgent;
 
@@ -45,68 +48,60 @@ public class ReceiveMessagesBehaviour extends CyclicBehaviour
 			ACLMessage message = agent.receive();
 			if( message != null )
 			{
-				MessageContent content;
-				try
+				MessageContent content = null;						
+				String receivedMessage = message.getContent();			
+				
+				if( receivedMessage.startsWith( "MSG" ) )
 				{
-					Object contentObject = message.getContentObject();					
+					String[] splittedMessage = receivedMessage.split( ":::" );
+					int x = Integer.parseInt( splittedMessage[ 1 ] );
+					int y = Integer.parseInt( splittedMessage[ 2 ] );
+					int speed = Integer.parseInt( splittedMessage[ 3 ] );
+					int traffic = Integer.parseInt( splittedMessage[ 4 ] );
 					
-					if( contentObject instanceof MessageContent )
+					content = new MessageContent( new Crossroad( new Point( x, y ) ), speed, traffic );
+				
+					ACLMessage reply = message.createReply();
+					if( agent.getMyTraffic() == content.getTraffic() )
 					{
-						content = ( MessageContent ) message.getContentObject();
-						ACLMessage reply = message.createReply();
-						if( agent.getMyTraffic() == content.getTraffic() )
+						if( agent.getMySpeed() > content.getSpeed() )
 						{
-							if( agent.getMySpeed() > content.getSpeed() )
-							{
-								reply.setContent( agent.getMyTraffic() + "," + agent.getMySpeed());
-								reply.setPerformative( ACLMessage.REJECT_PROPOSAL );
-							}
-							else
-							{
-								reply.setContent( agent.getMyTraffic() + "," + agent.getMySpeed());
-								reply.setPerformative( ACLMessage.ACCEPT_PROPOSAL );
-							}
+							reply.setContent( "RPL:" + agent.getMyTraffic() + "," + agent.getMySpeed());
+							reply.setPerformative( ACLMessage.REJECT_PROPOSAL );
 						}
 						else
 						{
-							if( agent.getMyTraffic() < content.getTraffic() )
-							{
-								reply.setContent( agent.getMyTraffic() + "," + agent.getMySpeed());
-								reply.setPerformative( ACLMessage.REJECT_PROPOSAL );
-							}
-							else
-							{
-								reply.setContent( agent.getMyTraffic() + "," + agent.getMySpeed());
-								reply.setPerformative( ACLMessage.ACCEPT_PROPOSAL );
-							}
+							reply.setContent( "RPL:" + agent.getMyTraffic() + "," + agent.getMySpeed());
+							reply.setPerformative( ACLMessage.ACCEPT_PROPOSAL );
 						}
-						
-						agent.send( reply );
 					}
 					else
 					{
-						if( contentObject instanceof String )
+						if( agent.getMyTraffic() < content.getTraffic() )
 						{
-							String contentReply = ( String ) contentObject;
-							if( contentReply != null )
-							{
-								if( message.getPerformative() == ACLMessage.ACCEPT_PROPOSAL )
-								{
-									//dosomething;
-								}
-								else
-								{
-									//not accepted;
-								}
-							}
+							reply.setContent( "RPL:" + agent.getMyTraffic() + "," + agent.getMySpeed());
+							reply.setPerformative( ACLMessage.REJECT_PROPOSAL );
+						}
+						else
+						{
+							reply.setContent( "RPL:" + agent.getMyTraffic() + "," + agent.getMySpeed());
+							reply.setPerformative( ACLMessage.ACCEPT_PROPOSAL );
 						}
 					}
+					
+					agent.send( reply );
 				}
-				catch( UnreadableException e )
+				else
 				{
-					e.printStackTrace();
-				}				
-			}
+					if( receivedMessage.startsWith( "RPL" ) )
+					{
+						if( message.getPerformative() == ACLMessage.ACCEPT_PROPOSAL )
+						{									
+							agent.setCanCross( true );
+						}				
+					}
+				}//End if msg
+			}//Message != null
 		}
 	}
 }
