@@ -274,7 +274,6 @@ public class WorldMap implements Serializable
 	{
 		PrincipalFrame frame = PrincipalFrame.getInstance();
 		GraphicAgent g = frame.getGraphicAgent();
-		System.out.println("QUI1");
 		if( world[ i ][ j ] instanceof Street )
 		{
 			Street s = ( Street ) world[ i ][ j ];

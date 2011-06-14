@@ -17,8 +17,6 @@
  */
 package cityagents.gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -37,8 +35,6 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import cityagents.core.Street;
-import cityagents.core.WorldGraph;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
 import cityagents.core.agents.GraphicAgent;

@@ -77,7 +77,7 @@ public class CarAgent extends Agent implements WorldObject
 					}
 					else
 					{
-						throw new Exception( "Invalid position." );
+						throw new Exception( "Invalid position." );						
 					}
 				}
 				else
