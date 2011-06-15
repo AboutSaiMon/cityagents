@@ -42,9 +42,11 @@ public class CarAgent extends Agent implements WorldObject
 	private Point destination;
 	private WorldMap world;
 	private int mySpeed;
-	private int myTraffic;
+//	private int myTraffic;
 	private List< DefaultEdge > myPath;
 	private boolean canCross = false;
+	private int step = 0;
+	private boolean sendedMessage = false;
 
 	@Override
 	protected void setup()
@@ -147,17 +149,30 @@ public class CarAgent extends Agent implements WorldObject
 	 */
 	public int getMyTraffic()
 	{
-		return myTraffic;
+		int traffic = 0;
+		int count = 0;
+		while( myPath != null && myPath.size() > 0 && ( step + traffic ) < myPath.size() && count < 3 )
+		{
+			DefaultEdge nextEdge = myPath.get( step + traffic );
+			Point nextPosition = world.getWorldGraph().getEdgeTarget( nextEdge );
+			Street s = ( Street ) world.getMap()[ nextPosition.x ][ nextPosition.y ];
+			if( s.getAgent() != null )
+			{
+				traffic++;
+			}
+			count++;
+		}
+		return traffic;
 	}
 
 	/**
 	 * @param myTraffic
 	 *            the myTraffic to set
 	 */
-	public void setMyTraffic( int myTraffic )
-	{
-		this.myTraffic = myTraffic;
-	}
+//	public void setMyTraffic( int myTraffic )
+//	{
+//		this.myTraffic = myTraffic;
+//	}
 
 	private void calculateMyPath()
 	{
@@ -184,5 +199,34 @@ public class CarAgent extends Agent implements WorldObject
 	public void setCanCross( boolean b )
 	{
 		canCross = b;
+	}
+	
+	public void incrementStep( int s )
+	{
+		step += s;
+	}
+	
+	/**
+	 * @return the step
+	 */
+	public int getStep()
+	{
+		return step;
+	}
+	
+	/**
+	 * @param sendedMessage the sendedMessage to set
+	 */
+	public void setSendedMessage( boolean sendedMessage )
+	{
+		this.sendedMessage = sendedMessage;
+	}
+	
+	/**
+	 * @return the sendedMessage
+	 */
+	public boolean isSendedMessage()
+	{
+		return sendedMessage;
 	}
 }
