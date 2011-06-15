@@ -98,7 +98,7 @@ public class ReceiveMessagesBehaviour extends CyclicBehaviour
 						if( message.getPerformative() == ACLMessage.ACCEPT_PROPOSAL )
 						{									
 							agent.setCanCross( true );
-						}				
+						}
 					}
 				}//End if msg
 			}//Message != null

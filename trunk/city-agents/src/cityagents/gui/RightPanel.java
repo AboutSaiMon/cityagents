@@ -26,12 +26,15 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import org.jgrapht.graph.DefaultEdge;
+
 import cityagents.core.Direction;
 import cityagents.core.Grass;
 import cityagents.core.House;
 import cityagents.core.Street;
 import cityagents.core.WorldMap;
 import cityagents.core.WorldObject;
+import cityagents.core.agents.CarAgent;
 import cityagents.gui.listeners.RPanelMouseListener;
 import cityagents.gui.util.ImagesHandler;
 
@@ -174,7 +177,8 @@ public class RightPanel extends JPanel
 					else
 					{
 						Street elem = ( Street ) element;
-						if( elem.getAgent() != null )
+						CarAgent agent = elem.getAgent();
+						if( agent != null )
 						{
 							if( elem.getDirection() == Direction.EAST )
 								graphics.drawImage( images.getCarEast(), i * size + 20, j * size + 20, null );
@@ -185,7 +189,33 @@ public class RightPanel extends JPanel
 							else if( elem.getDirection() == Direction.SOUTH )
 								graphics.drawImage( images.getCarSouth(), i * size + 20, j * size + 20, null );
 							else
-								graphics.drawImage( images.getCar(), i * size + 20, j * size + 20, null );
+							{
+								if( agent.getMyPath() != null && agent.getMyPath().size() != 0 && agent.getStep() < agent.getMyPath().size() )
+								{
+									DefaultEdge nextEdge = agent.getMyPath().get( agent.getStep() );
+									Point currentPosition = world.getWorldGraph().getEdgeSource(  nextEdge );
+									Point nextPosition = world.getWorldGraph().getEdgeTarget( nextEdge );
+									
+									if( currentPosition.x == nextPosition.x )
+									{
+										if( currentPosition.y > nextPosition.y )
+											graphics.drawImage( images.getCarWest(), i * size + 20, j * size + 20, null );
+										else
+											graphics.drawImage( images.getCarEast(), i * size + 20, j * size + 20, null );
+									}
+									else
+									{
+										if( currentPosition.x > nextPosition.x )
+											graphics.drawImage( images.getCarNorth(), i * size + 20, j * size + 20, null );
+										else
+											graphics.drawImage( images.getCarSouth(), i * size + 20, j * size + 20, null );
+									}									
+								}
+								else
+								{
+									graphics.drawImage( images.getCarEast(), i * size + 20, j * size + 20, null );
+								}
+							}
 						}
 					}
 				}

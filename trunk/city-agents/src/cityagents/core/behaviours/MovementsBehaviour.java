@@ -45,7 +45,6 @@ public class MovementsBehaviour extends TickerBehaviour
 	private CarAgent agent;
 	private int nextStep;
 	private WorldMap world;
-	private boolean sendedMessage = false;
 	
 	/**
 	 * @throws Exception 
@@ -78,10 +77,11 @@ public class MovementsBehaviour extends TickerBehaviour
 					world.removeCar( currentPosition );								
 					world.setCar( nextPosition, agent );
 					nextStep++;
+					agent.incrementStep( 1 );
 				}
 				else
 				{
-					if( !sendedMessage )
+					if( !agent.isSendedMessage() )
 					{
 						List< CarAgent > receivers = world.getWorldGraph().getNeighbours( c );
 						
@@ -89,22 +89,24 @@ public class MovementsBehaviour extends TickerBehaviour
 						{
 							MessageContent messageContent = new MessageContent( c, agent.getMySpeed(), agent.getMyTraffic() );
 							agent.addBehaviour( new SendMessagesBehaviour( messageContent, receivers ) );
-							sendedMessage = true;
+							agent.setSendedMessage( true );
 						}
 						else
 						{
 							world.removeCar( currentPosition );								
 							world.setCar( nextPosition, agent );
 							nextStep++;
+							agent.incrementStep( 1 );
 						}
 					}
 					
 					if( agent.canCross() )
 					{
-						world.removeCar( currentPosition );								
+						world.removeCar( currentPosition );
 						world.setCar( nextPosition, agent );
 						nextStep++;
-						sendedMessage = false;
+						agent.incrementStep( 1 );
+						agent.setSendedMessage( false );
 						agent.setCanCross( false );
 					}
 				}
