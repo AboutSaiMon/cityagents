@@ -47,7 +47,7 @@ public class CarAgent extends Agent implements WorldObject
 	private boolean canCross = false;
 	private int step = 0;
 	private boolean sendedMessage = false;
-
+	
 	@Override
 	protected void setup()
 	{
