@@ -28,6 +28,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import cityagents.core.behaviours.AddAgentRandomlyBehaviour;
+
 /**
  *
  * @author Deep Blue Team
@@ -92,7 +94,8 @@ public class AddAgentRandomlyFrame extends JFrame
 					}				
 					frame.setSeconds(timer);
 					frame.setNumberOfAgentsToAdd(agents);
-					JOptionPane.showMessageDialog( null, "Save completed", "OK", JOptionPane.OK_OPTION );					
+					JOptionPane.showMessageDialog( null, "Save completed", "OK", JOptionPane.OK_OPTION );
+					frame.getGraphicAgent().addBehaviour( new AddAgentRandomlyBehaviour( frame.getGraphicAgent(), timer*1000, agents ) );
 				}				
 				catch( Exception ex )
 				{

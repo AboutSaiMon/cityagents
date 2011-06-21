@@ -20,6 +20,13 @@ package cityagents.core.behaviours;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
 
+import java.awt.Point;
+import java.util.Random;
+
+import cityagents.core.Street;
+import cityagents.core.WorldMap;
+import cityagents.core.agents.CarAgent;
+
 /**
  *
  * @author Deep Blue Team
@@ -32,7 +39,7 @@ public class AddAgentRandomlyBehaviour extends TickerBehaviour
 	 */
 	private static final long serialVersionUID = 1L;
 
-	int numberOfAgentsToAdd;
+	int numberOfAgentsToAdd;	
 	/**
 	 * @param a
 	 * @param period
@@ -47,19 +54,45 @@ public class AddAgentRandomlyBehaviour extends TickerBehaviour
 	@Override
 	protected void onTick() 
 	{
-		//STUFF TO DO		
-//		CarAgent c = new CarAgent();
-//		Point[] arguments = new Point[ 2 ];
-//		arguments[ 0 ] = new Point( 2, 3 );
-//		arguments[ 1 ] = new Point( 3, 5 );
-//		c.setArguments( arguments );
-//		try 
-//		{
-//			myAgent.getContainerController().acceptNewAgent( "Car", c ).start();
-//		} catch (StaleProxyException e) 
-//		{
-//			e.printStackTrace();
-//		}		
+		for( int i = 0; i < numberOfAgentsToAdd && i < 5; i++ )
+		{
+			WorldMap world = WorldMap.getInstance();
+			if( !world.isEditable() )
+			{			
+				Random r = new Random();
+				Point start = new Point();
+				Point destination = new Point();
+				
+				int count = 0;
+				do
+				{
+				
+				start.x = r.nextInt( world.getWorldSize() );
+				start.y = r.nextInt( world.getWorldSize() * 2 );
+				
+				destination.x = r.nextInt( world.getWorldSize() );
+				destination.y = r.nextInt( world.getWorldSize() * 2 );
+							
+				}while( ( !( world.getElement( start ) instanceof Street ) || 
+						  !( world.getElement( destination ) instanceof Street ) 
+						 ) && 
+						 count++ < 3
+				);
+				
+				if( ( world.getElement( start ) instanceof Street ) && ( world.getElement( destination ) instanceof Street ) )
+				{
+					CarAgent c = new CarAgent();
+					Point[] arguments = new Point[ 2 ];
+					arguments[ 0 ] = start;
+					arguments[ 1 ] = destination;
+					c.setArguments( arguments );
+					
+					
+					world.setCar( start.x, start.y, c );		
+					world.startAgent( start.x, start.y );
+				}
+			}
+		}
 	}
 
 }
