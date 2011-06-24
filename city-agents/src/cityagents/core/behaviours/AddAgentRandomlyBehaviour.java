@@ -23,6 +23,7 @@ import jade.core.behaviours.TickerBehaviour;
 import java.awt.Point;
 import java.util.Random;
 
+import cityagents.core.Direction;
 import cityagents.core.Street;
 import cityagents.core.WorldMap;
 import cityagents.core.agents.CarAgent;
@@ -56,6 +57,7 @@ public class AddAgentRandomlyBehaviour extends TickerBehaviour
 	{
 		for( int i = 0; i < numberOfAgentsToAdd && i < 5; i++ )
 		{
+			boolean crossroad = true;
 			WorldMap world = WorldMap.getInstance();
 			if( !world.isEditable() )
 			{			
@@ -73,10 +75,21 @@ public class AddAgentRandomlyBehaviour extends TickerBehaviour
 				destination.x = r.nextInt( world.getWorldSize() );
 				destination.y = r.nextInt( world.getWorldSize() * 2 );
 							
-				}while( ( !( world.getElement( start ) instanceof Street ) || 
-						  !( world.getElement( destination ) instanceof Street ) 
+				if( world.getElement( start ) instanceof Street )
+				{
+					Street s = ( Street ) world.getElement( start );
+					if( s.getDirection() != Direction.EAST ||
+						s.getDirection() != Direction.WEST ||
+						s.getDirection() != Direction.NORTH || 
+						s.getDirection() != Direction.SOUTH )
+					{
+						crossroad = false;						
+					}
+				}
+				}while( ( !( world.getElement( start ) instanceof Street ) || 						
+						  !( world.getElement( destination ) instanceof Street )						  
 						 ) && 
-						 count++ < 3
+						 count++ < 3 && crossroad						 
 				);
 				
 				if( ( world.getElement( start ) instanceof Street ) && ( world.getElement( destination ) instanceof Street ) )
