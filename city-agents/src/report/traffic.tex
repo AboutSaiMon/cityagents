@@ -1,0 +1,67 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+
+\title{Traffic World}
+\author{
+    Carmine Dodaro, Simone Spaccarotella \\
+    \texttt{\{carminedodaro, spa.simone\}@gmail.com}
+}
+
+\begin{document}
+
+    \maketitle
+
+    \begin{abstract}
+	Traffic World è un framework multi agente, per la simulazione di sistemi
+	intelligenti. La piattaforma su cui gli agenti si muoveranno è
+	rappresentata da una mappa cittadina. Il nostro obiettivo è creare un sistema
+	che consenta ad ogni agente di raggiungere la destinazione desiderata nel minor
+	tempo possibile.
+    \end{abstract}
+
+    \section{Introduzione}
+	L'ambiente è composto da una mappa cittadina, composta da strade con un senso
+	di percorrenza prefissato. Ogni agente, deve compiere un determinato percorso,
+	composto da un punto di partenza e un punto di arrivo nella mappa. È richiesto
+	che l'agente raggiunga la sua destinazione minimizzando il percorso da fare. È
+	fondamentale, inoltre, che il numero di collisioni tra agenti sia minimo.
+	Quest'ultimo è il requisito con priorità più elevata. Per questa ragione, una
+	forte penalità è attribuita agli agenti coinvolti in un incidente. Nel nostro
+	sistema, ogni agente agisce in modo autonomo, senza l'ausilio di semafori o di
+	altri sistemi intelligenti di controllo. In questo contesto, è importante
+	definire una politica di scelte per ogni agente che consenta di raggiungere un
+	obiettivo comune.
+	
+	\section{Strategie}
+    In questa sezione, descriviamo il nostro approccio alla realizzazione di un
+    tale sistema. Abbiamo definito un ambiente multiagente in cui ogni agente
+    collabora con gli altri. In particolare, una strategia di tipo collaborativo
+    è stata attuata al fine di minimizzare il numero di incidenti.
+    
+    \subsection{Minimizzazione Percorso}
+    
+    \subsection{Minimizzare Incidenti}
+    La strategia di minimizzazione degli incidenti è basata su un concetto di
+    collaborazione tra agenti. Infatti, l'unico punto critico, in cui possono
+    avvenire collisioni tra agenti è nell'attraversamento di un incrocio. In
+    particolare, durante questa fase è importante che gli agenti comunichino al
+    fine di evitare incidenti. Ad ogni incrocio, gli agenti che si trovano in
+    concorrenza tra loro, negoziano l'ordine di priorità di attraversamento,
+    attraverso una politica basata sulle condizioni di traffico e sulla propria
+    velocità.\\
+    Sia $t_A$ il traffico dell'agente A e sia $t_B$ il traffico dell'agente B, A
+    precede B se $t_A < t_B$.\\
+    Nel caso in cui $t_A = t_B$, si prende in considerazione la velocità dei
+    due agenti. Sia $s_A$ la velocità dell'agente A e sia $s_B$ la velocità
+    dell'agente B, A precede B se $s_A > s_B$.\\
+    Nel caso in cui le due velocità dovessero uguali, l'agente che ha iniziato
+    la comunicazione, precederà gli altri.\\    
+    Questo tipo di strategia ha un duplice valore. Infatti, se da una
+    parte consente la minimizzazione degli incidenti, allo stesso tempo consente
+    di evitare ad agenti con poco traffico nel proprio percorso, di attendere a 
+    lungo per agenti con tanto traffico, ottenendo un miglioramento della misura
+    di prestazione globale.
+    
+
+\end{document}

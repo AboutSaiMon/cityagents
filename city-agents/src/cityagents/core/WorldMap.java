@@ -42,7 +42,11 @@ public class WorldMap implements Serializable
 	private int worldSize = 20;
 	private boolean editable = true;
 
-	private int numberOfAgents = 0;
+	private int numberOfAgents = 0;	
+	
+	private int globalTime = 0;
+	private int numberOfAgentsAdded = 0;
+	private int numberOfAccidents = 0;
 
 	/**
 	 * 
@@ -293,6 +297,21 @@ public class WorldMap implements Serializable
 				}
 			}
 		}
+	}
+	
+	public void addGlobalTime( int gt )
+	{
+		globalTime += gt;
+	}
+	
+	public void incrementNumberOfAgents()
+	{
+		numberOfAgentsAdded++;
+	}
+	
+	public double getPerformanceMeasure()
+	{
+		return ( globalTime/numberOfAgentsAdded ) * Math.pow( 5, numberOfAccidents );
 	}
 
 }
