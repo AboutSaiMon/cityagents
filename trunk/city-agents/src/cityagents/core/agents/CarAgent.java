@@ -46,7 +46,7 @@ public class CarAgent extends Agent implements WorldObject
 	private List< DefaultEdge > myPath;
 	private boolean canCross = false;
 	private int step = 0;
-	private boolean sendedMessage = false;
+	private boolean sentMessage = false;
 	
 	@Override
 	protected void setup()
@@ -76,6 +76,7 @@ public class CarAgent extends Agent implements WorldObject
 					if( elementAtStart instanceof Street && elementAtDestination instanceof Street )
 					{
 						world.setCar( start, this );
+						world.incrementNumberOfAgents();
 					}
 					else
 					{
@@ -217,16 +218,23 @@ public class CarAgent extends Agent implements WorldObject
 	/**
 	 * @param sendedMessage the sendedMessage to set
 	 */
-	public void setSendedMessage( boolean sendedMessage )
+	public void setSentMessage( boolean sentMessage )
 	{
-		this.sendedMessage = sendedMessage;
+		this.sentMessage = sentMessage;
 	}
 	
 	/**
 	 * @return the sendedMessage
 	 */
-	public boolean isSendedMessage()
+	public boolean isSentMessage()
 	{
-		return sendedMessage;
+		return sentMessage;
+	}
+	
+	@Override
+	public void doDelete()
+	{
+		super.doDelete();
+		world.addGlobalTime( this.step );
 	}
 }

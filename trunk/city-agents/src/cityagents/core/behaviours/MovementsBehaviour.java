@@ -81,7 +81,7 @@ public class MovementsBehaviour extends TickerBehaviour
 				}
 				else
 				{
-					if( !agent.isSendedMessage() )
+					if( !agent.isSentMessage() )
 					{
 						List< CarAgent > receivers = world.getWorldGraph().getNeighbours( c );
 						
@@ -89,7 +89,7 @@ public class MovementsBehaviour extends TickerBehaviour
 						{
 							MessageContent messageContent = new MessageContent( c, agent.getMySpeed(), agent.getMyTraffic() );
 							agent.addBehaviour( new SendMessagesBehaviour( messageContent, receivers ) );
-							agent.setSendedMessage( true );
+							agent.setSentMessage( true );
 						}
 						else
 						{
@@ -106,7 +106,7 @@ public class MovementsBehaviour extends TickerBehaviour
 						world.setCar( nextPosition, agent );
 						nextStep++;
 						agent.incrementStep( 1 );
-						agent.setSendedMessage( false );
+						agent.setSentMessage( false );
 						agent.setCanCross( false );
 					}
 				}
