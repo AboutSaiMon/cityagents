@@ -15,97 +15,87 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core.behaviours;
+package spa.simone.cityagents.core.behaviours;
 
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
+import spa.simone.cityagents.core.Direction;
+import spa.simone.cityagents.core.Street;
+import spa.simone.cityagents.core.WorldMap;
+import spa.simone.cityagents.core.agents.CarAgent;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.Random;
 
-import cityagents.core.Direction;
-import cityagents.core.Street;
-import cityagents.core.WorldMap;
-import cityagents.core.agents.CarAgent;
-
 /**
- *
  * @author Deep Blue Team
  */
-public class AddAgentRandomlyBehaviour extends TickerBehaviour 
-{
+public class AddAgentRandomlyBehaviour extends TickerBehaviour {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	int numberOfAgentsToAdd;	
-	/**
-	 * @param a
-	 * @param period
-	 * @param numberOfAgentsToAdd 
-	 */
-	public AddAgentRandomlyBehaviour( Agent a, long period, int numberOfAgentsToAdd ) 
-	{
-		super( a, period );
-		this.numberOfAgentsToAdd = numberOfAgentsToAdd;
-	}	
+    int numberOfAgentsToAdd;
 
-	@Override
-	protected void onTick() 
-	{
-		for( int i = 0; i < numberOfAgentsToAdd && i < 5; i++ )
-		{
-			boolean crossroad = true;
-			WorldMap world = WorldMap.getInstance();
-			if( !world.isEditable() )
-			{			
-				Random r = new Random();
-				Point start = new Point();
-				Point destination = new Point();
-				
-				int count = 0;
-				do
-				{
-				
-				start.x = r.nextInt( world.getWorldSize() );
-				start.y = r.nextInt( world.getWorldSize() * 2 );
-				
-				destination.x = r.nextInt( world.getWorldSize() );
-				destination.y = r.nextInt( world.getWorldSize() * 2 );
-							
-				if( world.getElement( start ) instanceof Street )
-				{
-					Street s = ( Street ) world.getElement( start );
-					if( s.getDirection() != Direction.EAST ||
-						s.getDirection() != Direction.WEST ||
-						s.getDirection() != Direction.NORTH || 
-						s.getDirection() != Direction.SOUTH )
-					{
-						crossroad = false;						
-					}
-				}
-				}while( ( !( world.getElement( start ) instanceof Street ) || 						
-						  !( world.getElement( destination ) instanceof Street )						  
-						 ) && 
-						 count++ < 3 && crossroad						 
-				);
-				
-				if( ( world.getElement( start ) instanceof Street ) && ( world.getElement( destination ) instanceof Street ) )
-				{
-					CarAgent c = new CarAgent();
-					Point[] arguments = new Point[ 2 ];
-					arguments[ 0 ] = start;
-					arguments[ 1 ] = destination;
-					c.setArguments( arguments );
-					
-					
-					world.setCar( start.x, start.y, c );		
-					world.startAgent( start.x, start.y );
-				}
-			}
-		}
-	}
+    /**
+     * @param a
+     * @param period
+     * @param numberOfAgentsToAdd
+     */
+    public AddAgentRandomlyBehaviour(Agent a, long period, int numberOfAgentsToAdd) {
+        super(a, period);
+        this.numberOfAgentsToAdd = numberOfAgentsToAdd;
+    }
+
+    @Override
+    protected void onTick() {
+        for (int i = 0; i < numberOfAgentsToAdd && i < 5; i++) {
+            boolean crossroad = true;
+            WorldMap world = WorldMap.getInstance();
+            if (!world.isEditable()) {
+                Random r = new Random();
+                Point start = new Point();
+                Point destination = new Point();
+
+                int count = 0;
+                do {
+
+                    start.x = r.nextInt(world.getWorldSize());
+                    start.y = r.nextInt(world.getWorldSize() * 2);
+
+                    destination.x = r.nextInt(world.getWorldSize());
+                    destination.y = r.nextInt(world.getWorldSize() * 2);
+
+                    if (world.getElement(start) instanceof Street) {
+                        Street s = (Street) world.getElement(start);
+                        if (s.getDirection() != Direction.EAST ||
+                                s.getDirection() != Direction.WEST ||
+                                s.getDirection() != Direction.NORTH ||
+                                s.getDirection() != Direction.SOUTH) {
+                            crossroad = false;
+                        }
+                    }
+                } while ((!(world.getElement(start) instanceof Street) ||
+                        !(world.getElement(destination) instanceof Street)
+                ) &&
+                        count++ < 3 && crossroad
+                        );
+
+                if ((world.getElement(start) instanceof Street) && (world.getElement(destination) instanceof Street)) {
+                    CarAgent c = new CarAgent();
+                    Point[] arguments = new Point[2];
+                    arguments[0] = start;
+                    arguments[1] = destination;
+                    c.setArguments(arguments);
+
+
+                    world.setCar(start.x, start.y, c);
+                    world.startAgent(start.x, start.y);
+                }
+            }
+        }
+    }
 
 }

@@ -15,44 +15,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core.behaviours;
+package spa.simone.cityagents.core.behaviours;
 
-import cityagents.core.agents.GraphicAgent;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
+import spa.simone.cityagents.core.agents.GraphicAgent;
 
 /**
- *
  * @author Deep Blue Team
  */
 public class RefreshPanelBehaviour extends TickerBehaviour {
 
-	/**
-	 * @param a
-	 * @param period
-	 */
-	public RefreshPanelBehaviour( Agent a, long period ) 
-	{
-		super( a, period );
-	}
+    /**
+     * @param a
+     * @param period
+     */
+    public RefreshPanelBehaviour(Agent a, long period) {
+        super(a, period);
+    }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	protected void onTick() 
-	{
-		if( myAgent instanceof GraphicAgent )
-		{
-			GraphicAgent g = ( GraphicAgent ) myAgent ;		
-			g.getPrincipal().getPanel().getRight().repaint();
-		}
-		else
-		{
-			this.stop();			
-		}
-	}
+    @Override
+    protected void onTick() {
+        if (myAgent instanceof GraphicAgent) {
+            GraphicAgent g = (GraphicAgent) myAgent;
+            g.getPrincipal().getPanel().getRight().repaint();
+        } else {
+            this.stop();
+        }
+    }
 
 }

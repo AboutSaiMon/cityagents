@@ -15,18 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package spa.simone.cityagents.core;
 
 /**
- *
  * @author Deep Blue Team
  */
 public enum Direction {
 
-	NONE,
-	NORTH, SOUTH, WEST, EAST, 
-	NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST, WEST_EAST, NORTH_SOUTH,
-	NORTH_WEST_EAST, SOUTH_WEST_EAST,
-	WEST_NORTH_SOUTH, EAST_NORTH_SOUTH
-	
+    NONE,
+    NORTH, SOUTH, WEST, EAST,
+    NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST, WEST_EAST, NORTH_SOUTH,
+    NORTH_WEST_EAST, SOUTH_WEST_EAST,
+    WEST_NORTH_SOUTH, EAST_NORTH_SOUTH
+
 }

@@ -15,20 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui.listeners;
+package spa.simone.cityagents.gui.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
  * @author Deep Blue Team
  */
 public class AddRandomAgentListener implements ActionListener {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 
 }

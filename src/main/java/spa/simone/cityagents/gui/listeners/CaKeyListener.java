@@ -15,26 +15,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui.listeners;
+package spa.simone.cityagents.gui.listeners;
+
+import spa.simone.cityagents.gui.PrincipalFrame;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import cityagents.gui.PrincipalFrame;
-
 /**
- *
  * @author Deep Blue Team
  */
 public class CaKeyListener extends KeyAdapter {
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyChar() == '+') {
-			PrincipalFrame.getInstance().increaseDimension();
-		} else if (e.getKeyChar() == '-') {
-			PrincipalFrame.getInstance().decreaseDimension();
-		}
-	}
-	
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyChar() == '+') {
+            PrincipalFrame.getInstance().increaseDimension();
+        } else if (e.getKeyChar() == '-') {
+            PrincipalFrame.getInstance().decreaseDimension();
+        }
+    }
+
 }

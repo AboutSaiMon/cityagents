@@ -15,54 +15,51 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package spa.simone.cityagents.core;
 
-import cityagents.core.agents.CarAgent;
+import spa.simone.cityagents.core.agents.CarAgent;
 
 /**
- * 
  * @author Deep Blue Team
  */
 public class Street implements WorldObject {
 
-	private static final long serialVersionUID = -7588867486479307105L;
-	
-	private Direction direction;
-	private CarAgent agent;
-	
-	public Street() {
-		direction = Direction.NONE;
-		agent = null;
-	}
-	
-	/**
-	 * @return the direction
-	 */
-	public Direction getDirection() {
-		return direction;
-	}
-	
-	/**
-	 * @param direction the direction to set
-	 */
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
+    private static final long serialVersionUID = -7588867486479307105L;
 
-	/**
-	 * @return the agent
-	 */
-	public CarAgent getAgent()
-	{
-		return agent;
-	}
-	
-	/**
-	 * @param agent the agent to set
-	 */
-	public void setAgent( CarAgent agent )
-	{
-		this.agent = agent;
-	}
-	
+    private Direction direction;
+    private CarAgent agent;
+
+    public Street() {
+        direction = Direction.NONE;
+        agent = null;
+    }
+
+    /**
+     * @return the direction
+     */
+    public Direction getDirection() {
+        return direction;
+    }
+
+    /**
+     * @param direction the direction to set
+     */
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    /**
+     * @return the agent
+     */
+    public CarAgent getAgent() {
+        return agent;
+    }
+
+    /**
+     * @param agent the agent to set
+     */
+    public void setAgent(CarAgent agent) {
+        this.agent = agent;
+    }
+
 }

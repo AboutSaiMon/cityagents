@@ -15,108 +15,90 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core.behaviours;
+package spa.simone.cityagents.core.behaviours;
 
 import jade.core.behaviours.TickerBehaviour;
+import org.jgrapht.graph.DefaultEdge;
+import spa.simone.cityagents.core.Crossroad;
+import spa.simone.cityagents.core.MessageContent;
+import spa.simone.cityagents.core.Street;
+import spa.simone.cityagents.core.WorldMap;
+import spa.simone.cityagents.core.agents.CarAgent;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.List;
 
-import org.jgrapht.graph.DefaultEdge;
-
-import cityagents.core.Crossroad;
-import cityagents.core.MessageContent;
-import cityagents.core.Street;
-import cityagents.core.WorldMap;
-import cityagents.core.agents.CarAgent;
-
 /**
- *
  * @author Deep Blue Team
  */
-public class MovementsBehaviour extends TickerBehaviour
-{
+public class MovementsBehaviour extends TickerBehaviour {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3913493298733616546L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3913493298733616546L;
 
-	private CarAgent agent;
-	private int nextStep;
-	private WorldMap world;
-	
-	/**
-	 * @throws Exception 
-	 * 
-	 */	
-	public MovementsBehaviour( CarAgent c, long period )
-	{	
-		super( c, period );
-		agent = c;
-		world = WorldMap.getInstance();
-		nextStep = 0;
-	}	
+    private CarAgent agent;
+    private int nextStep;
+    private WorldMap world;
 
-	@Override
-	protected void onTick()
-	{
-		DefaultEdge nextEdge = agent.getMyPath().get( nextStep );
-		Point currentPosition = world.getWorldGraph().getEdgeSource(  nextEdge );
-		Point nextPosition = world.getWorldGraph().getEdgeTarget( nextEdge );
-		
-		if( world.getElement( nextPosition ) instanceof Street )
-		{
-			Street next = ( Street ) world.getElement( nextPosition );
-			
-			if( next.getAgent() == null )
-			{		
-				Crossroad c = world.getWorldGraph().getCrossroad( nextPosition );
-				if( c == null )
-				{
-					world.removeCar( currentPosition );								
-					world.setCar( nextPosition, agent );
-					nextStep++;
-					agent.incrementStep( 1 );
-				}
-				else
-				{
-					if( !agent.isSentMessage() )
-					{
-						List< CarAgent > receivers = world.getWorldGraph().getNeighbours( c );
-						
-						if( receivers.size() > 1 )
-						{
-							MessageContent messageContent = new MessageContent( c, agent.getMySpeed(), agent.getMyTraffic() );
-							agent.addBehaviour( new SendMessagesBehaviour( messageContent, receivers ) );
-							agent.setSentMessage( true );
-						}
-						else
-						{
-							world.removeCar( currentPosition );								
-							world.setCar( nextPosition, agent );
-							nextStep++;
-							agent.incrementStep( 1 );
-						}
-					}
-					
-					if( agent.canCross() )
-					{
-						world.removeCar( currentPosition );
-						world.setCar( nextPosition, agent );
-						nextStep++;
-						agent.incrementStep( 1 );
-						agent.setSentMessage( false );
-						agent.setCanCross( false );
-					}
-				}
-			}
-		}
-		
-		if( nextStep == agent.getMyPath().size() )
-		{
-			world.removeCar( nextPosition );
-			agent.doDelete();
-		}
-	}
+    /**
+     * @throws Exception
+     */
+    public MovementsBehaviour(CarAgent c, long period) {
+        super(c, period);
+        agent = c;
+        world = WorldMap.getInstance();
+        nextStep = 0;
+    }
+
+    @Override
+    protected void onTick() {
+        DefaultEdge nextEdge = agent.getMyPath().get(nextStep);
+        Point currentPosition = world.getWorldGraph().getEdgeSource(nextEdge);
+        Point nextPosition = world.getWorldGraph().getEdgeTarget(nextEdge);
+
+        if (world.getElement(nextPosition) instanceof Street) {
+            Street next = (Street) world.getElement(nextPosition);
+
+            if (next.getAgent() == null) {
+                Crossroad c = world.getWorldGraph().getCrossroad(nextPosition);
+                if (c == null) {
+                    world.removeCar(currentPosition);
+                    world.setCar(nextPosition, agent);
+                    nextStep++;
+                    agent.incrementStep(1);
+                } else {
+                    if (!agent.isSentMessage()) {
+                        List<CarAgent> receivers = world.getWorldGraph().getNeighbours(c);
+
+                        if (receivers.size() > 1) {
+                            MessageContent messageContent = new MessageContent(c, agent.getMySpeed(), agent.getMyTraffic());
+                            agent.addBehaviour(new SendMessagesBehaviour(messageContent, receivers));
+                            agent.setSentMessage(true);
+                        } else {
+                            world.removeCar(currentPosition);
+                            world.setCar(nextPosition, agent);
+                            nextStep++;
+                            agent.incrementStep(1);
+                        }
+                    }
+
+                    if (agent.canCross()) {
+                        world.removeCar(currentPosition);
+                        world.setCar(nextPosition, agent);
+                        nextStep++;
+                        agent.incrementStep(1);
+                        agent.setSentMessage(false);
+                        agent.setCanCross(false);
+                    }
+                }
+            }
+        }
+
+        if (nextStep == agent.getMyPath().size()) {
+            world.removeCar(nextPosition);
+            agent.doDelete();
+        }
+    }
 }

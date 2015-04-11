@@ -15,38 +15,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui;
+package spa.simone.cityagents.gui;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 /**
-*
-* @author Deep Blue Team
-*/
+ * @author Deep Blue Team
+ */
 public class LoadAndStoreMapDialog extends JFileChooser {
-	
-	private static final long serialVersionUID = -8344106388214626875L;
-	private static LoadAndStoreMapDialog thisInstance;
-	
-	/**
-	 * 
-	 */
-	private LoadAndStoreMapDialog() {
-		super();
-		addChoosableFileFilter(new FileNameExtensionFilter("MAP files", "map"));
-		setMultiSelectionEnabled(false);
-		setFileHidingEnabled(true);
-		setCurrentDirectory(new File("./"));
-	}
-	
-	public static LoadAndStoreMapDialog getInstance() {
-		if( thisInstance == null ) {
-			thisInstance = new LoadAndStoreMapDialog();
-		}
-		return thisInstance;
-	}
+
+    private static final long serialVersionUID = -8344106388214626875L;
+    private static LoadAndStoreMapDialog thisInstance;
+
+    /**
+     *
+     */
+    private LoadAndStoreMapDialog() {
+        super();
+        addChoosableFileFilter(new FileNameExtensionFilter("MAP files", "map"));
+        setMultiSelectionEnabled(false);
+        setFileHidingEnabled(true);
+        setCurrentDirectory(new File("./"));
+    }
+
+    public static LoadAndStoreMapDialog getInstance() {
+        if (thisInstance == null) {
+            thisInstance = new LoadAndStoreMapDialog();
+        }
+        return thisInstance;
+    }
 
 }

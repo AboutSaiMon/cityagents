@@ -30,14 +30,14 @@
             <version>${commons-codec.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jgrapht</groupId>
-            <artifactId>jgrapht</artifactId>
-            <version>${jgrapht.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.tilab.jade</groupId>
             <artifactId>jade</artifactId>
             <version>${jade.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jgrapht</groupId>
+            <artifactId>jgrapht-jdk1.5</artifactId>
+            <version>0.7.3</version>
         </dependency>
     </dependencies>
 

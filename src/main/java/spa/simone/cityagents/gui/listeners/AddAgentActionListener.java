@@ -15,25 +15,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui.listeners;
+package spa.simone.cityagents.gui.listeners;
+
+import spa.simone.cityagents.core.WorldObject;
+import spa.simone.cityagents.gui.PrincipalFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import cityagents.core.WorldObject;
-import cityagents.gui.PrincipalFrame;
-
 /**
- *
  * @author Deep Blue Team
  */
-public class AddAgentActionListener implements ActionListener 
-{
+public class AddAgentActionListener implements ActionListener {
 
-	@Override
-	public void actionPerformed( ActionEvent arg0 ) 
-	{
-		PrincipalFrame frame = PrincipalFrame.getInstance();
-		frame.getPanel().currentChoice = WorldObject.CAR;
-	}
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        PrincipalFrame frame = PrincipalFrame.getInstance();
+        frame.getPanel().currentChoice = WorldObject.CAR;
+    }
 }

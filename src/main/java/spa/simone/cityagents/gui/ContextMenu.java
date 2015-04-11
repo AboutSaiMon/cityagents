@@ -15,39 +15,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui;
+package spa.simone.cityagents.gui;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import spa.simone.cityagents.gui.listeners.ContextMenuListener;
+import spa.simone.cityagents.gui.util.Labels;
 
-import cityagents.gui.listeners.ContextMenuListener;
-import cityagents.gui.util.Labels;
+import javax.swing.*;
 
 /**
- * 
  * @author Deep Blue Team
  */
 public class ContextMenu extends JPopupMenu {
 
-	private static final long serialVersionUID = 4224252607713811091L;
-	private static ContextMenu thisInstance;
-	private JMenuItem editDirection;
-	private JMenuItem generateGraph;
+    private static final long serialVersionUID = 4224252607713811091L;
+    private static ContextMenu thisInstance;
+    private JMenuItem editDirection;
+    private JMenuItem generateGraph;
 
-	private ContextMenu() {
-		editDirection = new JMenuItem(Labels.EDIT_DIRECTIONS);
-		editDirection.addActionListener(ContextMenuListener.getInstance());
-		add(editDirection);
-		generateGraph = new JMenuItem(Labels.GENERATE_GRAPH);
-		generateGraph.addActionListener(ContextMenuListener.getInstance());
-		add(generateGraph);
-	}
+    private ContextMenu() {
+        editDirection = new JMenuItem(Labels.EDIT_DIRECTIONS);
+        editDirection.addActionListener(ContextMenuListener.getInstance());
+        add(editDirection);
+        generateGraph = new JMenuItem(Labels.GENERATE_GRAPH);
+        generateGraph.addActionListener(ContextMenuListener.getInstance());
+        add(generateGraph);
+    }
 
-	public static ContextMenu getInstance() {
-		if (thisInstance == null) {
-			thisInstance = new ContextMenu();
-		}
-		return thisInstance;
-	}
+    public static ContextMenu getInstance() {
+        if (thisInstance == null) {
+            thisInstance = new ContextMenu();
+        }
+        return thisInstance;
+    }
 
 }

@@ -15,22 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui.listeners;
+package spa.simone.cityagents.gui.listeners;
+
+import spa.simone.cityagents.gui.PrincipalFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import cityagents.gui.PrincipalFrame;
-
 /**
- * 
  * @author Deep Blue Team
  */
 public class ExitListener implements ActionListener {
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		PrincipalFrame.getInstance().dispose();
-	}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        PrincipalFrame.getInstance().dispose();
+    }
 
 }

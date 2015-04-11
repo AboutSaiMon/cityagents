@@ -15,14 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package spa.simone.cityagents.core;
 
 /**
- * 
  * @author Deep Blue Team
  */
 public abstract class Obstacle implements WorldObject {
-	
-	private static final long serialVersionUID = 8818888364445649106L;
+
+    private static final long serialVersionUID = 8818888364445649106L;
 
 }

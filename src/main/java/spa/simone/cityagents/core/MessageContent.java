@@ -15,74 +15,65 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package spa.simone.cityagents.core;
 
 import java.io.Serializable;
 
 /**
- *
  * @author Deep Blue Team
  */
-public class MessageContent implements Serializable
-{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6162966011809057417L;
-	
-	Crossroad crossroad;
-	int speed;
-	int traffic;
-	
-	/**
-	 * 
-	 */
-	public MessageContent( Crossroad crossroad, int mySpeed, int traffic ) 
-	{
-		this.crossroad = crossroad;
-		this.speed = mySpeed;
-		this.traffic = traffic;
-	}
+public class MessageContent implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6162966011809057417L;
 
-	public Crossroad getCrossroad() 
-	{
-		return crossroad;
-	}
+    Crossroad crossroad;
+    int speed;
+    int traffic;
 
-	public void setCrossroad( Crossroad crossroad ) 
-	{
-		this.crossroad = crossroad;
-	}
-	
-	/**
-	 * @return the Speed
-	 */
-	public int getSpeed()
-	{
-		return speed;
-	}
-	
-	/**
-	 * @param mySpeed the speed to set
-	 */
-	public void setSpeed( int mySpeed )
-	{
-		this.speed = mySpeed;
-	}
-	
-	/**
-	 * @return the traffic
-	 */
-	public int getTraffic()
-	{
-		return traffic;
-	}
-	
-	/**
-	 * @param traffic the traffic to set
-	 */
-	public void setTraffic( int traffic )
-	{
-		this.traffic = traffic;
-	}
+    /**
+     *
+     */
+    public MessageContent(Crossroad crossroad, int mySpeed, int traffic) {
+        this.crossroad = crossroad;
+        this.speed = mySpeed;
+        this.traffic = traffic;
+    }
+
+    public Crossroad getCrossroad() {
+        return crossroad;
+    }
+
+    public void setCrossroad(Crossroad crossroad) {
+        this.crossroad = crossroad;
+    }
+
+    /**
+     * @return the Speed
+     */
+    public int getSpeed() {
+        return speed;
+    }
+
+    /**
+     * @param mySpeed the speed to set
+     */
+    public void setSpeed(int mySpeed) {
+        this.speed = mySpeed;
+    }
+
+    /**
+     * @return the traffic
+     */
+    public int getTraffic() {
+        return traffic;
+    }
+
+    /**
+     * @param traffic the traffic to set
+     */
+    public void setTraffic(int traffic) {
+        this.traffic = traffic;
+    }
 }

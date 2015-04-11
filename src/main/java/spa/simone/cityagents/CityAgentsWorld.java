@@ -15,18 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents;
+package spa.simone.cityagents;
 
-import cityagents.gui.PrincipalFrame;
+import spa.simone.cityagents.gui.PrincipalFrame;
 
 /**
- * 
  * @author Deep Blue Team
  */
 public class CityAgentsWorld {
 
-	public static void main(String[] args) {
-		PrincipalFrame.getInstance();
-	}
+    public static void main(String[] args) {
+        PrincipalFrame.getInstance();
+    }
 
 }

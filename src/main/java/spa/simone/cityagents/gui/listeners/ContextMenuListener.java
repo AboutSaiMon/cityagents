@@ -15,47 +15,45 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui.listeners;
+package spa.simone.cityagents.gui.listeners;
 
+import spa.simone.cityagents.core.WorldMap;
+import spa.simone.cityagents.gui.PrincipalFrame;
+import spa.simone.cityagents.gui.RightPanel;
+import spa.simone.cityagents.gui.util.Labels;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
-import cityagents.core.WorldMap;
-import cityagents.gui.PrincipalFrame;
-import cityagents.gui.RightPanel;
-import cityagents.gui.util.Labels;
-
 /**
- * 
  * @author Deep Blue Team
  */
 public class ContextMenuListener implements ActionListener {
 
-	private static ContextMenuListener thisInstance;
-	private RightPanel panel;
+    private static ContextMenuListener thisInstance;
+    private RightPanel panel;
 
-	private ContextMenuListener() {
-		panel = PrincipalFrame.getInstance().getRightPanel();
-	}
+    private ContextMenuListener() {
+        panel = PrincipalFrame.getInstance().getRightPanel();
+    }
 
-	public static ContextMenuListener getInstance() {
-		if (thisInstance == null) {
-			thisInstance = new ContextMenuListener();
-		}
-		return thisInstance;
-	}
+    public static ContextMenuListener getInstance() {
+        if (thisInstance == null) {
+            thisInstance = new ContextMenuListener();
+        }
+        return thisInstance;
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JMenuItem item = (JMenuItem) e.getSource();
-		if( item.getText().equals(Labels.EDIT_DIRECTIONS)) {
-			panel.setEditDirection(true);
-			panel.repaint();
-		} else if( item.getText().equals(Labels.GENERATE_GRAPH)) {
-			WorldMap.getInstance().generateWorldGraph();
-		}
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JMenuItem item = (JMenuItem) e.getSource();
+        if (item.getText().equals(Labels.EDIT_DIRECTIONS)) {
+            panel.setEditDirection(true);
+            panel.repaint();
+        } else if (item.getText().equals(Labels.GENERATE_GRAPH)) {
+            WorldMap.getInstance().generateWorldGraph();
+        }
+    }
 
 }

@@ -15,19 +15,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package spa.simone.cityagents.core;
 
 import java.io.Serializable;
 
 /**
- * 
  * @author Deep Blue Team
  */
 public interface WorldObject extends Serializable {
-	
-	public static final int STREET = 0;
-	public static final int GRASS = 1;
-	public static final int HOUSE = 2;
-	public static final int CAR = 3;
-	
+
+    public static final int STREET = 0;
+    public static final int GRASS = 1;
+    public static final int HOUSE = 2;
+    public static final int CAR = 3;
+
 }

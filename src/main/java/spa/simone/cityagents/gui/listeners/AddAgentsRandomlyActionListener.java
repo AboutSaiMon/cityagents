@@ -15,24 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui.listeners;
+package spa.simone.cityagents.gui.listeners;
+
+import spa.simone.cityagents.gui.AddAgentRandomlyFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import cityagents.gui.AddAgentRandomlyFrame;
-
 /**
- *
  * @author Deep Blue Team
  */
-public class AddAgentsRandomlyActionListener implements ActionListener 
-{
-	
-	@Override
-	public void actionPerformed( ActionEvent arg0 ) 
-	{
-		new AddAgentRandomlyFrame();
-	}
+public class AddAgentsRandomlyActionListener implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        new AddAgentRandomlyFrame();
+    }
 
 }

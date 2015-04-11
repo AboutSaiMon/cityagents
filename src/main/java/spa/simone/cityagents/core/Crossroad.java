@@ -15,37 +15,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package spa.simone.cityagents.core;
 
-
-import java.awt.Point;
+import java.awt.*;
 import java.io.Serializable;
 
 /**
- *
  * @author Deep Blue Team
  */
-public class Crossroad implements Serializable
-{	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3424215509496641153L;
-	private Point position;
-	
-	/**
-	 * 
-	 */
-	public Crossroad( Point position ) 
-	{
-		this.position = position; 
-	}
-			
-	/**
-	 * @return the position
-	 */
-	public Point getPosition()
-	{
-		return position;
-	}
+public class Crossroad implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3424215509496641153L;
+    private Point position;
+
+    /**
+     *
+     */
+    public Crossroad(Point position) {
+        this.position = position;
+    }
+
+    /**
+     * @return the position
+     */
+    public Point getPosition() {
+        return position;
+    }
 }

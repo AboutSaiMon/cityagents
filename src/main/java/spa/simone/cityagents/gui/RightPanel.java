@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui;
+package spa.simone.cityagents.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -28,15 +28,15 @@ import javax.swing.JPanel;
 
 import org.jgrapht.graph.DefaultEdge;
 
-import cityagents.core.Direction;
-import cityagents.core.Grass;
-import cityagents.core.House;
-import cityagents.core.Street;
-import cityagents.core.WorldMap;
-import cityagents.core.WorldObject;
-import cityagents.core.agents.CarAgent;
-import cityagents.gui.listeners.RPanelMouseListener;
-import cityagents.gui.util.ImagesHandler;
+import spa.simone.cityagents.core.Direction;
+import spa.simone.cityagents.core.Grass;
+import spa.simone.cityagents.core.House;
+import spa.simone.cityagents.core.Street;
+import spa.simone.cityagents.core.WorldMap;
+import spa.simone.cityagents.core.WorldObject;
+import spa.simone.cityagents.core.agents.CarAgent;
+import spa.simone.cityagents.gui.listeners.RPanelMouseListener;
+import spa.simone.cityagents.gui.util.ImagesHandler;
 
 public class RightPanel extends JPanel
 {

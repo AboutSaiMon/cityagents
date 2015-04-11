@@ -15,12 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui;
+package spa.simone.cityagents.gui;
 
-import static cityagents.core.WorldObject.CAR;
-import static cityagents.core.WorldObject.GRASS;
-import static cityagents.core.WorldObject.HOUSE;
-import static cityagents.core.WorldObject.STREET;
+import static spa.simone.cityagents.core.WorldObject.CAR;
+import static spa.simone.cityagents.core.WorldObject.GRASS;
+import static spa.simone.cityagents.core.WorldObject.HOUSE;
+import static spa.simone.cityagents.core.WorldObject.STREET;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -29,8 +29,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import cityagents.gui.listeners.ObjectButtonListner;
-import cityagents.gui.util.ImagesHandler;
+import spa.simone.cityagents.gui.listeners.ObjectButtonListner;
+import spa.simone.cityagents.gui.util.ImagesHandler;
 
 public class LeftPanel extends JPanel {
 

@@ -15,98 +15,84 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui;
+package spa.simone.cityagents.gui;
 
-import java.awt.GridLayout;
+import spa.simone.cityagents.core.behaviours.AddAgentRandomlyBehaviour;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import cityagents.core.behaviours.AddAgentRandomlyBehaviour;
-
 /**
- *
  * @author Deep Blue Team
  */
-public class AddAgentRandomlyFrame extends JFrame 
-{
+public class AddAgentRandomlyFrame extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	private PrincipalFrame frame;
-	/**
-	 * 
-	 */
-	public AddAgentRandomlyFrame() 
-	{
-		frame = PrincipalFrame.getInstance();
-		this.setTitle( "Add Agent Randomly" );
-		this.setResizable( false);
-		this.setVisible( true );
-		this.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-		this.setSize( 270, 150 );
-		this.setLocation( 300, 300 );
-		
-		JPanel panel = new JPanel();
-		
-		panel.setLayout( new GridLayout( 3, 2 ) );			
-		
-		JLabel numberOfAgentsLabel = new JLabel( "Number of agents" );		
-		panel.add( numberOfAgentsLabel );
-	
-		final JTextField numberOfAgentsNumber = new JTextField();
-		numberOfAgentsNumber.setToolTipText( "Number of agents" );		
-		panel.add( numberOfAgentsNumber );
-		
-		JLabel timerLabel = new JLabel( "Timer" );		
-		panel.add( timerLabel );
-		
-		final JTextField timerNumber = new JTextField();
-		timerNumber.setToolTipText( "Distance from the next inserted" );
-		panel.add( timerNumber );
-				
-		JButton generate = new JButton( "Set" );
-		generate.addActionListener( new ActionListener() 
-		{			
-			@Override
-			public void actionPerformed( ActionEvent arg0 ) 
-			{						
-				// TODO Auto-generated method stub
-				String numberOfAgentsText = numberOfAgentsNumber.getText();
-				String timerText = timerNumber.getText();
-				try
-				{
-					int agents = Integer.parseInt( numberOfAgentsText );					
-					long timer = Long.parseLong( timerText );
-					
-					if( agents > 10 || agents < 0 || timer < 0 || timer > 60 )
-					{						
-						throw new Exception("Bad values intervals");
-					}				
-					frame.setSeconds(timer);
-					frame.setNumberOfAgentsToAdd(agents);
-					JOptionPane.showMessageDialog( null, "Save completed", "OK", JOptionPane.OK_OPTION );
-					frame.getGraphicAgent().addBehaviour( new AddAgentRandomlyBehaviour( frame.getGraphicAgent(), timer*1000, agents ) );
-				}				
-				catch( Exception ex )
-				{
-					ex.printStackTrace();
-					JOptionPane.showMessageDialog( null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE );					
-				}				
-			}
-		});
-		
-		panel.add( generate );	
-		
-		this.setContentPane( panel );
-	}
+    private PrincipalFrame frame;
+
+    /**
+     *
+     */
+    public AddAgentRandomlyFrame() {
+        frame = PrincipalFrame.getInstance();
+        this.setTitle("Add Agent Randomly");
+        this.setResizable(false);
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(270, 150);
+        this.setLocation(300, 300);
+
+        JPanel panel = new JPanel();
+
+        panel.setLayout(new GridLayout(3, 2));
+
+        JLabel numberOfAgentsLabel = new JLabel("Number of agents");
+        panel.add(numberOfAgentsLabel);
+
+        final JTextField numberOfAgentsNumber = new JTextField();
+        numberOfAgentsNumber.setToolTipText("Number of agents");
+        panel.add(numberOfAgentsNumber);
+
+        JLabel timerLabel = new JLabel("Timer");
+        panel.add(timerLabel);
+
+        final JTextField timerNumber = new JTextField();
+        timerNumber.setToolTipText("Distance from the next inserted");
+        panel.add(timerNumber);
+
+        JButton generate = new JButton("Set");
+        generate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                // TODO Auto-generated method stub
+                String numberOfAgentsText = numberOfAgentsNumber.getText();
+                String timerText = timerNumber.getText();
+                try {
+                    int agents = Integer.parseInt(numberOfAgentsText);
+                    long timer = Long.parseLong(timerText);
+
+                    if (agents > 10 || agents < 0 || timer < 0 || timer > 60) {
+                        throw new Exception("Bad values intervals");
+                    }
+                    frame.setSeconds(timer);
+                    frame.setNumberOfAgentsToAdd(agents);
+                    JOptionPane.showMessageDialog(null, "Save completed", "OK", JOptionPane.OK_OPTION);
+                    frame.getGraphicAgent().addBehaviour(new AddAgentRandomlyBehaviour(frame.getGraphicAgent(), timer * 1000, agents));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        panel.add(generate);
+
+        this.setContentPane(panel);
+    }
 }

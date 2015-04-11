@@ -15,98 +15,97 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.core;
+package spa.simone.cityagents.core;
 
 /**
- *
  * @author Deep Blue Team
  */
 public class Pair {
 
-	private int rowIndex;
-	private int columnIndex;
-	
-	/**
-	 * 
-	 */
-	public Pair() {
-	}
-	
-	/**
-	 * 
-	 */
-	public Pair(int i, int j) {
-		rowIndex = i;
-		columnIndex = j;
-	}
-	
-	/**
-	 * @return the rowIndex
-	 */
-	public int getRowIndex() {
-		return rowIndex;
-	}
-	
-	/**
-	 * @return the columnIndex
-	 */
-	public int getColumnIndex() {
-		return columnIndex;
-	}
-	
-	/**
-	 * @param rowIndex the rowIndex to set
-	 */
-	public void setRowIndex(int rowIndex) {
-		this.rowIndex = rowIndex;
-	}
-	
-	/**
-	 * @param columnIndex the columnIndex to set
-	 */
-	public void setColumnIndex(int columnIndex) {
-		this.columnIndex = columnIndex;
-	}
+    private int rowIndex;
+    private int columnIndex;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + columnIndex;
-		result = prime * result + rowIndex;
-		return result;
-	}
+    /**
+     *
+     */
+    public Pair() {
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof Pair)) {
-			return false;
-		}
-		Pair other = (Pair) obj;
-		if (columnIndex != other.columnIndex) {
-			return false;
-		}
-		if (rowIndex != other.rowIndex) {
-			return false;
-		}
-		return true;
-	}
+    /**
+     *
+     */
+    public Pair(int i, int j) {
+        rowIndex = i;
+        columnIndex = j;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Pair [rowIndex=");
-		builder.append(rowIndex);
-		builder.append(", columnIndex=");
-		builder.append(columnIndex);
-		builder.append("]");
-		return builder.toString();
-	}
-	
+    /**
+     * @return the rowIndex
+     */
+    public int getRowIndex() {
+        return rowIndex;
+    }
+
+    /**
+     * @return the columnIndex
+     */
+    public int getColumnIndex() {
+        return columnIndex;
+    }
+
+    /**
+     * @param rowIndex the rowIndex to set
+     */
+    public void setRowIndex(int rowIndex) {
+        this.rowIndex = rowIndex;
+    }
+
+    /**
+     * @param columnIndex the columnIndex to set
+     */
+    public void setColumnIndex(int columnIndex) {
+        this.columnIndex = columnIndex;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + columnIndex;
+        result = prime * result + rowIndex;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Pair)) {
+            return false;
+        }
+        Pair other = (Pair) obj;
+        if (columnIndex != other.columnIndex) {
+            return false;
+        }
+        if (rowIndex != other.rowIndex) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Pair [rowIndex=");
+        builder.append(rowIndex);
+        builder.append(", columnIndex=");
+        builder.append(columnIndex);
+        builder.append("]");
+        return builder.toString();
+    }
+
 }

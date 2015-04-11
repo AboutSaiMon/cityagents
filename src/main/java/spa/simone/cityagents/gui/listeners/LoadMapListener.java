@@ -15,31 +15,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cityagents.gui.listeners;
+package spa.simone.cityagents.gui.listeners;
 
+import spa.simone.cityagents.gui.LoadAndStoreMapDialog;
+import spa.simone.cityagents.gui.PrincipalFrame;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFileChooser;
-
-import cityagents.gui.LoadAndStoreMapDialog;
-import cityagents.gui.PrincipalFrame;
-
 /**
- * 
  * @author Deep Blue Team
  */
 public class LoadMapListener implements ActionListener {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		PrincipalFrame frame = PrincipalFrame.getInstance();
-		LoadAndStoreMapDialog dialog = LoadAndStoreMapDialog.getInstance();
-		int action = dialog.showOpenDialog(frame);
-		if (action == JFileChooser.APPROVE_OPTION) {
-			String filePath = dialog.getSelectedFile().getPath();
-			frame.loadMapFromFile(filePath);
-		}
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        PrincipalFrame frame = PrincipalFrame.getInstance();
+        LoadAndStoreMapDialog dialog = LoadAndStoreMapDialog.getInstance();
+        int action = dialog.showOpenDialog(frame);
+        if (action == JFileChooser.APPROVE_OPTION) {
+            String filePath = dialog.getSelectedFile().getPath();
+            frame.loadMapFromFile(filePath);
+        }
+    }
 
 }
